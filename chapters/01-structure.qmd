@@ -1,0 +1,5 @@
+# 映像を「測る」とは {#sec-structure}
+
+::: {.callout-note title="準備中"}
+この章は現在執筆中です。内容の予定は[目次](../contents.qmd)をご覧ください。
+:::

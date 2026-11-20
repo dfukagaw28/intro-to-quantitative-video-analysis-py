@@ -108,6 +108,6 @@ OpenCVやNumPyの経験は前提としません。必要な知識は、使う場
 | 実行環境 | Visual Studio Code ＋ Jupyter拡張機能 |
 | サンプル映像 | 自由に再利用できるライセンスで公開されている映像作品 |
 
-環境の準備は第2章で、画面の例を示しながら順に説明します。macOSやLinuxでもコードはそのまま動きますが、手順の説明はWindowsを基準にしています。
+環境の準備は[第2章](chapters/02-setup.qmd)で、手順を一つずつ確かめながら説明します。macOSやLinuxでもコードはそのまま動きますが、手順の説明はWindowsを基準にしています。
 
 [目次へ進む →](contents.qmd){.btn .btn-primary}

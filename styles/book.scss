@@ -88,3 +88,10 @@ pre {
   letter-spacing: 0.12em;
   color: #1f6fb2;
 }
+
+// 表は左揃えにする（説明文の列が中央に寄ると読みにくいため）
+main table.table {
+  th, td {
+    text-align: left;
+  }
+}
