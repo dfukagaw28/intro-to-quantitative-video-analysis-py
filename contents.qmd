@@ -12,7 +12,7 @@ number-sections: false
 :::
 
 ::: {.toc-chapter}
-### 第1章　映像を「測る」とは
+### [第1章　映像を「測る」とは](chapters/01-structure.qmd)
 
 [映像がどのような部品でできているかを知り、本書全体の見取り図を手に入れます。]{.toc-goal}
 
@@ -24,7 +24,7 @@ number-sections: false
 :::
 
 ::: {.toc-chapter}
-### 第2章　環境の準備
+### [第2章　環境の準備](chapters/02-setup.qmd)
 
 [Windowsパソコンに、本書のコードを実行できる環境を整えます。]{.toc-goal}
 
@@ -38,7 +38,7 @@ number-sections: false
 :::
 
 ::: {.toc-chapter}
-### 第3章　画像はNumPy配列である
+### [第3章　画像はNumPy配列である](chapters/03-numpy.qmd)
 
 [1枚の画像を数値の配列として読み、切り出し・変換・表示ができるようになります。]{.toc-goal}
 
@@ -52,7 +52,7 @@ number-sections: false
 :::
 
 ::: {.toc-chapter}
-### 第4章　ビデオの基本操作
+### [第4章　ビデオの基本操作](chapters/04-video.qmd)
 
 [動画ファイルを開き、フレームを順に処理して結果を保存する「定型」を身につけます。]{.toc-goal}
 
@@ -71,7 +71,7 @@ number-sections: false
 :::
 
 ::: {.toc-chapter}
-### 第5章　明るさ
+### [第5章　明るさ](chapters/05-brightness.qmd)
 
 [映像全体の明るさとコントラストの移り変わりを、1本のグラフに描きます。]{.toc-goal}
 
@@ -84,7 +84,7 @@ number-sections: false
 :::
 
 ::: {.toc-chapter}
-### 第6章　色
+### [第6章　色](chapters/06-color.qmd)
 
 [映像の色づかいを数値と図で要約し、作品どうしを比べられるようにします。]{.toc-goal}
 
@@ -98,7 +98,7 @@ number-sections: false
 :::
 
 ::: {.toc-chapter}
-### 第7章　動き
+### [第7章　動き](chapters/07-motion.qmd)
 
 [画面の中の動きの大きさと向きを数値化し、動きの激しい場面を特定します。]{.toc-goal}
 
@@ -113,7 +113,7 @@ number-sections: false
 :::
 
 ::: {.toc-chapter}
-### 第8章　カット点検出
+### [第8章　カット点検出](chapters/08-cuts.qmd)
 
 [ショットの切れ目を自動で見つけ、その結果がどれだけ正しいかを評価します。]{.toc-goal}
 
@@ -125,6 +125,7 @@ number-sections: false
 - 8.6　誤検出と見逃しを観察する——フラッシュ、激しい動き
 - 8.7　ゆるやかな切り替わりへの対応
 - 8.8　既存ライブラリ（PySceneDetect）との比較
+- 8.9　検出の手順を関数にまとめる
 :::
 
 ::: {.toc-part}
@@ -132,7 +133,7 @@ number-sections: false
 :::
 
 ::: {.toc-chapter}
-### 第9章　ショットの統計とキーフレーム
+### [第9章　ショットの統計とキーフレーム](chapters/09-shots.qmd)
 
 [カット点からショット長を求め、編集のテンポを統計量で表します。]{.toc-goal}
 
@@ -145,7 +146,7 @@ number-sections: false
 :::
 
 ::: {.toc-chapter}
-### 第10章　総合演習——一本の作品を分析する
+### [第10章　総合演習——一本の作品を分析する](chapters/10-project.qmd)
 
 [これまでの手法をひとつの手順にまとめ、分析レポートを仕上げます。]{.toc-goal}
 
@@ -165,10 +166,10 @@ number-sections: false
 ::: {.toc-chapter}
 ### 付録
 
-- 付録A　PowerShellコマンド早見表
-- 付録B　FFmpegの導入と、動画の変換・切り出し
-- 付録C　うまく動かないときは——よくあるエラーと対処
-- 付録D　本書で使う統計の基礎
-- 付録E　本書で使ったOpenCV・NumPy関数の一覧
-- 付録F　サンプル映像の出典とライセンス
+- [付録A　PowerShellコマンド早見表](appendices/a-powershell.qmd)
+- [付録B　FFmpegの導入と、動画の変換・切り出し](appendices/b-ffmpeg.qmd)
+- [付録C　うまく動かないときは](appendices/c-troubleshooting.qmd)
+- [付録D　本書で使う統計の基礎](appendices/d-statistics.qmd)
+- [付録E　本書で使った関数の一覧](appendices/e-functions.qmd)
+- [付録F　サンプル映像の出典とライセンス](appendices/f-samples.qmd)
 :::

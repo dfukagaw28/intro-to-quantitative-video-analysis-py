@@ -1,0 +1,86 @@
+# PowerShellコマンド早見表 {#sec-app-powershell}
+
+本書で使うターミナル（PowerShell）の命令をまとめます。
+基本的な使い方は @sec-setup で説明しています。
+
+## フォルダの移動と確認 {#sec-app-ps-folder}
+
+| 命令 | 意味 | 例 |
+|---|---|---|
+| `pwd` | カレントフォルダを表示する | `pwd` |
+| `ls` | フォルダの中身を一覧表示する | `ls`、`ls data` |
+| `cd` | カレントフォルダを移動する | `cd C:\work\video-analysis` |
+| `cd ..` | 1つ上のフォルダに移動する | `cd ..` |
+| `explorer .` | カレントフォルダをエクスプローラーで開く | `explorer .` |
+
+: フォルダの移動と確認 {#tbl-app-ps-folder}
+
+## フォルダとファイルの操作 {#sec-app-ps-file}
+
+| 命令 | 意味 | 例 |
+|---|---|---|
+| `mkdir` | フォルダを作る | `mkdir out` |
+| `cp` | ファイルをコピーする | `cp data\a.mp4 data\b.mp4` |
+| `mv` | ファイルを移動する、名前を変える | `mv old.csv new.csv` |
+| `rm` | ファイルを削除する | `rm out\test.png` |
+| `Expand-Archive` | zipファイルを展開する | `Expand-Archive a.zip -DestinationPath data` |
+| `curl.exe` | ファイルをダウンロードする | `curl.exe -L -o data\a.mp4 https://…` |
+
+: フォルダとファイルの操作 {#tbl-app-ps-file}
+
+::: {.callout-warning title="rm で消したファイルは、ごみ箱に入りません"}
+`rm` で削除したファイルは、エクスプローラーでの削除と違って、ごみ箱を経由せずに消えます。
+元に戻せませんので、消す前に `ls` でファイル名を確かめる習慣をつけてください。
+不安な場合は、`explorer .` でエクスプローラーを開いて、そちらで削除するのが安全です。
+:::
+
+## 本書で使うuvとVS Codeの命令 {#sec-app-ps-uv}
+
+以下の命令は、プロジェクトフォルダ（`C:\work\video-analysis`）の中で実行します。
+
+| 命令 | 意味 |
+|---|---|
+| `uv --version` | uvのバージョンを表示する |
+| `uv add ライブラリ名` | プロジェクトにライブラリを追加する |
+| `uv remove ライブラリ名` | プロジェクトからライブラリを取り除く |
+| `uv sync` | `pyproject.toml` と `uv.lock` の内容どおりに `.venv` を作り直す |
+| `uv run python ファイル名.py` | プロジェクトの環境でPythonのプログラムを実行する |
+| `uv self update` | uv自身を新しいバージョンに更新する |
+| `code .` | カレントフォルダをVS Codeで開く |
+
+: uvとVS Codeの命令 {#tbl-app-ps-uv}
+
+`.venv` フォルダの調子がおかしくなったときは、`.venv` フォルダを削除してから `uv sync` を実行すると、同じ環境を作り直せます。
+ライブラリの一覧は `pyproject.toml` と `uv.lock` に記録されているので、`.venv` を消しても失われません。
+
+## 入力を楽にする操作 {#sec-app-ps-keys}
+
+| 操作 | はたらき |
+|---|---|
+| Tabキー | フォルダ名やファイル名を、途中まで入力した状態から補う |
+| ↑キー、↓キー | 以前に実行した命令を呼び出す |
+| Ctrl＋C | 実行中の命令を途中で止める |
+| `cls` | 画面の表示を消去する |
+| 右クリック | コピーしてある文字列を貼り付ける |
+
+: 入力を楽にする操作 {#tbl-app-ps-keys}
+
+## パスの書き方 {#sec-app-ps-path}
+
+フォルダやファイルの場所を表す文字列を**パス**と呼びます。
+パスには2通りの書き方があります。
+
+- **絶対パス**：ドライブ名から始めて、場所を省略せずに書いたものです。例：`C:\work\video-analysis\data\sintel_trailer-480p.mp4`
+- **相対パス**：カレントフォルダを基準にして書いたものです。カレントフォルダが `C:\work\video-analysis` のとき、上のファイルは `data\sintel_trailer-480p.mp4` と書けます。
+
+PowerShellでは、フォルダの区切りに `\`（バックスラッシュ）を使います。
+日本語のキーボードや表示環境では、この文字が `¥`（円記号）として表示されることがありますが、同じ文字です。
+
+一方、Pythonのコードの中では、区切りに `/`（スラッシュ）を使うことをおすすめします。
+
+```python
+cap = cv2.VideoCapture("data/sintel_trailer-480p.mp4")
+```
+
+Pythonの文字列の中では `\` が特別な意味を持つため、`"data\new.mp4"` のように書くと、`\n` が改行として解釈されてしまい、ファイルが見つからなくなります。
+`/` で書いておけば、この問題は起こりませんし、同じコードがmacOSやLinuxでもそのまま動きます。

@@ -19,7 +19,25 @@ book:
       chapters:
         - chapters/01-structure.qmd
         - chapters/02-setup.qmd
-  # 各章は書き上がりしだい、ここに追加していきます。
+        - chapters/03-numpy.qmd
+        - chapters/04-video.qmd
+    - part: "第II部　映像から数値を取り出す"
+      chapters:
+        - chapters/05-brightness.qmd
+        - chapters/06-color.qmd
+        - chapters/07-motion.qmd
+        - chapters/08-cuts.qmd
+    - part: "第III部　作品を分析する"
+      chapters:
+        - chapters/09-shots.qmd
+        - chapters/10-project.qmd
+  appendices:
+    - appendices/a-powershell.qmd
+    - appendices/b-ffmpeg.qmd
+    - appendices/c-troubleshooting.qmd
+    - appendices/d-statistics.qmd
+    - appendices/e-functions.qmd
+    - appendices/f-samples.qmd
   page-navigation: true
   search: true
   sidebar:

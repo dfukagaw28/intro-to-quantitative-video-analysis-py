@@ -1,0 +1,47 @@
+# サンプル映像の出典とライセンス {#sec-app-samples}
+
+本書で使用するサンプル映像は、いずれもBlender Foundationが制作し、クリエイティブ・コモンズ・ライセンスで公開している作品です。
+出典を示せば、複製・加工・再配布が認められています。
+
+本書に掲載している、これらの映像から切り出した画像は、それぞれの作品のライセンスに従います。
+本書の文章と図に適用されるライセンス（CC BY-NC-SA 4.0）の対象ではありません。
+
+## 作品の一覧 {#sec-app-samples-list}
+
+| 作品 | 制作年 | クレジット | ライセンス | 使う章 |
+|---|---|---|---|---|
+| Sintel（予告編） | 2010 | © copyright Blender Foundation \| [durian.blender.org](https://durian.blender.org/) | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.ja) | 第1章〜第7章 |
+| Big Buck Bunny | 2008 | © copyright 2008, Blender Foundation \| [www.bigbuckbunny.org](https://www.bigbuckbunny.org/) | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.ja) | 第8章〜第10章 |
+| Elephants Dream | 2006 | © copyright 2006, Blender Foundation / Netherlands Media Art Institute \| [www.elephantsdream.org](https://www.elephantsdream.org/) | [CC BY 2.5](https://creativecommons.org/licenses/by/2.5/deed.ja) | 第10章 |
+
+: サンプル映像の出典とライセンス {#tbl-app-samples}
+
+## ファイルの入手先と仕様 {#sec-app-samples-files}
+
+本書で使うファイルは、Blender Foundationの配布サイトからダウンロードできます。
+仕様は、本書の方法で実際に読み込んで確かめた値です。
+
+| ファイル名 | 解像度 | フレームレート | フレーム数 | 大きさ |
+|---|---|---|---|---|
+| `sintel_trailer-480p.mp4` | 854×480 | 24 fps | 1253 | 約4.4 MB |
+| `BigBuckBunny_320x180.mp4` | 320×180 | 24 fps | 14315 | 約65 MB |
+| `elephantsdream-480-h264-st-aac.mov` | 480×270 | 24 fps（本文の注を参照） | 15294 | 約104 MB |
+
+: サンプル映像のファイルと仕様 {#tbl-app-samples-files}
+
+ダウンロード元のアドレスは次のとおりです。
+
+- Sintel（予告編）：`https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
+- Big Buck Bunny：`https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4.zip`（zipファイルです。展開してから使います）
+- Elephants Dream：`https://download.blender.org/ED/elephantsdream-480-h264-st-aac.mov`
+
+## 自分の成果物でサンプル映像を使うとき {#sec-app-samples-reuse}
+
+これらの映像から作った図やフレームを、レポート・論文・Webページなどに掲載するときは、作品ごとに @tbl-app-samples のクレジットを添えてください。
+たとえば、Sintelのフレームを含む図であれば、キャプションに次のように書きます。
+
+> 映像：Sintel（© Blender Foundation | durian.blender.org、CC BY 3.0）
+
+明るさのグラフのように、映像から計算した数値だけを示す図には、ライセンス上のクレジットは必須ではありません。
+ただし、どの作品を分析したのかを明記することは、分析を他の人が再現できるようにするために欠かせません。
+作品名、使用したファイル名、入手先は、必ず記録に残してください。
