@@ -12,6 +12,8 @@ toc: false
 
 <p class="cover-subtitle">OpenCVとNumPyで、映像を「測る」</p>
 
+<p class="cover-author">Daiji Fukagawa</p>
+
 <svg class="cover-art" viewBox="0 0 800 340" role="img" aria-label="フィルムのコマ列と、その下に並ぶ動き量のグラフ。ショットが切り替わる位置でグラフが跳ね上がっている。">
   <!-- フィルム -->
   <rect x="8" y="8" width="784" height="128" rx="6" fill="#0a141d"/>
@@ -109,5 +111,22 @@ OpenCVやNumPyの経験は前提としません。必要な知識は、使う場
 | サンプル映像 | 自由に再利用できるライセンスで公開されている映像作品 |
 
 環境の準備は[第2章](chapters/02-setup.qmd)で、手順を一つずつ確かめながら説明します。macOSやLinuxでもコードはそのまま動きますが、手順の説明はWindowsを基準にしています。
+
+## ライセンス {.unnumbered}
+
+本書は、内容の種類ごとに次のライセンスで公開しています。
+
+| 対象 | ライセンス |
+|---|---|
+| 文章と図 | [クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際（CC BY-NC-SA 4.0）](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja) |
+| コード | [MITライセンス](https://github.com/dfukagaw28/intro-to-quantitative-video-analysis-py/blob/main/LICENSE-CODE) |
+
+文章と図は、出典を示し、営利を目的とせず、改変した場合は同じライセンスで公開するという条件のもとで、複製・再配布・改変ができます。
+本文に掲載しているコードは、著作権表示を残せば、営利・非営利を問わず自由に利用できます。
+
+ただし、サンプル映像から切り出した画像は第三者の著作物であり、上記のライセンスの対象外です。
+それぞれの画像に添えたクレジットとライセンスに従ってください。
+
+© 2026 Daiji Fukagawa
 
 [目次へ進む →](contents.qmd){.btn .btn-primary}

@@ -4,9 +4,14 @@ project:
 
 lang: ja
 
+# 日本語の文中・文間の改行を空白にしない（1文1行で書けるようにする）
+filters:
+  - filters/ja-linebreak.lua
+
 book:
   title: "Pythonで学ぶ 映像の定量分析入門"
   subtitle: "OpenCVとNumPyで、映像を「測る」"
+  author: "深川 大路"
   chapters:
     - index.qmd
     - contents.qmd
@@ -19,6 +24,9 @@ book:
   search: true
   sidebar:
     style: docked
+  page-footer:
+    left: "© 2026 Daiji Fukagawa"
+    right: "文章と図：[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja)　コード：[MIT](https://github.com/dfukagaw28/intro-to-quantitative-video-analysis-py/blob/main/LICENSE-CODE)"
 
 format:
   html:
@@ -30,6 +38,7 @@ format:
     toc-title: "このページの内容"
     number-sections: true
     code-copy: true
+    include-after-body: includes/copy-prompt.html
     code-line-numbers: false
     highlight-style: github
     fig-cap-location: bottom

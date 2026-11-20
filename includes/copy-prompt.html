@@ -1,0 +1,30 @@
+<script>
+// ターミナルの命令を示すコードブロックでは、コピーボタンを押したときに
+// 行頭の「> 」と実行結果の行を取り除き、命令だけをコピーする。
+// 対象は、言語指定が default で、「> 」で始まる行を含むブロックに限る。
+(function () {
+  const PROMPT = /^> ?/;
+  let pending = null;
+
+  document.addEventListener("click", function (event) {
+    const button = event.target.closest(".code-copy-button");
+    if (!button) return;
+    const code = button.parentElement.querySelector("pre.default > code");
+    if (!code) return;
+    const commands = code.innerText
+      .split("\n")
+      .filter((line) => PROMPT.test(line))
+      .map((line) => line.replace(PROMPT, ""));
+    if (commands.length === 0) return;
+    pending = commands.join("\n");
+    setTimeout(function () { pending = null; }, 0);
+  }, true);
+
+  document.addEventListener("copy", function (event) {
+    if (pending === null) return;
+    event.clipboardData.setData("text/plain", pending);
+    event.preventDefault();
+    pending = null;
+  }, true);
+})();
+</script>
