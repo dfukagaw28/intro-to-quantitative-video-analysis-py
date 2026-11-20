@@ -1,0 +1,41 @@
+project:
+  type: book
+  output-dir: _book
+
+lang: ja
+
+book:
+  title: "Pythonで学ぶ 映像の定量分析入門"
+  subtitle: "OpenCVとNumPyで、映像を「測る」"
+  chapters:
+    - index.qmd
+    - contents.qmd
+  # 各章は書き上がりしだい、ここに追加していきます。
+  #  - chapters/01-structure.qmd
+  #  - chapters/02-setup.qmd
+  #  ...
+  page-navigation: true
+  search: true
+  sidebar:
+    style: docked
+
+format:
+  html:
+    theme:
+      light: [cosmo, styles/book.scss]
+      dark: [darkly, styles/book.scss]
+    css: styles/cover.css
+    toc: true
+    toc-title: "このページの内容"
+    number-sections: true
+    code-copy: true
+    code-line-numbers: false
+    highlight-style: github
+    fig-cap-location: bottom
+    mainfont: "'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', 'Hiragino Sans', 'Meiryo', sans-serif"
+    monofont: "'Cascadia Code', 'Consolas', 'BIZ UDGothic', 'MS Gothic', monospace"
+    include-in-header:
+      text: |
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">

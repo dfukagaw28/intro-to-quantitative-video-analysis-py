@@ -1,0 +1,90 @@
+/*-- scss:defaults --*/
+$font-size-root: 17px;
+$link-color: #1f6fb2;
+
+/*-- scss:rules --*/
+
+// 日本語の本文を読みやすくする
+body {
+  line-height: 1.9;
+  font-feature-settings: "palt";
+}
+
+main p,
+main li {
+  text-align: justify;
+  text-justify: inter-character;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+// 節見出し：左に帯を付けて、ページ内の区切りをはっきりさせる
+main h2 {
+  margin-top: 2.6em;
+  padding: 0.25em 0 0.25em 0.7em;
+  border-left: 6px solid #1f6fb2;
+  border-bottom: none;
+}
+
+main h3 {
+  margin-top: 2em;
+  padding-bottom: 0.2em;
+  border-bottom: 1px dashed rgba(128, 128, 128, 0.5);
+}
+
+// コードは少し小さめ、行間は詰める
+pre, code {
+  font-size: 0.9em;
+}
+pre {
+  line-height: 1.55;
+}
+
+// 章の冒頭に置く「この章で学ぶこと」など
+.callout {
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+}
+
+// 目次ページ
+.toc-chapter {
+  margin: 2.2em 0 0;
+  padding: 1.1em 1.3em 0.6em;
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-radius: 8px;
+
+  h3 {
+    margin-top: 0;
+    border-bottom: none;
+    font-size: 1.2rem;
+  }
+
+  .toc-goal {
+    margin: 0.2em 0 0.8em;
+    font-size: 0.93rem;
+    opacity: 0.8;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0.5em;
+  }
+
+  li {
+    padding: 0.18em 0;
+    text-align: left;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.toc-part {
+  margin-top: 3em;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #1f6fb2;
+}

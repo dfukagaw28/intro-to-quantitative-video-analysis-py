@@ -1,0 +1,113 @@
+---
+toc: false
+---
+
+# はじめに {.unnumbered}
+
+::: {.cover}
+
+<p class="cover-label">WEB BOOK ／ FOR WINDOWS</p>
+
+<h1 class="cover-title"><small>Pythonで学ぶ</small>映像の定量分析入門</h1>
+
+<p class="cover-subtitle">OpenCVとNumPyで、映像を「測る」</p>
+
+<svg class="cover-art" viewBox="0 0 800 340" role="img" aria-label="フィルムのコマ列と、その下に並ぶ動き量のグラフ。ショットが切り替わる位置でグラフが跳ね上がっている。">
+  <!-- フィルム -->
+  <rect x="8" y="8" width="784" height="128" rx="6" fill="#0a141d"/>
+  <g fill="#10202e">
+    <rect x="30" y="16" width="14" height="9" rx="2"/><rect x="78" y="16" width="14" height="9" rx="2"/><rect x="126" y="16" width="14" height="9" rx="2"/><rect x="174" y="16" width="14" height="9" rx="2"/><rect x="222" y="16" width="14" height="9" rx="2"/><rect x="270" y="16" width="14" height="9" rx="2"/><rect x="318" y="16" width="14" height="9" rx="2"/><rect x="366" y="16" width="14" height="9" rx="2"/><rect x="414" y="16" width="14" height="9" rx="2"/><rect x="462" y="16" width="14" height="9" rx="2"/><rect x="510" y="16" width="14" height="9" rx="2"/><rect x="558" y="16" width="14" height="9" rx="2"/><rect x="606" y="16" width="14" height="9" rx="2"/><rect x="654" y="16" width="14" height="9" rx="2"/><rect x="702" y="16" width="14" height="9" rx="2"/><rect x="750" y="16" width="14" height="9" rx="2"/>
+    <rect x="30" y="119" width="14" height="9" rx="2"/><rect x="78" y="119" width="14" height="9" rx="2"/><rect x="126" y="119" width="14" height="9" rx="2"/><rect x="174" y="119" width="14" height="9" rx="2"/><rect x="222" y="119" width="14" height="9" rx="2"/><rect x="270" y="119" width="14" height="9" rx="2"/><rect x="318" y="119" width="14" height="9" rx="2"/><rect x="366" y="119" width="14" height="9" rx="2"/><rect x="414" y="119" width="14" height="9" rx="2"/><rect x="462" y="119" width="14" height="9" rx="2"/><rect x="510" y="119" width="14" height="9" rx="2"/><rect x="558" y="119" width="14" height="9" rx="2"/><rect x="606" y="119" width="14" height="9" rx="2"/><rect x="654" y="119" width="14" height="9" rx="2"/><rect x="702" y="119" width="14" height="9" rx="2"/><rect x="750" y="119" width="14" height="9" rx="2"/>
+  </g>
+  <!-- コマ：ショット1（青）・ショット2（琥珀）・ショット3（緑） -->
+  <g>
+    <rect x="20" y="34" width="88" height="76" rx="3" fill="#2f6f9f"/>
+    <rect x="116" y="34" width="88" height="76" rx="3" fill="#3a7fb0"/>
+    <rect x="212" y="34" width="88" height="76" rx="3" fill="#4690c2"/>
+    <rect x="308" y="34" width="88" height="76" rx="3" fill="#d99a2b"/>
+    <rect x="404" y="34" width="88" height="76" rx="3" fill="#f2b441"/>
+    <rect x="500" y="34" width="88" height="76" rx="3" fill="#3f9a78"/>
+    <rect x="596" y="34" width="88" height="76" rx="3" fill="#4bab87"/>
+    <rect x="692" y="34" width="88" height="76" rx="3" fill="#59bb96"/>
+  </g>
+  <!-- コマの中の被写体（少しずつ動く） -->
+  <g fill="#f3f6f8" fill-opacity="0.85">
+    <circle cx="46" cy="82" r="10"/><circle cx="160" cy="76" r="10"/><circle cx="274" cy="70" r="10"/>
+    <rect x="340" y="56" width="24" height="32"/><rect x="442" y="56" width="24" height="32"/>
+    <path d="M522 96 l16 -28 l16 28z"/><path d="M632 92 l16 -28 l16 28z"/><path d="M742 88 l16 -28 l16 28z"/>
+  </g>
+  <!-- カット点 -->
+  <g stroke="#f3f6f8" stroke-width="1.5" stroke-dasharray="5 5" stroke-opacity="0.7">
+    <line x1="304" y1="140" x2="304" y2="318"/>
+    <line x1="496" y1="140" x2="496" y2="318"/>
+  </g>
+  <g fill="#9fb3c2" font-size="13" font-family="inherit">
+    <text x="312" y="166">カット点</text>
+    <text x="504" y="166">カット点</text>
+    <text x="20" y="166">動き量</text>
+    <text x="780" y="336" text-anchor="end">フレーム番号 →</text>
+  </g>
+  <!-- グラフ -->
+  <line x1="20" y1="318" x2="780" y2="318" stroke="#9fb3c2" stroke-opacity="0.6"/>
+  <polyline fill="none" stroke="#f2b441" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"
+    points="20,296 44,290 68,298 92,286 116,292 140,280 164,288 188,276 212,284 236,278 260,288 284,282 296,274 304,188 312,290 336,300 360,304 384,298 408,302 432,306 456,300 480,304 490,296 496,196 504,270 528,258 552,244 576,252 600,232 624,246 648,226 672,240 696,222 720,236 744,228 780,238"/>
+</svg>
+
+<ul class="cover-tags">
+  <li>Python 3</li>
+  <li>OpenCV</li>
+  <li>NumPy</li>
+  <li>pandas</li>
+  <li>Matplotlib</li>
+  <li>Jupyter</li>
+  <li>Windows 11</li>
+</ul>
+
+:::
+
+## この本について {.unnumbered}
+
+映画やアニメ、動画投稿サイトの映像を観て「このシーンはテンポが速い」「この作品は全体に色味が暗い」と感じることがあります。本書は、そうした**感覚を数値で確かめる方法**を、Pythonのコードを一歩ずつ動かしながら学ぶ入門書です。
+
+映像は、突き詰めれば「数値の並んだ画像が、時間順に並んだもの」です。ですから、明るさ・色・動きはすべて計算で取り出せますし、ショットの切れ目（カット点）も自動で見つけられます。取り出した数値をグラフにすれば、作品の構成やリズムが目に見える形で現れます。
+
+::: {.callout-note title="本書でできるようになること"}
+- 動画ファイルをPythonで読み込み、フレームを自在に取り出す
+- 明るさ・色・動きを数値化し、時系列グラフとして可視化する
+- カット点を自動検出し、その精度を自分で評価する
+- ショット長の統計から、作品の編集のテンポを比較する
+- 一本の映像作品を、最初から最後まで自分の手で分析する
+:::
+
+## 対象とする読者 {.unnumbered}
+
+- 映像作品を数値で分析してみたい、映像研究・メディア研究の学生や研究者の方
+- Pythonの基本文法（変数、`for`文、関数）をひととおり学び、次に何か作ってみたい方
+- OpenCVを「画像」ではなく「映像」に使ってみたい方
+
+OpenCVやNumPyの経験は前提としません。必要な知識は、使う場面でそのつど説明します。数学は高校程度で読めるようにし、少し進んだ内容（統計的検定など）は、式の意味を図と言葉で補います。
+
+## 本書の読み方 {.unnumbered}
+
+どの章も、次の流れで進みます。
+
+1. **この章のゴール**——章を読み終えたときに手元に残る成果物（グラフや画像）を最初に示します。
+2. **しくみの図解**——コードを書く前に、何をどう計算するのかを図で確認します。
+3. **コードと実行結果**——短いコードを少しずつ実行し、そのたびに結果を確かめます。
+4. **まとめと演習**——要点を整理し、自分の映像で試すための課題を示します。
+
+コードはすべてJupyterノートブックで実行できる形で掲載します。読むだけでなく、ぜひ手元のWindowsパソコンで動かしながら読み進めてください。
+
+## 動作環境 {.unnumbered}
+
+| 項目 | 本書で使うもの |
+|---|---|
+| OS | Windows 11 |
+| Python | Python 3（`uv` で導入・管理） |
+| 主なライブラリ | OpenCV（`opencv-python`）、NumPy、pandas、Matplotlib、SciPy |
+| 実行環境 | Visual Studio Code ＋ Jupyter拡張機能 |
+| サンプル映像 | 自由に再利用できるライセンスで公開されている映像作品 |
+
+環境の準備は第2章で、画面の例を示しながら順に説明します。macOSやLinuxでもコードはそのまま動きますが、手順の説明はWindowsを基準にしています。
+
+[目次へ進む →](contents.qmd){.btn .btn-primary}
