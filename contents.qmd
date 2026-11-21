@@ -159,6 +159,10 @@ number-sections: false
 - 10.7　この先の学習に向けて
 :::
 
+::: {.toc-chapter}
+### [参考文献](references.qmd)
+:::
+
 ::: {.toc-part}
 付録
 :::

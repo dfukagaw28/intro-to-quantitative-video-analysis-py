@@ -3,6 +3,8 @@ project:
   output-dir: _book
 
 lang: ja
+bibliography: references.bib
+csl: styles/apa-ja.csl
 
 # 日本語の文中・文間の改行を空白にしない（1文1行で書けるようにする）
 filters:
@@ -31,6 +33,7 @@ book:
       chapters:
         - chapters/09-shots.qmd
         - chapters/10-project.qmd
+    - references.qmd
   appendices:
     - appendices/a-powershell.qmd
     - appendices/b-ffmpeg.qmd
