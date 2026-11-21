@@ -8,14 +8,14 @@ toc: false
 
 <h1 class="cover-title">Pythonで学ぶ 映像の定量分析入門</h1>
 
-<img class="cover-img" src="images/cover/cover.jpg" width="1083" height="1452" alt="表紙。題名は「Pythonで学ぶ 映像の定量分析入門」、副題は「OpenCVとNumPyで、映像を「測る」」、著者は深川大路。空を見上げる人物と竜の絵の下に、予告編全体の色を並べた帯、フィルムのコマ、動き量のグラフが描かれている。グラフは、カット点で跳ね上がっている。">
+<img class="cover-img" src="images/cover/cover.jpg" width="1083" height="1452" style="display:block;width:100%;max-width:560px;height:auto;margin:0 auto" alt="表紙。題名は「Pythonで学ぶ 映像の定量分析入門」、副題は「OpenCVとNumPyで、映像を「測る」」、著者は深川大路。空を見上げる人物と竜の絵の下に、予告編全体の色を並べた帯、フィルムのコマ、動き量のグラフが描かれている。グラフは、カット点で跳ね上がっている。">
 
-<div class="cover-credit">
-<p>表紙の画像は、短編アニメーション『Sintel』（© copyright Blender Foundation | <a href="https://durian.blender.org/">durian.blender.org</a>、<a href="https://creativecommons.org/licenses/by/3.0/deed.ja">CC BY 3.0</a>）の映像と、その映像から計算した数値の図をもとに、生成AI（ChatGPT）を使って作り直したものです。</p>
-<p>表紙の中の映像やグラフは、デザイン上のイメージです。元の映像や、計算の結果を正確に再現したものではありません。</p>
-</div>
 
 :::
+
+表紙の画像は、短編アニメーション『Sintel』（© copyright Blender Foundation | [durian.blender.org](https://durian.blender.org/)、[CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.ja)）の映像と、その映像から計算した数値の図をもとに、生成AI（ChatGPT）を使って作り直したものです。
+表紙の中の映像やグラフは、デザイン上のイメージです。
+元の映像や、計算の結果を正確に再現したものではありません。
 
 ## この本について {.unnumbered}
 
