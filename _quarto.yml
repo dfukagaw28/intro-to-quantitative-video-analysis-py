@@ -1,6 +1,8 @@
 project:
   type: book
   output-dir: _book
+  resources:
+    - images/cover/cover.jpg
 
 lang: ja
 bibliography: references.bib

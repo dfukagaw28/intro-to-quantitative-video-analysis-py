@@ -58,6 +58,16 @@
   margin: 2rem 0 1.5rem;
 }
 
+.cover-art text {
+  font-family: inherit;
+}
+
+.cover-credit {
+  margin: -1rem 0 1.5rem;
+  font-size: 0.72rem;
+  color: var(--cover-muted);
+}
+
 .cover-tags {
   display: flex;
   flex-wrap: wrap;
@@ -79,4 +89,43 @@
 body:has(.cover) #title-block-header,
 body:has(.cover) main h1:not(.cover-title) {
   display: none;
+}
+
+/* 表紙を1枚の画像で出す場合 */
+.cover.cover-image {
+  padding: 0;
+  background: none;
+  color: inherit;
+  text-align: center;
+}
+
+/* 題名は画像の中にあるので、読み上げ用にだけ残す */
+.cover.cover-image .cover-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.cover-img {
+  display: block;
+  width: min(100%, 560px);
+  height: auto;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+}
+
+.cover.cover-image .cover-credit {
+  margin: 0.8rem auto 0;
+  max-width: 560px;
+  color: inherit;
+  opacity: 0.75;
+  text-align: left;
+}
+
+.cover-credit p {
+  margin: 0 0 0.4em;
 }
