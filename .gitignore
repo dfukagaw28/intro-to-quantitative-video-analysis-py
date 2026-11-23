@@ -5,3 +5,9 @@
 
 # 手元用のメモ（公開しない）
 /_notes/
+
+# レンダリングが途中で止まったときに、原稿の場所に残る出力
+/*.html
+/chapters/*.html
+/appendices/*.html
+/site_libs/
