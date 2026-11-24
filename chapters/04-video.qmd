@@ -1851,6 +1851,27 @@ def show(image, title=None, ax=None):
 動作には影響しませんが、あとで読み返すときの手がかりになります。
 途中で試作した `iter_frames_simple` は、ファイルには入れません。
 
+保存すると、プロジェクトフォルダは次のようになります。
+`videotools.py` が、ノートブックと同じ階層にあることを確かめてください。
+VS Codeでは、画面の左側のエクスプローラーに、同じ構成が表示されます。
+
+```{.default}
+C:\work\video-analysis
+├── .venv
+├── data
+│   ├── frame400.png
+│   └── sintel_trailer-480p.mp4
+├── out
+├── ch02.ipynb
+├── ch03.ipynb
+├── ch04.ipynb
+├── pyproject.toml
+├── uv.lock
+└── videotools.py                 … いま作ったファイル
+```
+
+`data` や `out` の中に保存してしまうと、次の節の `import` が失敗します。
+
 ::: {.callout-important title="このファイルは、以降のすべての章で使います"}
 第5章以降のコードは、`videotools.py` がプロジェクトフォルダの直下にあり、上の内容と同じであることを前提にしています。
 入力を間違えると、あとの章で思わぬエラーになります。
@@ -1950,9 +1971,9 @@ C:\work\video-analysis
 ├── ch02.ipynb
 ├── ch03.ipynb
 ├── ch04.ipynb
-├── videotools.py                 … 共通の関数
 ├── pyproject.toml
-└── uv.lock
+├── uv.lock
+└── videotools.py                 … 共通の関数
 ```
 
 `videotools.py` を `import` すると、`__pycache__` というフォルダが自動的に作られます。

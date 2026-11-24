@@ -924,6 +924,27 @@ start,end,kind
 4796,4796,cut
 ```
 
+保存すると、プロジェクトフォルダは次のようになります。
+正解データは、映像と同じ `data` フォルダの中に置きます。
+
+```{.default}
+C:\work\video-analysis
+├── .venv
+├── __pycache__
+├── data
+│   ├── bbb_truth.csv             … いま作ったファイル
+│   ├── BigBuckBunny_320x180.mp4
+│   ├── frame400.png
+│   └── sintel_trailer-480p.mp4
+├── out                           … これまでの章で保存したファイル
+├── ch02.ipynb
+├── …                         … ch03.ipynb 〜 ch07.ipynb
+├── ch08.ipynb
+├── pyproject.toml
+├── uv.lock
+└── videotools.py
+```
+
 各行が1つの切り替わりを表します。
 `kind` が `cut` の行では、`start` と `end` はどちらも新しいショットの最初のフレームの番号です。
 ゆるやかな切り替わりは2つあり、`start` と `end` に始まりと終わりのフレームを入れています。
@@ -1770,6 +1791,28 @@ def detect_cuts(features, t_min=0.1, k=3, w=5, dark=10):
             "kind": [kinds[n] for n in frames],
         }
     )
+```
+
+保存すると、プロジェクトフォルダは次のようになります。
+`cutdetect.py` は、`videotools.py` と同じ階層に置きます。
+
+```{.default}
+C:\work\video-analysis
+├── .venv
+├── __pycache__
+├── data
+│   ├── bbb_truth.csv
+│   ├── BigBuckBunny_320x180.mp4
+│   ├── frame400.png
+│   └── sintel_trailer-480p.mp4
+├── out
+├── ch02.ipynb
+├── …                         … ch03.ipynb 〜 ch07.ipynb
+├── ch08.ipynb
+├── cutdetect.py                  … いま作ったファイル
+├── pyproject.toml
+├── uv.lock
+└── videotools.py
 ```
 
 `frame_features` は映像を1回読み通して、フレームごとの数値の表を作ります。

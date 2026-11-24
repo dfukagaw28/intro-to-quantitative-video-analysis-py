@@ -1255,6 +1255,25 @@ def shot_sheet(path, shots, ncols=14, scale=0.5):
     return contact_sheet(tiles, ncols)
 ```
 
+保存すると、プロジェクトフォルダは次のようになります。
+本書で作る3つのモジュールが、同じ階層に並びます。
+
+```{.default}
+C:\work\video-analysis
+├── .venv
+├── __pycache__
+├── data
+├── out
+├── ch02.ipynb
+├── …                         … ch03.ipynb 〜 ch08.ipynb
+├── ch09.ipynb
+├── cutdetect.py                  … 第8章で作ったファイル
+├── pyproject.toml
+├── shottools.py                  … いま作ったファイル
+├── uv.lock
+└── videotools.py                 … 第4章で作ったファイル
+```
+
 `make_shots` には、開始時刻（`start_time`）と中央のフレーム（`middle`）の列を、最初から作るようにしてあります。
 `shot_sheet` は、この節でした作業を1つの関数にまとめたものです。
 
