@@ -727,14 +727,16 @@ print(diff.max(), diff.mean())
 読み込みループと組み合わせて、100フレームおきに画像を保存してみます。
 ファイル名には、フレーム番号を入れておきます。
 
+まず、ファイル名の作り方だけを、桁数の違う4つの番号で試します。
+
 ```python
-for n in [0, 100, 400, 1200]:
+for n in [0, 50, 400, 1200]:
     print(f"out/frame_{n:04d}.png")
 ```
 
 ```{.default}
 out/frame_0000.png
-out/frame_0100.png
+out/frame_0050.png
 out/frame_0400.png
 out/frame_1200.png
 ```

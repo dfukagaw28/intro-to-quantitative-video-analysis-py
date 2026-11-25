@@ -176,4 +176,5 @@ number-sections: false
 - [付録D　本書で使う統計の基礎](appendices/d-statistics.qmd)
 - [付録E　本書で使った関数の一覧](appendices/e-functions.qmd)
 - [付録F　サンプル映像の出典とライセンス](appendices/f-samples.qmd)
+- [付録G　映像の利用と著作権](appendices/g-copyright.qmd)
 :::
