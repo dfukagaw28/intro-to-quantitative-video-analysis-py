@@ -67,11 +67,11 @@
 
 ## パスの書き方 {#sec-app-ps-path}
 
-フォルダやファイルの場所を表す文字列を**パス**と呼びます。
+フォルダやファイルの場所を表す文字列を**パス**（path）と呼びます。
 パスには2通りの書き方があります。
 
-- **絶対パス**：ドライブ名から始めて、場所を省略せずに書いたものです。例：`C:\work\video-analysis\data\sintel_trailer-480p.mp4`
-- **相対パス**：カレントフォルダを基準にして書いたものです。カレントフォルダが `C:\work\video-analysis` のとき、上のファイルは `data\sintel_trailer-480p.mp4` と書けます。
+- **絶対パス**（absolute path）：ドライブ名から始めて、場所を省略せずに書いたものです。例：`C:\work\video-analysis\data\sintel_trailer-480p.mp4`
+- **相対パス**（relative path）：カレントフォルダを基準にして書いたものです。カレントフォルダが `C:\work\video-analysis` のとき、上のファイルは `data\sintel_trailer-480p.mp4` と書けます。
 
 PowerShellでは、フォルダの区切りに `\`（バックスラッシュ）を使います。
 日本語のキーボードや表示環境では、この文字が `¥`（円記号）として表示されることがありますが、同じ文字です。

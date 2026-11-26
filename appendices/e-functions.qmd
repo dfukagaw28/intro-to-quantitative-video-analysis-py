@@ -118,6 +118,8 @@
 
 ## pandas（`pd`） {#sec-app-functions-pandas}
 
+DataFrameの使い方は、例と図を使って、@sec-app-dataframe でくわしく説明しています。
+
 | 関数・書き方 | はたらき | 章 |
 |---|---|---|
 | `pd.DataFrame(rows)` | 辞書のリストなどから表を作る | 5 |

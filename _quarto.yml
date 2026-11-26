@@ -44,6 +44,7 @@ book:
     - appendices/e-functions.qmd
     - appendices/f-samples.qmd
     - appendices/g-copyright.qmd
+    - appendices/h-dataframe.qmd
   page-navigation: true
   search: true
   sidebar:

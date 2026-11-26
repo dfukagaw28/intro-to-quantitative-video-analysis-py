@@ -74,7 +74,7 @@ print(type(img))
 ```
 
 `type(img)` は、変数 `img` に入っているものの種類を調べる命令です。
-結果の `numpy.ndarray` は、NumPyの**配列**（数値を縦横に規則正しく並べたもの）であることを示しています。
+結果の `numpy.ndarray` は、NumPyの**配列**（array。数値を縦横に規則正しく並べたもの）であることを示しています。
 OpenCVには「画像」という専用の種類はありません。
 画像は、最初からNumPyの配列として読み込まれます。
 これが章題の意味です。
@@ -200,7 +200,7 @@ print(480 * 854 * 3)
 1229760
 ```
 
-`ndim` は軸の数（**次元**の数）で、縦・横・色の3つです。
+`ndim` は軸の数（**次元**の数、number of dimensions）で、縦・横・色の3つです。
 `size` は配列に含まれる数値の総数です。
 480×854×3を計算した値と一致しています。
 この1枚の画像は、約123万個の数値でできているわけです。
@@ -222,7 +222,7 @@ print(img[150, 560])
 ```
 
 3つの数値が返ってきました。
-これが、この画素の色を表す**画素値**です。
+これが、この画素の色を表す**画素値**（pixel value）です。
 位置の指定は、形と同じく「縦の位置、横の位置」の順であることに注意してください。
 `img[560, 150]` と書くと、縦の位置が480を超えているのでエラーになります。
 
@@ -257,7 +257,7 @@ print(img[20, 100])
 
 ### 画素値は0から255の整数
 
-配列に入っている数値の種類を**データ型**と呼び、`dtype` で調べられます。
+配列に入っている数値の種類を**データ型**（data type）と呼び、`dtype` で調べられます。
 
 ```python
 print(img.dtype)
@@ -270,7 +270,7 @@ uint8
 ```
 
 `uint8` は「符号なし8ビット整数」という型です。
-**ビット**は0か1を表す最小の単位で、8ビットあると2の8乗、つまり256通りの値を区別できます。
+**ビット**（bit）は0か1を表す最小の単位で、8ビットあると2の8乗、つまり256通りの値を区別できます。
 「符号なし」とは、マイナスの数を扱わないという意味です。
 合わせると、`uint8` は**0から255までの整数**だけを表せる型だということになります。
 0がもっとも暗く、255がもっとも明るい値です。
@@ -319,7 +319,7 @@ print(a + b)
 これは、`uint8` が255までしか表せないためです。
 255の次は0に戻って数え直されるので、300は「300−256＝44」として記録されます。
 車の走行距離計が、最大値を超えると0に戻るのと同じしくみです。
-このように、型の表せる範囲を超えて値がおかしくなることを**オーバーフロー**（桁あふれ）と呼びます。
+このように、型の表せる範囲を超えて値がおかしくなることを**オーバーフロー**（overflow、桁あふれ）と呼びます。
 
 引き算でも同じことが起こります。
 
@@ -333,6 +333,69 @@ print(a - b)
 
 3つ目の50−100は、−50ではなく**206**になりました。
 0より小さくなると、今度は255の側から数え直されます（−50＋256＝206）。
+2つの計算で起きたことを、@fig-ch03-overflow-ring に示します。
+
+::: {#fig-ch03-overflow-ring}
+
+```{=html}
+<svg viewBox="0 0 760 290" role="img" aria-label="uint8のオーバーフロー。0から255までの値を箱に並べた図。200に100を足すと、55進んで255に達し、次は0に戻り、さらに44進んで44になる。50から100を引くと、50戻って0に達し、その前は255に戻り、さらに49戻って206になる。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="170" y="86" width="70" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="205" y="112.4" font-size="15" font-weight="700" text-anchor="middle">0</text>
+  <rect x="240" y="86" width="70" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="275" y="112.4" font-size="15" font-weight="700" text-anchor="middle">…</text>
+  <rect x="310" y="86" width="70" height="42" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="345" y="112.4" font-size="15" font-weight="700" text-anchor="middle" fill="#ffffff">44</text>
+  <rect x="380" y="86" width="70" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="415" y="112.4" font-size="15" font-weight="700" text-anchor="middle">…</text>
+  <rect x="450" y="86" width="70" height="42" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="485" y="112.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">200</text>
+  <rect x="520" y="86" width="70" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="555" y="112.4" font-size="15" font-weight="700" text-anchor="middle">…</text>
+  <rect x="590" y="86" width="70" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="625" y="112.4" font-size="15" font-weight="700" text-anchor="middle">255</text>
+  <path d="M485 82 C485 56, 625 56, 625 75" fill="none" stroke="#d6453d" stroke-width="1.8"/>
+  <path d="M625 84 l-5 -9 h10z" fill="#d6453d"/>
+  <text x="555" y="57" font-size="12" text-anchor="middle" font-weight="700">55進む</text>
+  <path d="M205 82 C205 56, 345 56, 345 75" fill="none" stroke="#d6453d" stroke-width="1.8"/>
+  <path d="M345 84 l-5 -9 h10z" fill="#d6453d"/>
+  <text x="275" y="57" font-size="12" text-anchor="middle" font-weight="700">44進む</text>
+  <path d="M639 82 V30 H191 V75" fill="none" stroke="#d6453d" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <path d="M191 84 l-5 -9 h10z" fill="#d6453d"/>
+  <text x="415" y="24" font-size="12" text-anchor="middle" font-weight="700">255の次は0に戻る（1進む）</text>
+  <text x="14" y="104" font-size="15" font-weight="700">200 ＋ 100</text>
+  <text x="14" y="123" font-size="12" fill-opacity="0.75">55＋1＋44＝100</text>
+  <rect x="170" y="232" width="70" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="205" y="258.4" font-size="15" font-weight="700" text-anchor="middle">0</text>
+  <rect x="240" y="232" width="70" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="275" y="258.4" font-size="15" font-weight="700" text-anchor="middle">…</text>
+  <rect x="310" y="232" width="70" height="42" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="345" y="258.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">50</text>
+  <rect x="380" y="232" width="70" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="415" y="258.4" font-size="15" font-weight="700" text-anchor="middle">…</text>
+  <rect x="450" y="232" width="70" height="42" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="485" y="258.4" font-size="15" font-weight="700" text-anchor="middle" fill="#ffffff">206</text>
+  <rect x="520" y="232" width="70" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="555" y="258.4" font-size="15" font-weight="700" text-anchor="middle">…</text>
+  <rect x="590" y="232" width="70" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="625" y="258.4" font-size="15" font-weight="700" text-anchor="middle">255</text>
+  <path d="M345 228 C345 202, 205 202, 205 221" fill="none" stroke="#d6453d" stroke-width="1.8"/>
+  <path d="M205 230 l-5 -9 h10z" fill="#d6453d"/>
+  <text x="275" y="203" font-size="12" text-anchor="middle" font-weight="700">50戻る</text>
+  <path d="M625 228 C625 202, 485 202, 485 221" fill="none" stroke="#d6453d" stroke-width="1.8"/>
+  <path d="M485 230 l-5 -9 h10z" fill="#d6453d"/>
+  <text x="555" y="203" font-size="12" text-anchor="middle" font-weight="700">49戻る</text>
+  <path d="M191 228 V176 H639 V221" fill="none" stroke="#d6453d" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <path d="M639 230 l-5 -9 h10z" fill="#d6453d"/>
+  <text x="415" y="170" font-size="12" text-anchor="middle" font-weight="700">0の前は255に戻る（1戻る）</text>
+  <text x="14" y="250" font-size="15" font-weight="700">50 − 100</text>
+  <text x="14" y="269" font-size="12" fill-opacity="0.75">50＋1＋49＝100</text>
+  <text x="674" y="112" font-size="15" font-weight="700">→ 44</text>
+  <text x="674" y="258" font-size="15" font-weight="700">→ 206</text>
+</svg>
+```
+
+`uint8` のオーバーフロー。黄色の箱が計算前の値、青の箱が計算結果。255と0は、破線のようにつながっている
+:::
 
 エラーも警告も出ない点に注意してください。
 結果は、見た目にはもっともらしい0から255の整数です。
@@ -365,7 +428,7 @@ print(a16 - b16)
 `int16` は、−32768から32767までの整数を表せる型です。
 300も−50も、正しく計算できました。
 
-「どちらがどれだけ大きいか」ではなく「どれだけ違うか」だけを知りたいときは、**絶対値**（マイナスの符号を取り除いた値）を求めます。
+「どちらがどれだけ大きいか」ではなく「どれだけ違うか」だけを知りたいときは、**絶対値**（absolute value。マイナスの符号を取り除いた値）を求めます。
 
 ```python
 print(np.abs(a16 - b16))
@@ -406,7 +469,7 @@ print((a / 2).dtype)
 float64
 ```
 
-`float64` は小数を表す型です（**浮動小数点数**と呼びます）。
+`float64` は小数を表す型です（**浮動小数点数**、英語でfloating-point numberと呼びます）。
 `100.` のように末尾に点が付いているのは、小数であることを示しています。
 `float64` は非常に広い範囲の値を表せるので、オーバーフローの心配はまずありません。
 本書では、平均などの計算をするときは `float64` に、差を求めるときは `int16` に変換するか、あとで紹介する `cv2.absdiff` を使う、という使い分けをします。
@@ -453,7 +516,7 @@ print(b, g, r)
 最後の赤がもっとも大きな値です。
 主人公の赤みがかった茶色の髪の画素ですから、赤が強いのは見た目どおりです。
 
-この3つの数値の層を、それぞれ**チャンネル**と呼びます。
+この3つの数値の層を、それぞれ**チャンネル**（channel）と呼びます。
 OpenCVで読み込んだ画像では、0番目がBチャンネル、1番目がGチャンネル、2番目がRチャンネルです。
 
 ### 変換しないと、赤と青が入れ替わる
@@ -589,7 +652,7 @@ plt.show()
 
 @fig-ch03-cmap-default の左は、濃い青紫から緑を経て黄色へと変わる配色になりました。
 2次元の配列は「色」の情報を持たないので、Matplotlibは数値の大小を、あらかじめ決められた配色に当てはめて表示します。
-この配色を**カラーマップ**と呼びます。
+この配色を**カラーマップ**（colormap）と呼びます。
 数値の小さいところが青紫、大きいところが黄色になっているだけで、画像に色が付いたわけではありません。
 
 1つ目の注意は、白黒の濃淡で表示したいときには `cmap="gray"` を指定する、ということです。
@@ -634,7 +697,7 @@ plt.show()
 画像の一部分だけを取り出したいことがあります。
 顔のあたりだけを調べたい、字幕の部分を除きたい、といった場合です。
 配列では、位置の代わりに「開始:終了」という範囲を書くことで、その部分を切り出せます。
-この書き方を**スライス**と呼びます。
+この書き方を**スライス**（slice）と呼びます。
 
 主人公の顔のあたりを切り出してみます。
 
@@ -656,6 +719,44 @@ print(face.shape)
 範囲の終わりの番号（200や620）は、切り出す部分に**含まれません**。
 `range(100, 200)` が100から199までを表すのと同じ規則です。
 そのため、切り出した部分の画素数は、単純に引き算で求められます（200−100＝100）。
+縦の範囲 `100:200` を図にすると、@fig-ch03-slice-range のようになります。
+
+::: {#fig-ch03-slice-range}
+
+```{=html}
+<svg viewBox="0 0 760 180" role="img" aria-label="スライス100:200が指す範囲。行の番号を箱に並べ、100番目から199番目までに色を付けてある。開始の100は含まれ、終了の200は含まれない。切り出されるのは200引く100で100行。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="150" y="74" width="62" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="181" y="101.4" font-size="15" font-weight="700" text-anchor="middle">98</text>
+  <rect x="212" y="74" width="62" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="243" y="101.4" font-size="15" font-weight="700" text-anchor="middle">99</text>
+  <rect x="274" y="74" width="62" height="44" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="305" y="101.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">100</text>
+  <rect x="336" y="74" width="62" height="44" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="367" y="101.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">101</text>
+  <rect x="398" y="74" width="62" height="44" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="429" y="101.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">…</text>
+  <rect x="460" y="74" width="62" height="44" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="491" y="101.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">198</text>
+  <rect x="522" y="74" width="62" height="44" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="553" y="101.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">199</text>
+  <rect x="584" y="74" width="62" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="615" y="101.4" font-size="15" font-weight="700" text-anchor="middle">200</text>
+  <rect x="646" y="74" width="62" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="677" y="101.4" font-size="15" font-weight="700" text-anchor="middle">201</text>
+  <text x="138" y="102" font-size="13" text-anchor="end" fill-opacity="0.75">行の番号</text>
+  <line x1="274" y1="44" x2="274" y2="126" stroke="#d6453d" stroke-width="3"/>
+  <line x1="584" y1="44" x2="584" y2="126" stroke="#d6453d" stroke-width="3"/>
+  <text x="274" y="36" font-size="14" text-anchor="middle" font-weight="700">開始 100</text>
+  <text x="584" y="36" font-size="14" text-anchor="middle" font-weight="700">終了 200</text>
+  <text x="282" y="62" font-size="12" fill-opacity="0.75">ここから</text>
+  <text x="576" y="62" font-size="12" text-anchor="end" fill-opacity="0.75">ここの手前まで</text>
+  <path d="M280 134 v6 h298 v-6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.6"/>
+  <text x="429" y="160" font-size="13" text-anchor="middle">切り出される行：100番目から199番目まで（200 − 100 ＝ 100行）</text>
+</svg>
+```
+
+スライス `100:200` が指す範囲。開始の番号は含まれ、終了の番号は含まれない
+:::
 
 切り出した結果も配列ですから、そのまま表示できます。
 
@@ -688,7 +789,7 @@ print(img[::2, ::2].shape)
 
 2つ目の `img[58:422]` には、実用的な意味があります。
 このフレームの上下には、黒い帯があります。
-横長の映画を、それより縦に長い画面に収めるために付けられた帯で、**レターボックス**と呼ばれます。
+横長の映画を、それより縦に長い画面に収めるために付けられた帯で、**レターボックス**（letterbox）と呼ばれます。
 このフレームで調べると、絵が映っているのは58番目から421番目の行でした。
 帯の部分と絵の部分の値を調べてみます。
 
@@ -826,7 +927,7 @@ plt.show()
 
 明るさや動きを調べるときは、色の情報が要らないことがよくあります。
 そのような場合は、1つの画素が持つ3つの数値を、明るさを表す1つの数値にまとめます。
-こうして作った白黒の濃淡だけの画像を**グレースケール画像**と呼びます。
+こうして作った白黒の濃淡だけの画像を**グレースケール画像**（grayscale image）と呼びます。
 
 変換には、ここでも `cv2.cvtColor` を使います。
 
@@ -883,7 +984,7 @@ $$
 
 $R$、$G$、$B$ はその画素の赤・緑・青の値、$Y$ が求めるグレースケールの値です。
 3つの値に、それぞれ異なる係数を掛けてから足し合わせています。
-この係数を**重み**と呼び、このような計算を**重み付き和**と呼びます。
+この係数を**重み**（weight）と呼び、このような計算を**重み付き和**（weighted sum）と呼びます。
 3つの重みを足すと、0.299＋0.587＋0.114＝1になります。
 つまりこの式は、「緑を約6割、赤を約3割、青を約1割の比率で混ぜた平均」を計算しています。
 
@@ -891,7 +992,7 @@ $R$、$G$、$B$ はその画素の赤・緑・青の値、$Y$ が求めるグレ
 人間の目は、同じ強さの光でも、緑をもっとも明るく、青をもっとも暗く感じます。
 この重みは、テレビ放送の規格（ITU-R BT.601）で定められたものです [@itu-bt601]。
 $Y$ は、単なる数値の平均ではなく、「人間が感じる明るさ」に近づけた値だといえます。
-この値を**輝度**と呼びます。
+この値を**輝度**（luminance）と呼びます。
 輝度については、第5章であらためて取り上げます。
 
 式のとおりに計算して、確かめてみましょう。
@@ -1129,7 +1230,7 @@ NumPyの配列は、すべての要素が同じ型（ここでは `uint8`）で�
 `gray.mean()` を呼び出すと、NumPyの内部にある、あらかじめ機械語に翻訳されたプログラムが、その数値の並びを一気に処理します。
 要素ごとの準備が要らないので、高速に計算できます。
 
-このように、繰り返しを自分で書かずに、配列全体に対する演算として書くことを**ベクトル化**と呼びます。
+このように、繰り返しを自分で書かずに、配列全体に対する演算として書くことを**ベクトル化**（vectorization）と呼びます。
 ベクトル化したコードは、速いだけでなく、短くて読みやすくなります。
 「すべての画素の平均」と言葉で言うとおりのことが、`gray.mean()` とそのまま書けるからです。
 
@@ -1138,7 +1239,7 @@ NumPyの配列は、すべての要素が同じ型（ここでは `uint8`）で�
 ベクトル化した書き方は、すでにこの章で何度も使っています。
 ここで整理しておきましょう。
 
-**集計**。
+**集計**（aggregation）。
 配列全体から1つの数値を求めます。
 
 ```python
@@ -1185,7 +1286,7 @@ False True
 `bright` は、元の画像と同じ形で、`True` か `False` だけが入った配列です（`bool` はその型の名前です）。
 値が150より大きい画素が `True` になっています。
 髪の画素（値は117）は `False`、雪の画素は `True` です。
-このような、条件に合う画素を示す配列を**マスク**と呼びます。
+このような、条件に合う画素を示す配列を**マスク**（mask）と呼びます。
 
 マスクは、画像として表示できます。
 

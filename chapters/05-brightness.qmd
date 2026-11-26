@@ -166,7 +166,7 @@ Sintelの予告編の全フレームについて、黒帯を除いた平均輝�
 映像技術の分野では、この区別をはっきりさせるために、画素値から計算した $Y$ を**ルーマ**（luma）と呼んで、物理的な輝度と呼び分けることがあります。
 
 ::: {.callout-note title="ガンマ補正を考えなくてよいのか"}
-1つ目の、光の強さを変換して記録するしくみを、**ガンマ補正**と呼びます。
+1つ目の、光の強さを変換して記録するしくみを、**ガンマ補正**（gamma correction）と呼びます。
 この変換では、画素値が半分になっても、光の強さは半分にはなりません。
 たとえば、パソコンの画像で広く使われているsRGBという規格では、画素値128が表す光の強さは、画素値255のおよそ2割です。
 
@@ -198,8 +198,8 @@ Sintelの予告編の全フレームについて、黒帯を除いた平均輝�
 このままでは多すぎて扱えないので、1枚のフレームを少数の数で要約します。
 ここでは次の2つを使います。
 
-- **平均輝度**：全画素の輝度の平均です。フレーム全体がどれくらい明るいかを表します。
-- **コントラスト**：全画素の輝度の**標準偏差**です。フレームの中で、明るい部分と暗い部分の差がどれくらい大きいかを表します。
+- **平均輝度**（mean luminance）：全画素の輝度の平均です。フレーム全体がどれくらい明るいかを表します。
+- **コントラスト**（contrast）：全画素の輝度の**標準偏差**（standard deviation）です。フレームの中で、明るい部分と暗い部分の差がどれくらい大きいかを表します。
 
 標準偏差は、値が平均のまわりにどれくらい散らばっているかを表す量で、次の式で計算します。
 
@@ -290,7 +290,7 @@ plt.show()
 ### ヒストグラムを計算する
 
 平均と標準偏差は、41万個の値をたった2つの数に要約したものです。
-要約する前の姿、つまり「どの輝度の画素が何個あるか」を数えたものが**ヒストグラム**です。
+要約する前の姿、つまり「どの輝度の画素が何個あるか」を数えたものが**ヒストグラム**（histogram）です。
 輝度は0から255までの256通りですから、256個の箱を用意して、それぞれの値を持つ画素を数えます。
 
 NumPyの `np.histogram` で計算します。
@@ -479,6 +479,94 @@ print(row_mean_all[418:428].round(1))
 
 `.round(1)` は、配列の値を小数点以下1桁に丸めます。
 出力の1行目は52番目から61番目の行、2行目は418番目から427番目の行の値です。
+行の番号と値を対応させて並べると、@fig-ch05-letterbox-rows のようになります。
+
+::: {#fig-ch05-letterbox-rows}
+
+```{=html}
+<svg viewBox="0 0 760 290" role="img" aria-label="行ごとの平均輝度を、境目の付近で箱に並べた図。上の境目では、52番目から57番目の行が0.1、0、0.1、0.3、0.5、0.8で黒帯、58番目から61番目の行が67.4、68.0、68.0、68.2で絵の部分。下の境目では、418番目から421番目の行が50.5、50.5、50.4、49.9で絵の部分、422番目から427番目の行が0.8、0.6、0.2、0.1、0、0.1で黒帯。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <text x="102" y="38" font-size="12" text-anchor="end" fill-opacity="0.75">行の番号</text>
+  <text x="14" y="68" font-size="14" font-weight="700">上の境目</text>
+  <text x="14" y="86" font-size="12" fill-opacity="0.75">[52:62]</text>
+  <text x="143" y="38" font-size="13" text-anchor="middle" fill-opacity="0.75">52</text>
+  <rect x="112" y="46" width="62" height="46" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="143" y="75" font-size="15" font-weight="700" text-anchor="middle" fill="#f2f2f2">0.1</text>
+  <text x="205" y="38" font-size="13" text-anchor="middle" fill-opacity="0.75">53</text>
+  <rect x="174" y="46" width="62" height="46" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="205" y="75" font-size="15" font-weight="700" text-anchor="middle" fill="#f2f2f2">0.0</text>
+  <text x="267" y="38" font-size="13" text-anchor="middle" fill-opacity="0.75">54</text>
+  <rect x="236" y="46" width="62" height="46" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="267" y="75" font-size="15" font-weight="700" text-anchor="middle" fill="#f2f2f2">0.1</text>
+  <text x="329" y="38" font-size="13" text-anchor="middle" fill-opacity="0.75">55</text>
+  <rect x="298" y="46" width="62" height="46" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="329" y="75" font-size="15" font-weight="700" text-anchor="middle" fill="#f2f2f2">0.3</text>
+  <text x="391" y="38" font-size="13" text-anchor="middle" fill-opacity="0.75">56</text>
+  <rect x="360" y="46" width="62" height="46" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="391" y="75" font-size="15" font-weight="700" text-anchor="middle" fill="#f2f2f2">0.5</text>
+  <text x="453" y="38" font-size="13" text-anchor="middle" fill-opacity="0.75">57</text>
+  <rect x="422" y="46" width="62" height="46" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="453" y="75" font-size="15" font-weight="700" text-anchor="middle" fill="#f2f2f2">0.8</text>
+  <text x="515" y="38" font-size="13" text-anchor="middle" fill-opacity="0.75">58</text>
+  <rect x="484" y="46" width="62" height="46" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="515" y="75" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">67.4</text>
+  <text x="577" y="38" font-size="13" text-anchor="middle" fill-opacity="0.75">59</text>
+  <rect x="546" y="46" width="62" height="46" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="577" y="75" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">68.0</text>
+  <text x="639" y="38" font-size="13" text-anchor="middle" fill-opacity="0.75">60</text>
+  <rect x="608" y="46" width="62" height="46" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="639" y="75" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">68.0</text>
+  <text x="701" y="38" font-size="13" text-anchor="middle" fill-opacity="0.75">61</text>
+  <rect x="670" y="46" width="62" height="46" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="701" y="75" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">68.2</text>
+  <line x1="484" y1="20" x2="484" y2="102" stroke="#d6453d" stroke-width="3"/>
+  <path d="M117 104 v6 h362 v-6" fill="none" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.3"/>
+  <text x="298" y="129" font-size="13" text-anchor="middle">黒帯</text>
+  <path d="M489 104 v6 h238 v-6" fill="none" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.3"/>
+  <text x="608" y="129" font-size="13" text-anchor="middle">絵が映っている行</text>
+  <text x="102" y="178" font-size="12" text-anchor="end" fill-opacity="0.75">行の番号</text>
+  <text x="14" y="208" font-size="14" font-weight="700">下の境目</text>
+  <text x="14" y="226" font-size="12" fill-opacity="0.75">[418:428]</text>
+  <text x="143" y="178" font-size="13" text-anchor="middle" fill-opacity="0.75">418</text>
+  <rect x="112" y="186" width="62" height="46" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="143" y="215" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">50.5</text>
+  <text x="205" y="178" font-size="13" text-anchor="middle" fill-opacity="0.75">419</text>
+  <rect x="174" y="186" width="62" height="46" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="205" y="215" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">50.5</text>
+  <text x="267" y="178" font-size="13" text-anchor="middle" fill-opacity="0.75">420</text>
+  <rect x="236" y="186" width="62" height="46" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="267" y="215" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">50.4</text>
+  <text x="329" y="178" font-size="13" text-anchor="middle" fill-opacity="0.75">421</text>
+  <rect x="298" y="186" width="62" height="46" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="329" y="215" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">49.9</text>
+  <text x="391" y="178" font-size="13" text-anchor="middle" fill-opacity="0.75">422</text>
+  <rect x="360" y="186" width="62" height="46" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="391" y="215" font-size="15" font-weight="700" text-anchor="middle" fill="#f2f2f2">0.8</text>
+  <text x="453" y="178" font-size="13" text-anchor="middle" fill-opacity="0.75">423</text>
+  <rect x="422" y="186" width="62" height="46" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="453" y="215" font-size="15" font-weight="700" text-anchor="middle" fill="#f2f2f2">0.6</text>
+  <text x="515" y="178" font-size="13" text-anchor="middle" fill-opacity="0.75">424</text>
+  <rect x="484" y="186" width="62" height="46" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="515" y="215" font-size="15" font-weight="700" text-anchor="middle" fill="#f2f2f2">0.2</text>
+  <text x="577" y="178" font-size="13" text-anchor="middle" fill-opacity="0.75">425</text>
+  <rect x="546" y="186" width="62" height="46" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="577" y="215" font-size="15" font-weight="700" text-anchor="middle" fill="#f2f2f2">0.1</text>
+  <text x="639" y="178" font-size="13" text-anchor="middle" fill-opacity="0.75">426</text>
+  <rect x="608" y="186" width="62" height="46" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="639" y="215" font-size="15" font-weight="700" text-anchor="middle" fill="#f2f2f2">0.0</text>
+  <text x="701" y="178" font-size="13" text-anchor="middle" fill-opacity="0.75">427</text>
+  <rect x="670" y="186" width="62" height="46" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="701" y="215" font-size="15" font-weight="700" text-anchor="middle" fill="#f2f2f2">0.1</text>
+  <line x1="360" y1="160" x2="360" y2="242" stroke="#d6453d" stroke-width="3"/>
+  <path d="M117 244 v6 h238 v-6" fill="none" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.3"/>
+  <text x="236" y="269" font-size="13" text-anchor="middle">絵が映っている行</text>
+  <path d="M365 244 v6 h362 v-6" fill="none" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.3"/>
+  <text x="546" y="269" font-size="13" text-anchor="middle">黒帯</text>
+</svg>
+```
+
+境目の付近の、行ごとの平均輝度。箱の上の数が行の番号、箱の中の数が全フレームを通した平均輝度。赤い線が黒帯と絵の境目
+:::
+
 上側では、57番目の行の0.8から58番目の行の67.4へと値が跳ね上がっています。
 下側では、421番目の行の49.9から422番目の行の0.8へと急に落ちています。
 境目は明確で、全フレームを通しても、**絵が映っているのは58番目から421番目の行まで**だとわかりました。
@@ -636,7 +724,10 @@ plt.show()
 ::: {.callout-note title="ヒストグラムの細いすき間について"}
 @fig-ch05-hist-400-zoom や @fig-ch05-hist-three のヒストグラムには、櫛の歯のような細いすき間が、ほぼ7つおきに入っています。
 これは絵の内容によるものではありません。
-動画ファイルの中では、明るさが0〜255よりも狭い範囲の数で記録されており、それを0〜255に引き伸ばすときに、現れにくい値が等間隔に生じるためと考えられます。
+この動画ファイルの中では、明るさが、16を黒、235を白とする220段階の数で記録されています。
+読み込むときに、それが0〜255の256段階に引き伸ばされます。
+220個の値を256個の場所に割り振るので、36個の場所が余ります。
+余った場所が、ほぼ7つおきのすき間になります。
 分布の大まかな形を読むうえでは、気にする必要はありません。
 :::
 
@@ -684,6 +775,7 @@ print(len(rows))
 pandasでは、表を**DataFrame**（データフレーム）と呼びます。
 Excelのシートのように、行と列があり、列には名前が付いています。
 辞書のリストは、`pd.DataFrame` に渡すだけでDataFrameになります。
+DataFrameの使い方は、小さな例と図を使って、@sec-app-dataframe にまとめてあります。
 
 ```python
 df = pd.DataFrame(rows)
@@ -704,7 +796,7 @@ df.head()
 辞書のキーだった `frame`、`time`、`brightness`、`contrast` が、そのまま列の名前になっています。
 1行が1フレームに対応します。
 
-左端の、名前のない0、1、2……は**インデックス**と呼ばれる、行の見出しです。
+左端の、名前のない0、1、2……は**インデックス**（index）と呼ばれる、行の見出しです。
 とくに指定しなければ、0から順に番号が振られます。
 ここでは全フレームを先頭から順に入れたので、インデックスとフレーム番号が一致しています。
 
@@ -805,7 +897,7 @@ max    1252.00    52.17      188.35     80.37
 
 `count` は値の個数、`mean` は平均、`std` は標準偏差、`min` と `max` は最小値と最大値です。
 `25%`、`50%`、`75%` は、値を小さい順に並べたときに、下から25%、50%、75%の位置にくる値です。
-50%の値は**中央値**とも呼ばれます。
+50%の値は**中央値**（median）とも呼ばれます。
 
 `brightness` の列を見ると、25%の値が3.80です。
 つまり、全フレームの4分の1は、平均輝度が3.8以下の、真っ黒か、それに近い画面だということになります。
@@ -887,7 +979,7 @@ plt.show()
 52秒の予告編の明るさの移り変わりが、1本の線になりました。
 グラフの形から、次のようなことが読み取れます。
 
-- **斜めの線**：0.5秒から4.5秒にかけて、線がなだらかに上がっています。黒い画面から絵が徐々に現れる**フェードイン**です。8秒から9秒にかけてと、39秒から42秒にかけての下り坂は、絵が徐々に暗くなる**フェードアウト**です。
+- **斜めの線**：0.5秒から4.5秒にかけて、線がなだらかに上がっています。黒い画面から絵が徐々に現れる**フェードイン**（fade-in）です。8秒から9秒にかけてと、39秒から42秒にかけての下り坂は、絵が徐々に暗くなる**フェードアウト**（fade-out）です。
 - **垂直な段差**：16.5秒付近や26秒付近では、値が一瞬で跳ね上がっています。暗い画面（16.5秒付近では真っ黒な画面）から明るい場面へ、**カット**で切り替わった箇所です。
 - **0に落ちる谷**：17.5秒、21.7秒、28秒、32秒の付近などで、線が0まで落ちています。場面と場面の間に、真っ黒なフレームが入っている箇所です。
 - **水平な線**：48.5秒から51秒にかけて、値がまったく変わらない区間があります。文字だけが表示された静止画面（クレジット）です。
@@ -927,10 +1019,10 @@ plt.show()
 
 時系列のグラフは、細かい上下動が多いと、全体の流れが読み取りにくくなります。
 そこで、細かい変動をならして、大きな傾向を見やすくする方法がよく使われます。
-その代表が**移動平均**です。
+その代表が**移動平均**（moving average）です。
 
 移動平均は、それぞれの時点の値を、その前後の値の平均で置き換える計算です。
-平均をとる範囲を**窓**、その長さを**窓幅**と呼びます。
+平均をとる範囲を**窓**（window）、その長さを**窓幅**（window size）と呼びます。
 窓を1つずつずらしながら平均を計算していくので、「移動」平均という名前が付いています。
 
 pandasでは、`rolling` で窓を指定し、続けて `mean()` を呼びます。
@@ -985,12 +1077,96 @@ dtype: float64
 
 今度は、最大値が3番目になり、もとのデータの山の位置と一致しました。
 代わりに、`NaN` が先頭と末尾に1つずつ現れます。
+2つの結果の違いを、@fig-ch05-rolling-window に示します。
+
+::: {#fig-ch05-rolling-window}
+
+```{=html}
+<svg viewBox="0 0 760 345" role="img" aria-label="窓幅3の移動平均のしくみ。もとの値は番号0から6の順に1、2、3、10、3、2、1。番号2から4の値3、10、3の平均5.33は、centerを付けない場合は番号4に、center=Trueを付けた場合は番号3に入る。centerを付けない結果はNaN、NaN、2.0、5.0、5.33、5.0、2.0。center=Trueの結果はNaN、2.0、5.0、5.33、5.0、2.0、NaN。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <text x="225" y="42" font-size="12" text-anchor="middle" fill-opacity="0.75">0</text>
+  <rect x="196" y="52" width="58" height="44" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="225" y="79.4" font-size="15" text-anchor="middle" fill-opacity="0.6">NaN</text>
+  <rect x="196" y="160" width="58" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="225" y="187.4" font-size="15" font-weight="700" text-anchor="middle">1</text>
+  <rect x="196" y="268" width="58" height="44" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="225" y="295.4" font-size="15" text-anchor="middle" fill-opacity="0.6">NaN</text>
+  <text x="225" y="330" font-size="12" text-anchor="middle" fill-opacity="0.75">0</text>
+  <text x="283" y="42" font-size="12" text-anchor="middle" fill-opacity="0.75">1</text>
+  <rect x="254" y="52" width="58" height="44" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="283" y="79.4" font-size="15" text-anchor="middle" fill-opacity="0.6">NaN</text>
+  <rect x="254" y="160" width="58" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="283" y="187.4" font-size="15" font-weight="700" text-anchor="middle">2</text>
+  <rect x="254" y="268" width="58" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="283" y="295.4" font-size="15" font-weight="700" text-anchor="middle">2.0</text>
+  <text x="283" y="330" font-size="12" text-anchor="middle" fill-opacity="0.75">1</text>
+  <text x="341" y="42" font-size="12" text-anchor="middle" fill-opacity="0.75">2</text>
+  <rect x="312" y="52" width="58" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="341" y="79.4" font-size="15" font-weight="700" text-anchor="middle">2.0</text>
+  <rect x="312" y="160" width="58" height="44" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="341" y="187.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">3</text>
+  <rect x="312" y="268" width="58" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="341" y="295.4" font-size="15" font-weight="700" text-anchor="middle">5.0</text>
+  <text x="341" y="330" font-size="12" text-anchor="middle" fill-opacity="0.75">2</text>
+  <text x="399" y="42" font-size="12" text-anchor="middle" fill-opacity="0.75">3</text>
+  <rect x="370" y="52" width="58" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="399" y="79.4" font-size="15" font-weight="700" text-anchor="middle">5.0</text>
+  <rect x="370" y="160" width="58" height="44" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="399" y="187.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">10</text>
+  <rect x="370" y="268" width="58" height="44" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="399" y="295.4" font-size="15" font-weight="700" text-anchor="middle" fill="#ffffff">5.33</text>
+  <text x="399" y="330" font-size="12" text-anchor="middle" fill-opacity="0.75">3</text>
+  <text x="457" y="42" font-size="12" text-anchor="middle" fill-opacity="0.75">4</text>
+  <rect x="428" y="52" width="58" height="44" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="457" y="79.4" font-size="15" font-weight="700" text-anchor="middle" fill="#ffffff">5.33</text>
+  <rect x="428" y="160" width="58" height="44" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="457" y="187.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">3</text>
+  <rect x="428" y="268" width="58" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="457" y="295.4" font-size="15" font-weight="700" text-anchor="middle">5.0</text>
+  <text x="457" y="330" font-size="12" text-anchor="middle" fill-opacity="0.75">4</text>
+  <text x="515" y="42" font-size="12" text-anchor="middle" fill-opacity="0.75">5</text>
+  <rect x="486" y="52" width="58" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="515" y="79.4" font-size="15" font-weight="700" text-anchor="middle">5.0</text>
+  <rect x="486" y="160" width="58" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="515" y="187.4" font-size="15" font-weight="700" text-anchor="middle">2</text>
+  <rect x="486" y="268" width="58" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="515" y="295.4" font-size="15" font-weight="700" text-anchor="middle">2.0</text>
+  <text x="515" y="330" font-size="12" text-anchor="middle" fill-opacity="0.75">5</text>
+  <text x="573" y="42" font-size="12" text-anchor="middle" fill-opacity="0.75">6</text>
+  <rect x="544" y="52" width="58" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="573" y="79.4" font-size="15" font-weight="700" text-anchor="middle">2.0</text>
+  <rect x="544" y="160" width="58" height="44" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="573" y="187.4" font-size="15" font-weight="700" text-anchor="middle">1</text>
+  <rect x="544" y="268" width="58" height="44" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="573" y="295.4" font-size="15" text-anchor="middle" fill-opacity="0.6">NaN</text>
+  <text x="573" y="330" font-size="12" text-anchor="middle" fill-opacity="0.75">6</text>
+  <text x="182" y="42" font-size="12" text-anchor="end" fill-opacity="0.75">番号</text>
+  <text x="182" y="330" font-size="12" text-anchor="end" fill-opacity="0.75">番号</text>
+  <text x="14" y="72" font-size="13" font-weight="700">rolling(window=3)</text>
+  <text x="14" y="90" font-size="12" fill-opacity="0.75">窓の右端に結果が入る</text>
+  <text x="14" y="187" font-size="13" font-weight="700">もとの値 s</text>
+  <text x="14" y="288" font-size="13" font-weight="700">center=True を付ける</text>
+  <text x="14" y="306" font-size="12" fill-opacity="0.75">窓の中央に結果が入る</text>
+  <path d="M317 154 v-6 h164 v6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.6"/>
+  <path d="M317 210 v6 h164 v-6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.6"/>
+  <line x1="399" y1="148" x2="457" y2="107" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M457 97 l-7 8 l9 3z" fill="#1f6fb2"/>
+  <line x1="399" y1="216" x2="399" y2="257" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M399 267 l-5 -9 h10z" fill="#1f6fb2"/>
+  <text x="616" y="180" font-size="13" font-weight="700">色の箱が窓</text>
+  <text x="616" y="198" font-size="12" fill-opacity="0.75">(3＋10＋3)÷3＝5.33</text>
+</svg>
+```
+
+窓幅3の移動平均。同じ3つの値の平均が、`center=True` を付けない場合は窓の右端（番号4）に、付けた場合は窓の中央（番号3）に入る
+:::
 本書では、移動平均にはつねに `center=True` を付けます。
 
 ### 窓幅を変えて比べる
 
 平均輝度の時系列に、2通りの窓幅で移動平均を適用します。
 24フレーム（1秒）と、120フレーム（5秒）です。
+結果を入れる変数は、`ma24`、`ma120` という名前にします。
+`ma` は、移動平均の英語 moving average の頭文字です。
 
 ```python
 ma24 = df["brightness"].rolling(window=24, center=True).mean()
@@ -1078,6 +1254,7 @@ print(df["brightness"][675], ma24[675], ma120[675])
 ただし、ここで調べるのは、黒帯を除いた平均輝度がもっとも大きいフレームです。
 
 `idxmax()` は、値が最大になる行のインデックスを返します。
+最大の値が複数の行にある場合は、そのうち最初の行のインデックスが返ります。
 
 ```python
 i = df["brightness"].idxmax()
@@ -1196,6 +1373,98 @@ visible.nsmallest(5, "brightness")
 
 平均輝度が1以上のフレームは1062枚です。
 インデックスは、もとの表のものがそのまま残ります。
+このしくみを、1119番目から1126番目の行を例にして、@fig-ch05-filter-rows に示します。
+
+::: {#fig-ch05-filter-rows}
+
+```{=html}
+<svg viewBox="0 0 760 300" role="img" aria-label="条件で行を絞り込むしくみ。インデックス1119から1126の平均輝度は1.24、1.17、1.08、1.00、0.90、0.81、0.74、0.66。1以上かどうかを行ごとに調べると、1119から1122はTrue、1123から1126はFalseになる。Trueの行だけが残り、インデックスはもとのまま1119から1122になる。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <text x="253" y="34" font-size="12" text-anchor="middle" fill-opacity="0.75">1119</text>
+  <rect x="222" y="44" width="62" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="253" y="70.4" font-size="15" font-weight="700" text-anchor="middle">1.24</text>
+  <rect x="222" y="134" width="62" height="42" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="253" y="160.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <line x1="253" y1="90" x2="253" y2="130" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.45"/>
+  <line x1="253" y1="180" x2="253" y2="212" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M253 222 l-5 -9 h10z" fill="#1f6fb2"/>
+  <rect x="222" y="224" width="62" height="42" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="253" y="250.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">1.24</text>
+  <text x="253" y="284" font-size="12" text-anchor="middle" fill-opacity="0.75">1119</text>
+  <text x="315" y="34" font-size="12" text-anchor="middle" fill-opacity="0.75">1120</text>
+  <rect x="284" y="44" width="62" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="315" y="70.4" font-size="15" font-weight="700" text-anchor="middle">1.17</text>
+  <rect x="284" y="134" width="62" height="42" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="315" y="160.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <line x1="315" y1="90" x2="315" y2="130" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.45"/>
+  <line x1="315" y1="180" x2="315" y2="212" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M315 222 l-5 -9 h10z" fill="#1f6fb2"/>
+  <rect x="284" y="224" width="62" height="42" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="315" y="250.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">1.17</text>
+  <text x="315" y="284" font-size="12" text-anchor="middle" fill-opacity="0.75">1120</text>
+  <text x="377" y="34" font-size="12" text-anchor="middle" fill-opacity="0.75">1121</text>
+  <rect x="346" y="44" width="62" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="377" y="70.4" font-size="15" font-weight="700" text-anchor="middle">1.08</text>
+  <rect x="346" y="134" width="62" height="42" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="377" y="160.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <line x1="377" y1="90" x2="377" y2="130" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.45"/>
+  <line x1="377" y1="180" x2="377" y2="212" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M377 222 l-5 -9 h10z" fill="#1f6fb2"/>
+  <rect x="346" y="224" width="62" height="42" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="377" y="250.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">1.08</text>
+  <text x="377" y="284" font-size="12" text-anchor="middle" fill-opacity="0.75">1121</text>
+  <text x="439" y="34" font-size="12" text-anchor="middle" fill-opacity="0.75">1122</text>
+  <rect x="408" y="44" width="62" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="439" y="70.4" font-size="15" font-weight="700" text-anchor="middle">1.00</text>
+  <rect x="408" y="134" width="62" height="42" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="439" y="160.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <line x1="439" y1="90" x2="439" y2="130" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.45"/>
+  <line x1="439" y1="180" x2="439" y2="212" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M439 222 l-5 -9 h10z" fill="#1f6fb2"/>
+  <rect x="408" y="224" width="62" height="42" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="439" y="250.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">1.00</text>
+  <text x="439" y="284" font-size="12" text-anchor="middle" fill-opacity="0.75">1122</text>
+  <text x="501" y="34" font-size="12" text-anchor="middle" fill-opacity="0.75">1123</text>
+  <rect x="470" y="44" width="62" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="501" y="70.4" font-size="15" font-weight="700" text-anchor="middle">0.90</text>
+  <rect x="470" y="134" width="62" height="42" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="501" y="160.04" font-size="14" text-anchor="middle" fill-opacity="0.6">False</text>
+  <line x1="501" y1="90" x2="501" y2="130" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.45"/>
+  <rect x="470" y="224" width="62" height="42" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="563" y="34" font-size="12" text-anchor="middle" fill-opacity="0.75">1124</text>
+  <rect x="532" y="44" width="62" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="563" y="70.4" font-size="15" font-weight="700" text-anchor="middle">0.81</text>
+  <rect x="532" y="134" width="62" height="42" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="563" y="160.04" font-size="14" text-anchor="middle" fill-opacity="0.6">False</text>
+  <line x1="563" y1="90" x2="563" y2="130" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.45"/>
+  <rect x="532" y="224" width="62" height="42" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="625" y="34" font-size="12" text-anchor="middle" fill-opacity="0.75">1125</text>
+  <rect x="594" y="44" width="62" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="625" y="70.4" font-size="15" font-weight="700" text-anchor="middle">0.74</text>
+  <rect x="594" y="134" width="62" height="42" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="625" y="160.04" font-size="14" text-anchor="middle" fill-opacity="0.6">False</text>
+  <line x1="625" y1="90" x2="625" y2="130" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.45"/>
+  <rect x="594" y="224" width="62" height="42" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="687" y="34" font-size="12" text-anchor="middle" fill-opacity="0.75">1126</text>
+  <rect x="656" y="44" width="62" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="687" y="70.4" font-size="15" font-weight="700" text-anchor="middle">0.66</text>
+  <rect x="656" y="134" width="62" height="42" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="687" y="160.04" font-size="14" text-anchor="middle" fill-opacity="0.6">False</text>
+  <line x1="687" y1="90" x2="687" y2="130" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.45"/>
+  <rect x="656" y="224" width="62" height="42" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="208" y="34" font-size="12" text-anchor="end" fill-opacity="0.75">インデックス</text>
+  <text x="208" y="284" font-size="12" text-anchor="end" fill-opacity="0.75">インデックス</text>
+  <text x="14" y="63" font-size="13" font-weight="700">df["brightness"]</text>
+  <text x="14" y="80" font-size="12" fill-opacity="0.75">もとの表の列</text>
+  <text x="14" y="153" font-size="13" font-weight="700">df["brightness"] &gt;= 1</text>
+  <text x="14" y="170" font-size="12" fill-opacity="0.75">行ごとに条件を調べた結果</text>
+  <text x="14" y="243" font-size="13" font-weight="700">df[df["brightness"] &gt;= 1]</text>
+  <text x="14" y="260" font-size="12" fill-opacity="0.75">True の行だけが残る</text>
+  <text x="594" y="284" font-size="12" text-anchor="middle" fill-opacity="0.75">False の行は除かれる</text>
+</svg>
+```
+
+条件による行の絞り込み。上段がもとの値、中段が条件を調べた結果、下段が残った行。値は小数点以下2桁に丸めてある（1122番目の行は1.003）
+:::
 
 しかし、結果はまだ満足のいくものではありません。
 1119番目から1122番目は連続したフレームで、しかも値が1.24、1.17、1.08、1.00と少しずつ減っています。
@@ -1203,14 +1472,27 @@ visible.nsmallest(5, "brightness")
 「1未満」という境目で切ったので、境目のすぐ上にある、消えかけのフレームが選ばれたわけです。
 境目を2や5に上げても、今度はその値のすぐ上にあるフェードの途中のフレームが選ばれるだけで、事情は変わりません。
 
+ここで、何を知りたかったのかを確かめておきます。
+知りたいのは、52秒の予告編の**どこに**暗い場面があるか、です。
+映像の全体を見渡して、暗い場面をいくつか拾い出したいのです。
+
+ところが、上位の5枚のうち4枚は、46.6秒から46.8秒までの、0.2秒足らずのあいだに集まっています。
+映像では、隣り合うフレームはほとんど同じ絵です。
+ある1枚が暗ければ、その前後のフレームも同じくらい暗くなります。
+そのため、小さい順に並べると、1つの場面の連続したフレームが上位を埋めてしまいます。
+5枚を取り出しても、わかるのは暗い場面が2つあることだけです。
+ほかの暗い場面は、その後ろに押しやられて見えません。
+明るいフレームの上位5つが、621番目から625番目までの連続したフレームだったのも、同じ理由です。
+
 ここまでで、問題が2つあることがわかりました。
 
-1. 隣り合うフレームが、上位にまとめて現れる。
+1. 隣り合うフレームが上位にまとめて現れ、映像のほかの場所にある場面が見えなくなる。
 2. フェードの途中のフレームが、暗いフレームとして選ばれる。
 
 ### 1秒に1枚だけを候補にする
 
 1つ目の問題は、候補を間引くことで避けられます。
+1つの場面から選ばれる候補を少なくすれば、上位には別々の場面が並ぶようになります。
 フレーム番号が24の倍数である行だけを残せば、1秒に1枚の割合になります。
 
 ```python

@@ -83,7 +83,7 @@ bad.release()
 
 ### 基本の4つのプロパティ
 
-動画の大きさやフレーム数などの情報を**プロパティ**と呼び、`cap.get` で取得します。
+動画の大きさやフレーム数などの情報を**プロパティ**（property）と呼び、`cap.get` で取得します。
 
 ```python
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -356,7 +356,7 @@ print(means[0], means[400])
 ### 読む位置を移動する
 
 映像の途中にある特定のフレームだけを見たいときは、「次に読む位置」を直接書き換えます。
-この操作を**シーク**と呼びます。
+この操作を**シーク**（seek）と呼びます。
 プロパティの値を設定するには、`cap.set` を使います。
 
 ```python
@@ -541,7 +541,7 @@ False None
 動画ファイルは、すべてのフレームを独立した画像として記録しているわけではありません。
 多くのフレームは、「前後のフレームとの違い」だけを記録することで、データの量を減らしています。
 単独で画像に戻せるフレームは、数十枚から数百枚に1枚の割合でしか含まれていません。
-このフレームを**キーフレーム**と呼びます。
+このフレームを**キーフレーム**（keyframe）と呼びます。
 （第9章では、同じ言葉を「ショットを代表する1枚のフレーム」という別の意味で使います。）
 
 途中のフレームを取り出すには、手前のキーフレームまで戻り、そこから目的のフレームまで順に復元していく必要があります。
@@ -697,10 +697,10 @@ False
 ```
 
 PNGは、読み直すと元の画像と完全に一致します。
-このような、元のデータを完全に復元できる圧縮を**可逆圧縮**と呼びます。
+このような、元のデータを完全に復元できる圧縮を**可逆圧縮**（lossless compression）と呼びます。
 JPEGは一致しません。
 JPEGは、人間の目には違いがわかりにくい範囲で画素の値を変えることで、ファイルを小さくしています。
-こちらは**非可逆圧縮**と呼びます。
+こちらは**非可逆圧縮**（lossy compression）と呼びます。
 
 どのくらい変わったのかを調べます。
 
@@ -796,7 +796,7 @@ True
 `cv2.VideoWriter` には、4つのものを指定します。
 
 1. **保存先のファイル名**。拡張子は `.mp4` にします。
-2. **圧縮方式の指定**。動画を圧縮する方式を**コーデック**と呼びます。OpenCVでは、コーデックを**FourCC**と呼ばれる4文字の記号で指定します。`"mp4v"` は、MPEG-4という方式を表す記号です。`cv2.VideoWriter_fourcc(*"mp4v")` は、この4文字を、OpenCVが受け取れる形に変換しています（`*` は、文字列を1文字ずつに分けて渡すための書き方です）。
+2. **圧縮方式の指定**。動画を圧縮する方式を**コーデック**（codec）と呼びます。OpenCVでは、コーデックを**FourCC**と呼ばれる4文字の記号で指定します。`"mp4v"` は、MPEG-4という方式を表す記号です。`cv2.VideoWriter_fourcc(*"mp4v")` は、この4文字を、OpenCVが受け取れる形に変換しています（`*` は、文字列を1文字ずつに分けて渡すための書き方です）。
 3. **フレームレート**。元の映像と同じ値にします。違う値にすると、再生の速さが変わってしまいます。
 4. **フレームの大きさ**。**（横, 縦）の順**で指定します。
 
@@ -1055,7 +1055,7 @@ print(len(values_5), f"{time_5:.2f} s")
 
 時間が減らない理由は、グレースケール化と平均の計算が、もともと軽い処理だからです。
 時間の大半は、`cap.read()` でフレームを読み込むところ、つまり圧縮された動画を画像に戻す処理に使われています。
-この処理を**デコード**と呼びます。
+この処理を**デコード**（decoding）と呼びます。
 上の関数は、計算しないフレームも `cap.read()` で読んでいるので、デコードの時間は減っていません。
 
 この時間をもとに、2時間の映画を処理する時間を見積もってみます。
@@ -1311,7 +1311,7 @@ print(f"{time_resize * 1000:.2f} ms")
 毎回同じコードを書いていると、ノートブックが長くなるだけでなく、`release()` を書き忘れたり、`isOpened()` の確認を省いたりといった間違いが入り込みます。
 
 そこで、繰り返し使う処理を5つの関数にまとめ、`videotools.py` という1つのファイルに保存します。
-このように、関数をまとめたファイルを**モジュール**と呼びます。
+このように、関数をまとめたファイルを**モジュール**（module）と呼びます。
 モジュールにしておけば、どのノートブックからでも `import` して使えます。
 
 作る関数は、@tbl-ch04-videotools の5つです。
@@ -1440,7 +1440,7 @@ print(frame_count * height * width * 3 / 1e9)
 `1e9` は10億のことで、バイト数をGB単位に直しています。
 52秒の予告編でも、すべてのフレームをためると約1.5GBになります。
 
-この問題を解決するのが、**ジェネレーター**です。
+この問題を解決するのが、**ジェネレーター**（generator）です。
 ジェネレーターは、結果を1つ作るたびに呼び出した側へ渡し、次を求められるまで待つ、という動きをする関数です。
 `return` の代わりに `yield` と書くと、その関数はジェネレーターになります。
 
@@ -1612,6 +1612,81 @@ for n, frame in iter_frames(path, start=400, stop=420, step=5):
 
 400、405、410、415番目の4枚が取り出されました。
 420番目は含まれません。
+このときの動きを図にすると、@fig-ch04-iter-step のようになります。
+
+::: {#fig-ch04-iter-step}
+
+```{=html}
+<svg viewBox="0 0 760 175" role="img" aria-label="iter_framesにstart=400、stop=420、step=5を指定したときの動き。フレーム番号を箱に並べた図。400、405、410、415番目はread()で読んで渡す。0番目から399番目までと、そのあいだの番号はgrab()で読み飛ばす。420番目以降は読まない。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="29" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="42.5" y="91.96" font-size="11" text-anchor="middle">0</text>
+  <rect x="56" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="69.5" y="91.96" font-size="11" text-anchor="middle">…</text>
+  <rect x="83" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="96.5" y="91.96" font-size="11" text-anchor="middle">398</text>
+  <rect x="110" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="123.5" y="91.96" font-size="11" text-anchor="middle">399</text>
+  <rect x="137" y="70" width="27" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="150.5" y="91.96" font-size="11" font-weight="700" text-anchor="middle" fill="#1c1300">400</text>
+  <rect x="164" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="177.5" y="91.96" font-size="11" text-anchor="middle">401</text>
+  <rect x="191" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="204.5" y="91.96" font-size="11" text-anchor="middle">402</text>
+  <rect x="218" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="231.5" y="91.96" font-size="11" text-anchor="middle">403</text>
+  <rect x="245" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="258.5" y="91.96" font-size="11" text-anchor="middle">404</text>
+  <rect x="272" y="70" width="27" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="285.5" y="91.96" font-size="11" font-weight="700" text-anchor="middle" fill="#1c1300">405</text>
+  <rect x="299" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="312.5" y="91.96" font-size="11" text-anchor="middle">406</text>
+  <rect x="326" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="339.5" y="91.96" font-size="11" text-anchor="middle">407</text>
+  <rect x="353" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="366.5" y="91.96" font-size="11" text-anchor="middle">408</text>
+  <rect x="380" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="393.5" y="91.96" font-size="11" text-anchor="middle">409</text>
+  <rect x="407" y="70" width="27" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="420.5" y="91.96" font-size="11" font-weight="700" text-anchor="middle" fill="#1c1300">410</text>
+  <rect x="434" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="447.5" y="91.96" font-size="11" text-anchor="middle">411</text>
+  <rect x="461" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="474.5" y="91.96" font-size="11" text-anchor="middle">412</text>
+  <rect x="488" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="501.5" y="91.96" font-size="11" text-anchor="middle">413</text>
+  <rect x="515" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="528.5" y="91.96" font-size="11" text-anchor="middle">414</text>
+  <rect x="542" y="70" width="27" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="555.5" y="91.96" font-size="11" font-weight="700" text-anchor="middle" fill="#1c1300">415</text>
+  <rect x="569" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="582.5" y="91.96" font-size="11" text-anchor="middle">416</text>
+  <rect x="596" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="609.5" y="91.96" font-size="11" text-anchor="middle">417</text>
+  <rect x="623" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="636.5" y="91.96" font-size="11" text-anchor="middle">418</text>
+  <rect x="650" y="70" width="27" height="36" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="663.5" y="91.96" font-size="11" text-anchor="middle">419</text>
+  <rect x="677" y="70" width="27" height="36" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="690.5" y="91.96" font-size="11" text-anchor="middle" fill-opacity="0.6">420</text>
+  <rect x="704" y="70" width="27" height="36" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="717.5" y="91.96" font-size="11" text-anchor="middle" fill-opacity="0.6">421</text>
+  <line x1="137" y1="36" x2="137" y2="112" stroke="#d6453d" stroke-width="3"/>
+  <line x1="677" y1="36" x2="677" y2="112" stroke="#d6453d" stroke-width="3"/>
+  <text x="131" y="48" font-size="13" text-anchor="end" font-weight="700">start=400</text>
+  <text x="671" y="30" font-size="13" text-anchor="end" font-weight="700">stop=420</text>
+  <path d="M150.5 64 v-6 h135 v6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.6"/>
+  <text x="218" y="48" font-size="13" text-anchor="middle" font-weight="700">step=5</text>
+  <rect x="29" y="140" width="22" height="16" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="59" y="153" font-size="13">read() で読んで、yield で渡す</text>
+  <rect x="279" y="140" width="22" height="16" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="309" y="153" font-size="13">grab() で読み飛ばす</text>
+  <rect x="479" y="140" width="22" height="16" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="509" y="153" font-size="13">読まない（ここで終わる）</text>
+</svg>
+```
+
+`iter_frames(path, start=400, stop=420, step=5)` の動き。箱の中の数はフレーム番号
+:::
 400番目のフレームの平均は、第2章で求めた値と一致しています。
 
 引数を省略すれば、すべてのフレームが対象になります。
