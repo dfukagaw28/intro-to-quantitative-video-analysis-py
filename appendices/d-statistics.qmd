@@ -28,6 +28,32 @@ $$
 たとえば、5つのショットの長さが2秒、2秒、3秒、3秒、40秒だったとします。
 平均は10秒ですが、中央値は3秒です。
 「ふつうのショットの長さ」を表しているのは、中央値のほうです。
+この例を @fig-app-stats-median に示します。
+
+::: {#fig-app-stats-median}
+
+```{=html}
+<svg viewBox="0 0 760 190" role="img" aria-label="中央値と平均の違い。5つのショットの長さを小さい順に並べると2秒、2秒、3秒、3秒、40秒。中央値は真ん中の3秒。平均は合計50秒を5で割った10秒で、40秒という1つの外れ値に引きずられている。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="180" y="56" width="80" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="220" y="82.4" font-size="15" text-anchor="middle">2秒</text>
+  <rect x="260" y="56" width="80" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="300" y="82.4" font-size="15" text-anchor="middle">2秒</text>
+  <rect x="340" y="56" width="80" height="42" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="380" y="82.4" font-size="15" font-weight="700" text-anchor="middle" fill="#ffffff">3秒</text>
+  <rect x="420" y="56" width="80" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="460" y="82.4" font-size="15" text-anchor="middle">3秒</text>
+  <rect x="500" y="56" width="80" height="42" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="540" y="82.4" font-size="15" font-weight="700" text-anchor="middle" fill="#1c1300">40秒</text>
+  <text x="166" y="83" font-size="12" text-anchor="end" fill-opacity="0.85">小さい順に並べる</text>
+  <line x1="380" y1="102" x2="380" y2="122" stroke="#1f6fb2" stroke-width="2"/>
+  <text x="380" y="140" font-size="13" text-anchor="middle" font-weight="700">中央値 ＝ 真ん中の値 ＝ 3秒</text>
+  <text x="540" y="46" font-size="12" text-anchor="middle" font-weight="700">外れ値</text>
+  <text x="380" y="170" font-size="12" text-anchor="middle" fill-opacity="0.9">平均 ＝ (2＋2＋3＋3＋40)÷5 ＝ 10秒　　40秒の1つに引きずられる</text>
+</svg>
+```
+
+中央値と平均。値を小さい順に並べたとき、真ん中にくるのが中央値
+:::
 
 本書では、動き量（第7章）やショットの長さ（第9章）のように、少数の極端な値を含む量について、平均と中央値の両方を見て、違いを確かめました。
 **平均と中央値が大きく離れているときは、分布が偏っている**という合図です。

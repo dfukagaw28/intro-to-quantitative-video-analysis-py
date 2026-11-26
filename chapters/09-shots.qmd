@@ -637,6 +637,7 @@ minute
 
 `groupby("minute")` は、`minute` の値が同じ行をまとめる命令です。
 続く `agg` で、まとめたグループごとに、個数（`count`）、平均（`mean`）、中央値（`median`）を計算しています。
+`groupby` のしくみは、@sec-app-dataframe の @fig-app-df-groupby に、小さな例で示してあります。
 
 表から、次のことが読み取れます。
 
@@ -810,6 +811,42 @@ shots[["start", "end", "first", "middle"]].head(3)
 2    378  552    378     465
 ```
 
+最初の3つのショットについて、2つの方法で選ばれるフレームを @fig-ch09-first-middle に示します。
+
+::: {#fig-ch09-first-middle}
+
+```{=html}
+<svg viewBox="0 0 760 215" role="img" aria-label="ショットの最初のフレームと中央のフレーム。ショット0はフレーム0から284までで、最初のフレームは0、中央のフレームは142。ショット1は285から377までで、最初は285、中央は331。ショット2は378から552までで、最初は378、中央は465。中央のフレームは、開始と終了の番号を足して2で割った商。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="70" y="80" width="329.837" height="44" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="234.919" y="107.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">ショット0</text>
+  <line x1="70" y1="58" x2="70" y2="130" stroke="#d6453d" stroke-width="2.5"/>
+  <text x="74" y="52" font-size="12" font-weight="700">first 0</text>
+  <line x1="234.34" y1="124" x2="234.34" y2="150" stroke="currentColor" stroke-width="2" stroke-opacity="0.8"/>
+  <text x="234.34" y="166" font-size="12" text-anchor="middle" font-weight="700">middle 142</text>
+  <text x="234.919" y="188" font-size="11" text-anchor="middle" fill-opacity="0.8">(0＋284)÷2 の商</text>
+  <text x="395.837" y="72" font-size="11" text-anchor="end" fill-opacity="0.75">end 284</text>
+  <rect x="399.837" y="80" width="107.631" height="44" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="453.653" y="107.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">ショット1</text>
+  <line x1="399.837" y1="58" x2="399.837" y2="130" stroke="#d6453d" stroke-width="2.5"/>
+  <text x="403.837" y="52" font-size="12" font-weight="700">first 285</text>
+  <line x1="453.074" y1="124" x2="453.074" y2="150" stroke="currentColor" stroke-width="2" stroke-opacity="0.8"/>
+  <text x="453.074" y="166" font-size="12" text-anchor="middle" font-weight="700">middle 331</text>
+  <text x="453.653" y="188" font-size="11" text-anchor="middle" fill-opacity="0.8">(285＋377)÷2 の商</text>
+  <text x="503.468" y="72" font-size="11" text-anchor="end" fill-opacity="0.75">end 377</text>
+  <rect x="507.468" y="80" width="202.532" height="44" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="608.734" y="107.04" font-size="14" font-weight="700" text-anchor="middle" fill="#f2f2f2">ショット2</text>
+  <line x1="507.468" y1="58" x2="507.468" y2="130" stroke="#d6453d" stroke-width="2.5"/>
+  <text x="511.468" y="52" font-size="12" font-weight="700">first 378</text>
+  <line x1="608.156" y1="124" x2="608.156" y2="150" stroke="currentColor" stroke-width="2" stroke-opacity="0.8"/>
+  <text x="608.156" y="166" font-size="12" text-anchor="middle" font-weight="700">middle 465</text>
+  <text x="608.734" y="188" font-size="11" text-anchor="middle" fill-opacity="0.8">(378＋552)÷2 の商</text>
+  <text x="706" y="72" font-size="11" text-anchor="end" fill-opacity="0.75">end 552</text>
+</svg>
+```
+
+最初のフレーム（`first`）と中央のフレーム（`middle`）。帯の長さは、ショットのフレーム数に比例する
+:::
+
 ### 平均的な画像にもっとも近いフレーム
 
 3つ目の方法は、少し手間がかかります。
@@ -880,6 +917,85 @@ print(nearest)
 ```
 
 `dist.argmin()` はショットの中での位置なので、開始フレーム `a` を足して、映像全体でのフレーム番号に直しています。
+「ショットの中での位置」と「フレーム番号」の関係を、@fig-ch09-nearest に示します。
+
+::: {#fig-ch09-nearest}
+
+```{=html}
+<svg viewBox="0 0 760 305" role="img" aria-label="平均画像にもっとも近いフレームを選ぶしくみ。ショット5の110枚の画像に、ショットの中での位置0から109が付いている。それぞれの画像について平均画像との違いを計算すると、110個の値が並んだdistになる。distがもっとも小さい位置はargminで求まり、ここでは0。ショットの開始フレーム1346にこの位置を足した1346が、映像全体でのフレーム番号になる。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <text x="267" y="41" font-size="12" text-anchor="middle" font-weight="700">0</text>
+  <rect x="236" y="50" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="267" y="72.32" font-size="12" text-anchor="middle">画像</text>
+  <rect x="236" y="150" width="62" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="267" y="172.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">10.1</text>
+  <rect x="236" y="250" width="62" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="267" y="272.32" font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff">1346</text>
+  <text x="329" y="41" font-size="12" text-anchor="middle" font-weight="700">1</text>
+  <rect x="298" y="50" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="329" y="72.32" font-size="12" text-anchor="middle">画像</text>
+  <rect x="298" y="150" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="329" y="172.68" font-size="13" text-anchor="middle">10.1</text>
+  <rect x="298" y="250" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="329" y="272.32" font-size="12" text-anchor="middle">1347</text>
+  <text x="391" y="41" font-size="12" text-anchor="middle" font-weight="700">2</text>
+  <rect x="360" y="50" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="391" y="72.32" font-size="12" text-anchor="middle">画像</text>
+  <rect x="360" y="150" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="391" y="172.68" font-size="13" text-anchor="middle">10.1</text>
+  <rect x="360" y="250" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="391" y="272.32" font-size="12" text-anchor="middle">1348</text>
+  <text x="453" y="41" font-size="12" text-anchor="middle" font-weight="700">3</text>
+  <rect x="422" y="50" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="453" y="72.32" font-size="12" text-anchor="middle">画像</text>
+  <rect x="422" y="150" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="453" y="172.68" font-size="13" text-anchor="middle">10.1</text>
+  <rect x="422" y="250" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="453" y="272.32" font-size="12" text-anchor="middle">1349</text>
+  <text x="515" y="41" font-size="12" text-anchor="middle" font-weight="700">4</text>
+  <rect x="484" y="50" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="515" y="72.32" font-size="12" text-anchor="middle">画像</text>
+  <rect x="484" y="150" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="515" y="172.68" font-size="13" text-anchor="middle">10.1</text>
+  <rect x="484" y="250" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="515" y="272.32" font-size="12" text-anchor="middle">1350</text>
+  <text x="577" y="41" font-size="12" text-anchor="middle" font-weight="700">…</text>
+  <rect x="546" y="50" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="577" y="72.32" font-size="12" text-anchor="middle">…</text>
+  <rect x="546" y="150" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="577" y="172.68" font-size="13" text-anchor="middle">…</text>
+  <rect x="546" y="250" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="577" y="272.32" font-size="12" text-anchor="middle">…</text>
+  <text x="639" y="41" font-size="12" text-anchor="middle" font-weight="700">108</text>
+  <rect x="608" y="50" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="639" y="72.32" font-size="12" text-anchor="middle">画像</text>
+  <rect x="608" y="150" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="639" y="172.68" font-size="13" text-anchor="middle">…</text>
+  <rect x="608" y="250" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="639" y="272.32" font-size="12" text-anchor="middle">1454</text>
+  <text x="701" y="41" font-size="12" text-anchor="middle" font-weight="700">109</text>
+  <rect x="670" y="50" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="701" y="72.32" font-size="12" text-anchor="middle">画像</text>
+  <rect x="670" y="150" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="701" y="172.68" font-size="13" text-anchor="middle">…</text>
+  <rect x="670" y="250" width="62" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="701" y="272.32" font-size="12" text-anchor="middle">1455</text>
+  <text x="224" y="41" font-size="11" text-anchor="end" font-weight="700">ショットの中での位置</text>
+  <text x="14" y="65" font-size="13" font-weight="700">stack</text>
+  <text x="14" y="81" font-size="11" fill-opacity="0.8">ショット5の110枚</text>
+  <text x="484" y="112" font-size="12" text-anchor="middle" fill-opacity="0.85">それぞれの画像と、平均画像との違いを1つの数にする</text>
+  <text x="14" y="165" font-size="13" font-weight="700">dist</text>
+  <text x="14" y="181" font-size="11" fill-opacity="0.8">平均画像との違い</text>
+  <text x="14" y="265" font-size="13" font-weight="700">フレーム番号</text>
+  <text x="14" y="281" font-size="11" fill-opacity="0.8">a ＋ ショットの中での位置</text>
+  <line x1="267" y1="190" x2="267" y2="239" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M267 247 l-5 -9 h10z" fill="#1f6fb2"/>
+  <text x="310" y="210" font-size="12" font-weight="700">dist.argmin() ＝ 0（もっとも小さい値の位置）</text>
+  <text x="310" y="230" font-size="12" fill-opacity="0.85">a ＋ 0 ＝ 1346 ＋ 0 ＝ 1346</text>
+</svg>
+```
+
+平均画像にもっとも近いフレームを選ぶ手順。`dist` の値は小数点以下1桁に丸めてあるので同じに見えるが、もっとも小さいのは位置0の値
+:::
 
 平均画像と、3つの方法で選んだフレームを並べてみます。
 

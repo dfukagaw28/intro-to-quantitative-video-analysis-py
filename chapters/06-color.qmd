@@ -475,6 +475,135 @@ print(h.shape, h[mask].shape)
 
 `h[mask]` は、色みのある277,726個の画素の色相を1列に並べた配列です。
 
+ここまでに値を調べた7つの画素を例にして、このしくみを @fig-ch06-mask に示します。
+
+::: {#fig-ch06-mask}
+
+```{=html}
+<svg viewBox="0 0 760 375" role="img" aria-label="マスクで色みのある画素だけを取り出すしくみ。7つの画素の色相、彩度、明度を並べた。空は24、80、248。肌は16、148、243。髪は4、173、133。髪の影は6、186、89。白は0、0、255。灰色は0、0、128。黒は0、0、0。彩度が40以上かどうかと、明度が40以上かどうかをそれぞれ調べ、両方がTrueの画素だけがマスクでTrueになる。空、肌、髪、髪の影の4つがTrueで、マスクを添字に使うと、その4つの色相24、16、4、6だけが取り出される。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <text x="268" y="42" font-size="12" text-anchor="middle" fill-opacity="0.8">空</text>
+  <rect x="236" y="52" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="268" y="72.68" font-size="13" text-anchor="middle">24</text>
+  <rect x="236" y="88" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="268" y="108.68" font-size="13" text-anchor="middle">80</text>
+  <rect x="236" y="124" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="268" y="144.68" font-size="13" text-anchor="middle">248</text>
+  <rect x="236" y="176" width="64" height="32" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="268" y="196.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="236" y="212" width="64" height="32" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="268" y="232.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="236" y="264" width="64" height="32" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="268" y="284.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">True</text>
+  <text x="332" y="42" font-size="12" text-anchor="middle" fill-opacity="0.8">肌</text>
+  <rect x="300" y="52" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="332" y="72.68" font-size="13" text-anchor="middle">16</text>
+  <rect x="300" y="88" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="332" y="108.68" font-size="13" text-anchor="middle">148</text>
+  <rect x="300" y="124" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="332" y="144.68" font-size="13" text-anchor="middle">243</text>
+  <rect x="300" y="176" width="64" height="32" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="332" y="196.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="300" y="212" width="64" height="32" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="332" y="232.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="300" y="264" width="64" height="32" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="332" y="284.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">True</text>
+  <text x="396" y="42" font-size="12" text-anchor="middle" fill-opacity="0.8">髪</text>
+  <rect x="364" y="52" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="396" y="72.68" font-size="13" text-anchor="middle">4</text>
+  <rect x="364" y="88" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="396" y="108.68" font-size="13" text-anchor="middle">173</text>
+  <rect x="364" y="124" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="396" y="144.68" font-size="13" text-anchor="middle">133</text>
+  <rect x="364" y="176" width="64" height="32" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="396" y="196.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="364" y="212" width="64" height="32" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="396" y="232.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="364" y="264" width="64" height="32" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="396" y="284.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">True</text>
+  <text x="460" y="42" font-size="12" text-anchor="middle" fill-opacity="0.8">髪の影</text>
+  <rect x="428" y="52" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="460" y="72.68" font-size="13" text-anchor="middle">6</text>
+  <rect x="428" y="88" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="460" y="108.68" font-size="13" text-anchor="middle">186</text>
+  <rect x="428" y="124" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="460" y="144.68" font-size="13" text-anchor="middle">89</text>
+  <rect x="428" y="176" width="64" height="32" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="460" y="196.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="428" y="212" width="64" height="32" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="460" y="232.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="428" y="264" width="64" height="32" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="460" y="284.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">True</text>
+  <text x="524" y="42" font-size="12" text-anchor="middle" fill-opacity="0.8">白</text>
+  <rect x="492" y="52" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="524" y="72.68" font-size="13" text-anchor="middle">0</text>
+  <rect x="492" y="88" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="524" y="108.68" font-size="13" text-anchor="middle">0</text>
+  <rect x="492" y="124" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="524" y="144.68" font-size="13" text-anchor="middle">255</text>
+  <rect x="492" y="176" width="64" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="524" y="196.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="492" y="212" width="64" height="32" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="524" y="232.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="492" y="264" width="64" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="524" y="284.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <text x="588" y="42" font-size="12" text-anchor="middle" fill-opacity="0.8">灰色</text>
+  <rect x="556" y="52" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="588" y="72.68" font-size="13" text-anchor="middle">0</text>
+  <rect x="556" y="88" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="588" y="108.68" font-size="13" text-anchor="middle">0</text>
+  <rect x="556" y="124" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="588" y="144.68" font-size="13" text-anchor="middle">128</text>
+  <rect x="556" y="176" width="64" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="588" y="196.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="556" y="212" width="64" height="32" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="588" y="232.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="556" y="264" width="64" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="588" y="284.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <text x="652" y="42" font-size="12" text-anchor="middle" fill-opacity="0.8">黒</text>
+  <rect x="620" y="52" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="652" y="72.68" font-size="13" text-anchor="middle">0</text>
+  <rect x="620" y="88" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="652" y="108.68" font-size="13" text-anchor="middle">0</text>
+  <rect x="620" y="124" width="64" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="652" y="144.68" font-size="13" text-anchor="middle">0</text>
+  <rect x="620" y="176" width="64" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="652" y="196.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="620" y="212" width="64" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="652" y="232.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="620" y="264" width="64" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="652" y="284.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <text x="14" y="73" font-size="13" font-weight="700">h（色相）</text>
+  <text x="14" y="109" font-size="13" font-weight="700">s（彩度）</text>
+  <text x="14" y="145" font-size="13" font-weight="700">v（明度）</text>
+  <text x="14" y="197" font-size="13" font-weight="700">s &gt;= 40</text>
+  <text x="14" y="233" font-size="13" font-weight="700">v &gt;= 40</text>
+  <text x="14" y="278" font-size="13" font-weight="700">mask</text>
+  <text x="14" y="293" font-size="12" fill-opacity="0.75">両方 True の画素</text>
+  <line x1="268" y1="300" x2="268" y2="320" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M268 328 l-5 -9 h10z" fill="#1f6fb2"/>
+  <rect x="236" y="330" width="64" height="32" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="268" y="350.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">24</text>
+  <line x1="332" y1="300" x2="332" y2="320" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M332 328 l-5 -9 h10z" fill="#1f6fb2"/>
+  <rect x="300" y="330" width="64" height="32" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="332" y="350.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">16</text>
+  <line x1="396" y1="300" x2="396" y2="320" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M396 328 l-5 -9 h10z" fill="#1f6fb2"/>
+  <rect x="364" y="330" width="64" height="32" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="396" y="350.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">4</text>
+  <line x1="460" y1="300" x2="460" y2="320" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M460 328 l-5 -9 h10z" fill="#1f6fb2"/>
+  <rect x="428" y="330" width="64" height="32" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="460" y="350.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">6</text>
+  <text x="14" y="344" font-size="13" font-weight="700">h[mask]</text>
+  <text x="14" y="359" font-size="12" fill-opacity="0.75">True の位置の色相だけ</text>
+  <text x="506" y="351" font-size="12" fill-opacity="0.8">7個のうち4個が残る</text>
+</svg>
+```
+
+マスクで色みのある画素だけを取り出す。上の3段がH・S・Vの値、中の2段がそれぞれの条件の結果、その下がマスク、最下段が取り出された色相
+:::
+
 ::: {.callout-important title="しきい値の40は、分析者が決めた値"}
 「Sが40以上、Vが40以上」という線引きに、決まった正解はありません。
 40という値は、0〜255の範囲の約16%にあたり、「明らかに灰色や黒に見える画素を外す」ための目安として本書で選んだものです。
@@ -962,6 +1091,74 @@ print(data.shape, data.dtype)
 ```
 
 縦68×横160＝10,880個の点ができました。
+並べ直しのようすを、縦2×横2の小さな画像を例にして、@fig-ch06-reshape に示します。
+
+::: {#fig-ch06-reshape}
+
+```{=html}
+<svg viewBox="0 0 760 240" role="img" aria-label="reshapeで画素を1列に並べるしくみ。縦2、横2の画像があり、左上の画素のB、G、Rは170、233、248、右上は102、177、243、左下は43、55、133、右下は24、36、89。reshape(-1, 3)で並べ直すと、4行3列の表になる。1行が1つの画素で、左上、右上、左下、右下の順に並ぶ。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="60" y="70" width="130" height="56" fill="#f8e9aa" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="125" y="103.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">[170 233 248]</text>
+  <rect x="190" y="70" width="130" height="56" fill="#f3b166" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="255" y="103.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">[102 177 243]</text>
+  <rect x="60" y="126" width="130" height="56" fill="#85372b" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="125" y="159.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">[43 55 133]</text>
+  <rect x="190" y="126" width="130" height="56" fill="#592418" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="255" y="159.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">[24 36 89]</text>
+  <text x="50" y="103" font-size="12" text-anchor="end" fill-opacity="0.75">行 0</text>
+  <text x="50" y="159" font-size="12" text-anchor="end" fill-opacity="0.75">行 1</text>
+  <text x="125" y="60" font-size="12" text-anchor="middle" fill-opacity="0.75">列 0</text>
+  <text x="255" y="60" font-size="12" text-anchor="middle" fill-opacity="0.75">列 1</text>
+  <text x="190" y="36" font-size="14" text-anchor="middle" font-weight="700">縦2×横2の画像</text>
+  <text x="190" y="204" font-size="12" text-anchor="middle" fill-opacity="0.8">形は (2, 2, 3)</text>
+  <line x1="336" y1="126" x2="408" y2="126" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M416 126 l-9 -5 v10z" fill="#1f6fb2"/>
+  <text x="376" y="114" font-size="12" text-anchor="middle" font-weight="700">reshape(-1, 3)</text>
+  <rect x="470" y="32" width="64" height="26" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="502" y="49.68" font-size="13" font-weight="700" text-anchor="middle">B</text>
+  <rect x="534" y="32" width="64" height="26" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="566" y="49.68" font-size="13" font-weight="700" text-anchor="middle">G</text>
+  <rect x="598" y="32" width="64" height="26" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="630" y="49.68" font-size="13" font-weight="700" text-anchor="middle">R</text>
+  <text x="460" y="80" font-size="12" text-anchor="end" font-weight="700">0</text>
+  <rect x="470" y="58" width="64" height="34" fill="#f8e9aa" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="502" y="80.04" font-size="14" text-anchor="middle" fill="#1c1300">170</text>
+  <rect x="534" y="58" width="64" height="34" fill="#f8e9aa" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="566" y="80.04" font-size="14" text-anchor="middle" fill="#1c1300">233</text>
+  <rect x="598" y="58" width="64" height="34" fill="#f8e9aa" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="630" y="80.04" font-size="14" text-anchor="middle" fill="#1c1300">248</text>
+  <text x="672" y="80" font-size="12" fill-opacity="0.8">空</text>
+  <text x="460" y="114" font-size="12" text-anchor="end" font-weight="700">1</text>
+  <rect x="470" y="92" width="64" height="34" fill="#f3b166" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="502" y="114.04" font-size="14" text-anchor="middle" fill="#1c1300">102</text>
+  <rect x="534" y="92" width="64" height="34" fill="#f3b166" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="566" y="114.04" font-size="14" text-anchor="middle" fill="#1c1300">177</text>
+  <rect x="598" y="92" width="64" height="34" fill="#f3b166" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="630" y="114.04" font-size="14" text-anchor="middle" fill="#1c1300">243</text>
+  <text x="672" y="114" font-size="12" fill-opacity="0.8">肌</text>
+  <text x="460" y="148" font-size="12" text-anchor="end" font-weight="700">2</text>
+  <rect x="470" y="126" width="64" height="34" fill="#85372b" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="502" y="148.04" font-size="14" text-anchor="middle" fill="#ffffff">43</text>
+  <rect x="534" y="126" width="64" height="34" fill="#85372b" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="566" y="148.04" font-size="14" text-anchor="middle" fill="#ffffff">55</text>
+  <rect x="598" y="126" width="64" height="34" fill="#85372b" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="630" y="148.04" font-size="14" text-anchor="middle" fill="#ffffff">133</text>
+  <text x="672" y="148" font-size="12" fill-opacity="0.8">髪</text>
+  <text x="460" y="182" font-size="12" text-anchor="end" font-weight="700">3</text>
+  <rect x="470" y="160" width="64" height="34" fill="#592418" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="502" y="182.04" font-size="14" text-anchor="middle" fill="#ffffff">24</text>
+  <rect x="534" y="160" width="64" height="34" fill="#592418" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="566" y="182.04" font-size="14" text-anchor="middle" fill="#ffffff">36</text>
+  <rect x="598" y="160" width="64" height="34" fill="#592418" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="630" y="182.04" font-size="14" text-anchor="middle" fill="#ffffff">89</text>
+  <text x="672" y="182" font-size="12" fill-opacity="0.8">髪の影</text>
+  <text x="566" y="24" font-size="12"></text>
+  <text x="566" y="216" font-size="12" text-anchor="middle" fill-opacity="0.8">形は (4, 3)　1行が1つの画素</text>
+</svg>
+```
+
+`reshape(-1, 3)` による並べ直し。箱の色は、その画素の実際の色。上の行から順に、左から右へ並ぶ
+:::
 
 ### `cv2.kmeans` を実行する
 
@@ -1030,6 +1227,80 @@ print(shares.round(3))
 ```
 
 もっとも大きなグループは `[143 212 244]`（明るい淡い橙色）で、全体の33.6%を占めています。
+並べ替えのようすを @fig-ch06-argsort に示します。
+
+::: {#fig-ch06-argsort}
+
+```{=html}
+<svg viewBox="0 0 760 320" role="img" aria-label="argsortで代表色を画素の多い順に並べ替えるしくみ。グループ0から4の中心の色と、画素の割合0.168、0.129、0.159、0.336、0.208がある。割合の大きい順に並べたときのもとの番号は3、4、0、2、1で、これがorderになる。この順に並べ替えると、割合は0.336、0.208、0.168、0.159、0.129の順になる。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <text x="285" y="36" font-size="12" text-anchor="middle" font-weight="700">0</text>
+  <rect x="236" y="46" width="98" height="36" fill="#e4a867" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="285" y="68.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">103 168 228</text>
+  <rect x="236" y="84" width="98" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="285" y="106.68" font-size="13" text-anchor="middle">0.168</text>
+  <text x="383" y="36" font-size="12" text-anchor="middle" font-weight="700">1</text>
+  <rect x="334" y="46" width="98" height="36" fill="#80402c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="383" y="68.68" font-size="13" font-weight="700" text-anchor="middle" fill="#fff">44 64 128</text>
+  <rect x="334" y="84" width="98" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="383" y="106.68" font-size="13" text-anchor="middle">0.129</text>
+  <text x="481" y="36" font-size="12" text-anchor="middle" font-weight="700">2</text>
+  <rect x="432" y="46" width="98" height="36" fill="#c4794f" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="481" y="68.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">79 121 196</text>
+  <rect x="432" y="84" width="98" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="481" y="106.68" font-size="13" text-anchor="middle">0.159</text>
+  <text x="579" y="36" font-size="12" text-anchor="middle" font-weight="700">3</text>
+  <rect x="530" y="46" width="98" height="36" fill="#f4d48f" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="579" y="68.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">143 212 244</text>
+  <rect x="530" y="84" width="98" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="579" y="106.68" font-size="13" text-anchor="middle">0.336</text>
+  <text x="677" y="36" font-size="12" text-anchor="middle" font-weight="700">4</text>
+  <rect x="628" y="46" width="98" height="36" fill="#28150b" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="677" y="68.68" font-size="13" font-weight="700" text-anchor="middle" fill="#fff">11 21 40</text>
+  <rect x="628" y="84" width="98" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="677" y="106.68" font-size="13" text-anchor="middle">0.208</text>
+  <line x1="579" y1="124" x2="285" y2="184" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.5"/>
+  <text x="285" y="198" font-size="12" text-anchor="middle" font-weight="700">3</text>
+  <rect x="236" y="206" width="98" height="36" fill="#f4d48f" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="285" y="228.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">143 212 244</text>
+  <rect x="236" y="244" width="98" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="285" y="266.68" font-size="13" text-anchor="middle">0.336</text>
+  <line x1="677" y1="124" x2="383" y2="184" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.5"/>
+  <text x="383" y="198" font-size="12" text-anchor="middle" font-weight="700">4</text>
+  <rect x="334" y="206" width="98" height="36" fill="#28150b" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="383" y="228.68" font-size="13" font-weight="700" text-anchor="middle" fill="#fff">11 21 40</text>
+  <rect x="334" y="244" width="98" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="383" y="266.68" font-size="13" text-anchor="middle">0.208</text>
+  <line x1="285" y1="124" x2="481" y2="184" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.5"/>
+  <text x="481" y="198" font-size="12" text-anchor="middle" font-weight="700">0</text>
+  <rect x="432" y="206" width="98" height="36" fill="#e4a867" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="481" y="228.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">103 168 228</text>
+  <rect x="432" y="244" width="98" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="481" y="266.68" font-size="13" text-anchor="middle">0.168</text>
+  <line x1="481" y1="124" x2="579" y2="184" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.5"/>
+  <text x="579" y="198" font-size="12" text-anchor="middle" font-weight="700">2</text>
+  <rect x="530" y="206" width="98" height="36" fill="#c4794f" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="579" y="228.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">79 121 196</text>
+  <rect x="530" y="244" width="98" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="579" y="266.68" font-size="13" text-anchor="middle">0.159</text>
+  <line x1="383" y1="124" x2="677" y2="184" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.5"/>
+  <text x="677" y="198" font-size="12" text-anchor="middle" font-weight="700">1</text>
+  <rect x="628" y="206" width="98" height="36" fill="#80402c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="677" y="228.68" font-size="13" font-weight="700" text-anchor="middle" fill="#fff">44 64 128</text>
+  <rect x="628" y="244" width="98" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="677" y="266.68" font-size="13" text-anchor="middle">0.129</text>
+  <text x="222" y="36" font-size="12" text-anchor="end" font-weight="700">グループの番号</text>
+  <text x="14" y="68" font-size="13" font-weight="700">centers（B G R）</text>
+  <text x="14" y="99" font-size="13" font-weight="700">画素の割合</text>
+  <text x="14" y="115" font-size="11" fill-opacity="0.8">sizes ÷ 合計</text>
+  <text x="222" y="198" font-size="12" text-anchor="end" font-weight="700">order</text>
+  <text x="14" y="228" font-size="13" font-weight="700">colors</text>
+  <text x="14" y="266" font-size="13" font-weight="700">shares</text>
+  <text x="481" y="302" font-size="12" text-anchor="middle" fill-opacity="0.9">order ＝ [3, 4, 0, 2, 1]：画素の多い順に並べたときの、もとの番号</text>
+</svg>
+```
+
+`np.argsort` による並べ替え。箱の色は、その代表色の実際の色。値は丸めて表示してある
+:::
 2番目は `[11 21 40]`（黒に近い焦げ茶）で20.8%です。
 
 ### 結果の揺れと再現性
@@ -1145,6 +1416,59 @@ def draw_palette(colors, shares, width=854, height=80):
         left = right
     return palette
 ```
+
+3つの色を、割合0.3、0.2、0.5で塗る場合を、@fig-ch06-cumsum に示します。
+
+::: {#fig-ch06-cumsum}
+
+```{=html}
+<svg viewBox="0 0 760 315" role="img" aria-label="cumsumでパレットの塗る位置を決めるしくみ。割合が0.3、0.2、0.5のとき、cumsumで先頭からの合計を求めると0.3、0.5、1.0になる。これに幅の854を掛けて丸めると256、427、854になる。パレットは、0から256までを1つ目の色、256から427までを2つ目の色、427から854までを3つ目の色で塗る。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="200" y="40" width="90" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="245" y="63.04" font-size="14" text-anchor="middle">0.3</text>
+  <rect x="200" y="96" width="90" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="245" y="119.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">0.3</text>
+  <rect x="200" y="152" width="90" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="245" y="175.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">256</text>
+  <rect x="290" y="40" width="90" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="335" y="63.04" font-size="14" text-anchor="middle">0.2</text>
+  <rect x="290" y="96" width="90" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="335" y="119.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">0.5</text>
+  <rect x="290" y="152" width="90" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="335" y="175.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">427</text>
+  <rect x="380" y="40" width="90" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="425" y="63.04" font-size="14" text-anchor="middle">0.5</text>
+  <rect x="380" y="96" width="90" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="425" y="119.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">1.0</text>
+  <rect x="380" y="152" width="90" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="425" y="175.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">854</text>
+  <text x="14" y="55" font-size="13" font-weight="700">shares</text>
+  <text x="14" y="71" font-size="11" fill-opacity="0.8">それぞれの色の割合</text>
+  <text x="14" y="111" font-size="13" font-weight="700">np.cumsum(shares)</text>
+  <text x="14" y="127" font-size="11" fill-opacity="0.8">先頭からの合計</text>
+  <text x="14" y="167" font-size="13" font-weight="700">edges</text>
+  <text x="14" y="183" font-size="11" fill-opacity="0.8">幅854を掛けて丸める</text>
+  <text x="484" y="118" font-size="12" fill-opacity="0.85">0.3、0.3＋0.2、0.3＋0.2＋0.5</text>
+  <rect x="110" y="236" width="167.869" height="40" fill="#f4d48f" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="193.934" y="260.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">[:, 0:256]</text>
+  <rect x="277.869" y="236" width="112.131" height="40" fill="#28150b" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="333.934" y="260.68" font-size="13" font-weight="700" text-anchor="middle" fill="#fff">[:, 256:427]</text>
+  <rect x="390" y="236" width="280" height="40" fill="#e4a867" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="530" y="260.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">[:, 427:854]</text>
+  <line x1="110" y1="276" x2="110" y2="284" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="110" y="299" font-size="12" text-anchor="middle" font-weight="700">0</text>
+  <line x1="277.869" y1="276" x2="277.869" y2="284" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="277.869" y="299" font-size="12" text-anchor="middle" font-weight="700">256</text>
+  <line x1="390" y1="276" x2="390" y2="284" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="390" y="299" font-size="12" text-anchor="middle" font-weight="700">427</text>
+  <line x1="670" y1="276" x2="670" y2="284" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="670" y="299" font-size="12" text-anchor="middle" font-weight="700">854</text>
+  <text x="14" y="260" font-size="13" font-weight="700">palette</text>
+  <text x="390" y="226" font-size="12" text-anchor="middle" fill-opacity="0.85">edges の位置まで、左から順に塗る</text>
+</svg>
+```
+
+`np.cumsum` で、塗る位置を決める。`palette[:, 0:256]` は、0番目から255番目までの列を表す
+:::
 
 フレームとパレットを上下に並べて表示します。
 
@@ -1450,6 +1774,93 @@ print(in_hue_range(test, 75, 135))
 
 0、20、44と165、179が暖色、100が寒色と判定されています。
 境目の45と164はどちらにも入っていません。
+色相の帯の上で見ると、@fig-ch06-hue-range のようになります。
+
+::: {#fig-ch06-hue-range}
+
+```{=html}
+<svg viewBox="0 0 760 290" role="img" aria-label="暖色と寒色の範囲。色相Hの0から179を帯にすると、暖色は左端の0から44と右端の165から179の2か所に分かれ、寒色は75から134のひと続きになる。179の次は0に戻るので、暖色は「165以上、または45未満」という条件で表す。8つの値0、20、44、45、100、164、165、179を調べると、暖色かどうかはTrue、True、True、False、False、False、True、True。寒色かどうかは100だけがTrue。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <defs><linearGradient id="huegrad-ch06" x1="0" x2="1" y1="0" y2="0"><stop offset="0.0000" stop-color="#ff0000"/><stop offset="0.1667" stop-color="#ffff00"/><stop offset="0.3333" stop-color="#00ff00"/><stop offset="0.5000" stop-color="#00ffff"/><stop offset="0.6667" stop-color="#0000ff"/><stop offset="0.8333" stop-color="#ff00ff"/><stop offset="1.0000" stop-color="#ff0000"/></linearGradient></defs>
+  <rect x="110" y="60" width="540" height="30" fill="url(#huegrad-ch06)" stroke="currentColor" stroke-opacity="0.55"/>
+  <line x1="110" y1="90" x2="110" y2="98" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="110" y="112" font-size="12" text-anchor="middle" fill-opacity="0.8">0</text>
+  <line x1="245" y1="90" x2="245" y2="98" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="245" y="112" font-size="12" text-anchor="middle" fill-opacity="0.8">45</text>
+  <line x1="335" y1="90" x2="335" y2="98" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="335" y="112" font-size="12" text-anchor="middle" fill-opacity="0.8">75</text>
+  <line x1="515" y1="90" x2="515" y2="98" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="515" y="112" font-size="12" text-anchor="middle" fill-opacity="0.8">135</text>
+  <line x1="605" y1="90" x2="605" y2="98" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="605" y="112" font-size="12" text-anchor="middle" fill-opacity="0.8">165</text>
+  <line x1="650" y1="90" x2="650" y2="98" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="650" y="112" font-size="12" text-anchor="middle" fill-opacity="0.8">179</text>
+  <text x="98" y="80" font-size="13" text-anchor="end" font-weight="700">色相 H</text>
+  <path d="M113 52 v-6 h129 v6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.6"/>
+  <text x="177.5" y="38" font-size="12" text-anchor="middle" font-weight="700">暖色（0〜44）</text>
+  <path d="M608 52 v-6 h39 v6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.6"/>
+  <text x="653" y="38" font-size="12" text-anchor="end" font-weight="700">暖色（165〜179）</text>
+  <path d="M338 52 v-6 h174 v6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.6"/>
+  <text x="425" y="38" font-size="12" text-anchor="middle" font-weight="700">寒色（75〜134）</text>
+  <text x="660" y="74" font-size="11" fill-opacity="0.8">179の次は</text>
+  <text x="660" y="88" font-size="11" fill-opacity="0.8">0に戻る</text>
+  <rect x="196" y="156" width="60" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="226" y="177.04" font-size="14" text-anchor="middle">0</text>
+  <rect x="196" y="198" width="60" height="32" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="226" y="218.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">True</text>
+  <rect x="196" y="240" width="60" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="226" y="260.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="256" y="156" width="60" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="286" y="177.04" font-size="14" text-anchor="middle">20</text>
+  <rect x="256" y="198" width="60" height="32" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="286" y="218.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">True</text>
+  <rect x="256" y="240" width="60" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="286" y="260.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="316" y="156" width="60" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="346" y="177.04" font-size="14" text-anchor="middle">44</text>
+  <rect x="316" y="198" width="60" height="32" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="346" y="218.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">True</text>
+  <rect x="316" y="240" width="60" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="346" y="260.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="376" y="156" width="60" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="406" y="177.04" font-size="14" text-anchor="middle">45</text>
+  <rect x="376" y="198" width="60" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="406" y="218.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="376" y="240" width="60" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="406" y="260.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="436" y="156" width="60" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="466" y="177.04" font-size="14" text-anchor="middle">100</text>
+  <rect x="436" y="198" width="60" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="466" y="218.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="436" y="240" width="60" height="32" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="466" y="260.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="496" y="156" width="60" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="526" y="177.04" font-size="14" text-anchor="middle">164</text>
+  <rect x="496" y="198" width="60" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="526" y="218.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="496" y="240" width="60" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="526" y="260.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="556" y="156" width="60" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="586" y="177.04" font-size="14" text-anchor="middle">165</text>
+  <rect x="556" y="198" width="60" height="32" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="586" y="218.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">True</text>
+  <rect x="556" y="240" width="60" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="586" y="260.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="616" y="156" width="60" height="32" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="646" y="177.04" font-size="14" text-anchor="middle">179</text>
+  <rect x="616" y="198" width="60" height="32" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="646" y="218.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">True</text>
+  <rect x="616" y="240" width="60" height="32" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="646" y="260.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <text x="14" y="177" font-size="13" font-weight="700">test</text>
+  <text x="14" y="212" font-size="13" font-weight="700">暖色か</text>
+  <text x="14" y="227" font-size="11" fill-opacity="0.8">165以上、または45未満</text>
+  <text x="14" y="254" font-size="13" font-weight="700">寒色か</text>
+  <text x="14" y="269" font-size="11" fill-opacity="0.8">75以上、かつ135未満</text>
+</svg>
+```
+
+暖色と寒色の範囲。暖色は、帯の両端の2か所に分かれる
+:::
 
 次に、フレームの中で暖色と寒色がそれぞれどれだけの割合を占めるかを求める関数を作ります。
 割合の分母は、**絵の部分のすべての画素**とします。

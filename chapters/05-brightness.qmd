@@ -318,6 +318,76 @@ print(counts[:8])
 - `counts`：それぞれの箱に入った画素の数です。`counts[0]` が輝度0の画素数、`counts[255]` が輝度255の画素数になります。
 - `edges`：箱の境目の値です。箱が256個なので、境目は257個あります。この章では使いません。
 
+2つの戻り値の関係は、@fig-ch05-hist-edges のとおりです。
+
+::: {#fig-ch05-hist-edges}
+
+```{=html}
+<svg viewBox="0 0 760 200" role="img" aria-label="np.histogramの2つの戻り値。countsは箱ごとの画素の数で、番号0から順に96501、1600、350、140、166、163、78、22と続き、番号255は0。edgesは箱の境目の値で、0、1、2と続き、最後は255、256。箱は256個、境目は257個ある。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <text x="179" y="60" font-size="12" text-anchor="middle" font-weight="700">0</text>
+  <rect x="150" y="70" width="58" height="42" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="179" y="95.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">96501</text>
+  <text x="237" y="60" font-size="12" text-anchor="middle" font-weight="700">1</text>
+  <rect x="208" y="70" width="58" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="237" y="95.68" font-size="13" text-anchor="middle">1600</text>
+  <text x="295" y="60" font-size="12" text-anchor="middle" font-weight="700">2</text>
+  <rect x="266" y="70" width="58" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="295" y="95.68" font-size="13" text-anchor="middle">350</text>
+  <text x="353" y="60" font-size="12" text-anchor="middle" font-weight="700">3</text>
+  <rect x="324" y="70" width="58" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="353" y="95.68" font-size="13" text-anchor="middle">140</text>
+  <text x="411" y="60" font-size="12" text-anchor="middle" font-weight="700">4</text>
+  <rect x="382" y="70" width="58" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="411" y="95.68" font-size="13" text-anchor="middle">166</text>
+  <text x="469" y="60" font-size="12" text-anchor="middle" font-weight="700">5</text>
+  <rect x="440" y="70" width="58" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="469" y="95.68" font-size="13" text-anchor="middle">163</text>
+  <text x="527" y="60" font-size="12" text-anchor="middle" font-weight="700">6</text>
+  <rect x="498" y="70" width="58" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="527" y="95.68" font-size="13" text-anchor="middle">78</text>
+  <text x="585" y="60" font-size="12" text-anchor="middle" font-weight="700">7</text>
+  <rect x="556" y="70" width="58" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="585" y="95.68" font-size="13" text-anchor="middle">22</text>
+  <text x="643" y="60" font-size="12" text-anchor="middle" font-weight="700">…</text>
+  <rect x="614" y="70" width="58" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="643" y="95.68" font-size="13" text-anchor="middle">…</text>
+  <text x="701" y="60" font-size="12" text-anchor="middle" font-weight="700">255</text>
+  <rect x="672" y="70" width="58" height="42" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="701" y="95.68" font-size="13" text-anchor="middle">0</text>
+  <line x1="150" y1="112" x2="150" y2="121" stroke="#1f6fb2" stroke-width="2"/>
+  <text x="150" y="137" font-size="12" text-anchor="middle" font-weight="700">0</text>
+  <line x1="208" y1="112" x2="208" y2="121" stroke="#1f6fb2" stroke-width="2"/>
+  <text x="208" y="137" font-size="12" text-anchor="middle" font-weight="700">1</text>
+  <line x1="266" y1="112" x2="266" y2="121" stroke="#1f6fb2" stroke-width="2"/>
+  <text x="266" y="137" font-size="12" text-anchor="middle" font-weight="700">2</text>
+  <line x1="324" y1="112" x2="324" y2="121" stroke="#1f6fb2" stroke-width="2"/>
+  <text x="324" y="137" font-size="12" text-anchor="middle" font-weight="700">3</text>
+  <line x1="382" y1="112" x2="382" y2="121" stroke="#1f6fb2" stroke-width="2"/>
+  <text x="382" y="137" font-size="12" text-anchor="middle" font-weight="700">4</text>
+  <line x1="440" y1="112" x2="440" y2="121" stroke="#1f6fb2" stroke-width="2"/>
+  <text x="440" y="137" font-size="12" text-anchor="middle" font-weight="700">5</text>
+  <line x1="498" y1="112" x2="498" y2="121" stroke="#1f6fb2" stroke-width="2"/>
+  <text x="498" y="137" font-size="12" text-anchor="middle" font-weight="700">6</text>
+  <line x1="556" y1="112" x2="556" y2="121" stroke="#1f6fb2" stroke-width="2"/>
+  <text x="556" y="137" font-size="12" text-anchor="middle" font-weight="700">7</text>
+  <line x1="614" y1="112" x2="614" y2="121" stroke="#1f6fb2" stroke-width="2"/>
+  <text x="614" y="137" font-size="12" text-anchor="middle" font-weight="700">8</text>
+  <line x1="672" y1="112" x2="672" y2="121" stroke="#1f6fb2" stroke-width="2"/>
+  <text x="672" y="137" font-size="12" text-anchor="middle" font-weight="700">255</text>
+  <line x1="730" y1="112" x2="730" y2="121" stroke="#1f6fb2" stroke-width="2"/>
+  <text x="730" y="137" font-size="12" text-anchor="middle" font-weight="700">256</text>
+  <text x="138" y="60" font-size="12" text-anchor="end" font-weight="700">counts の番号</text>
+  <text x="138" y="96" font-size="12" text-anchor="end" fill-opacity="0.8">counts（画素の数）</text>
+  <text x="138" y="137" font-size="12" text-anchor="end" font-weight="700">edges（箱の境目）</text>
+  <path d="M154 150 v6 h50 v-6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.6"/>
+  <text x="179" y="174" font-size="12" text-anchor="middle" fill-opacity="0.8">0以上1未満</text>
+  <text x="440" y="174" font-size="13" text-anchor="middle">箱は256個、境目は箱より1つ多い257個</text>
+</svg>
+```
+
+`np.histogram` の2つの戻り値。箱の中の数が `counts`、箱の境目の数が `edges`
+:::
+
 `counts` の合計409920は、480 × 854、つまり全画素数と一致しています。
 すべての画素が、どれか1つの箱に数えられたということです。
 
@@ -1306,6 +1376,56 @@ df.nlargest(5, "brightness")
 映像では隣り合うフレームはほとんど同じ絵ですから、これは当然の結果です。
 「明るい場面を5つ」探すつもりで上位5フレームを取り出すと、同じ場面の5コマが返ってきます。
 この点は、すぐ後で対処します。
+上位5つがどこにあるかを、@fig-ch05-nlargest に示します。
+
+::: {#fig-ch05-nlargest}
+
+```{=html}
+<svg viewBox="0 0 760 195" role="img" aria-label="nlargestで取り出した上位5つの位置。フレーム619から627の平均輝度は73.4、72.9、187.3、188.3、188.4、187.0、185.0、182.4、180.1。621番目でカットがあり、明るい場面が始まる。1位は623番目、2位は622番目、3位は621番目、4位は624番目、5位は625番目で、上位5つは同じ場面の連続した5枚になっている。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <text x="182" y="65" font-size="12" text-anchor="middle" fill-opacity="0.8">619</text>
+  <rect x="150" y="74" width="64" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="182" y="97.68" font-size="13" text-anchor="middle">73.4</text>
+  <text x="246" y="65" font-size="12" text-anchor="middle" fill-opacity="0.8">620</text>
+  <rect x="214" y="74" width="64" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="246" y="97.68" font-size="13" text-anchor="middle">72.9</text>
+  <text x="310" y="65" font-size="12" text-anchor="middle" fill-opacity="0.8">621</text>
+  <rect x="278" y="74" width="64" height="38" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="310" y="97.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">187.3</text>
+  <text x="310" y="132" font-size="13" text-anchor="middle" font-weight="700">3位</text>
+  <text x="374" y="65" font-size="12" text-anchor="middle" fill-opacity="0.8">622</text>
+  <rect x="342" y="74" width="64" height="38" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="374" y="97.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">188.3</text>
+  <text x="374" y="132" font-size="13" text-anchor="middle" font-weight="700">2位</text>
+  <text x="438" y="65" font-size="12" text-anchor="middle" fill-opacity="0.8">623</text>
+  <rect x="406" y="74" width="64" height="38" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="438" y="97.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">188.4</text>
+  <text x="438" y="132" font-size="13" text-anchor="middle" font-weight="700">1位</text>
+  <text x="502" y="65" font-size="12" text-anchor="middle" fill-opacity="0.8">624</text>
+  <rect x="470" y="74" width="64" height="38" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="502" y="97.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">187.0</text>
+  <text x="502" y="132" font-size="13" text-anchor="middle" font-weight="700">4位</text>
+  <text x="566" y="65" font-size="12" text-anchor="middle" fill-opacity="0.8">625</text>
+  <rect x="534" y="74" width="64" height="38" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="566" y="97.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">185.0</text>
+  <text x="566" y="132" font-size="13" text-anchor="middle" font-weight="700">5位</text>
+  <text x="630" y="65" font-size="12" text-anchor="middle" fill-opacity="0.8">626</text>
+  <rect x="598" y="74" width="64" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="630" y="97.68" font-size="13" text-anchor="middle">182.4</text>
+  <text x="694" y="65" font-size="12" text-anchor="middle" fill-opacity="0.8">627</text>
+  <rect x="662" y="74" width="64" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="694" y="97.68" font-size="13" text-anchor="middle">180.1</text>
+  <text x="138" y="65" font-size="12" text-anchor="end" fill-opacity="0.8">フレーム番号</text>
+  <text x="138" y="98" font-size="12" text-anchor="end" fill-opacity="0.8">平均輝度</text>
+  <text x="138" y="132" font-size="12" text-anchor="end" fill-opacity="0.8">順位</text>
+  <line x1="278" y1="34" x2="278" y2="118" stroke="#d6453d" stroke-width="3"/>
+  <text x="278" y="26" font-size="12" text-anchor="middle" font-weight="700">ここでカット（明るい場面が始まる）</text>
+  <path d="M282 144 v6 h312 v-6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.6"/>
+  <text x="438" y="168" font-size="13" text-anchor="middle">上位5つは、同じ場面の連続した5枚</text>
+</svg>
+```
+
+平均輝度の上位5つの位置。赤い線は、明るい場面に切り替わる位置
+:::
 
 ### もっとも暗いフレームは「真っ黒」
 
@@ -1589,6 +1709,7 @@ darkest
 ```
 
 2つの条件を「どちらも満たす」という意味でつなぐには、`&` を使います。
+`diff` と `&` のしくみは、@sec-app-dataframe の @fig-app-df-diff と @fig-app-df-and に、小さな例で示してあります。
 
 ::: {.callout-warning title="条件を & でつなぐときは、かっこで囲む"}
 pandasで複数の条件を組み合わせるときは、Pythonの `and` ではなく `&` を使い、それぞれの条件を必ず丸かっこで囲みます。

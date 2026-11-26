@@ -447,6 +447,71 @@ Name: diff_mean, dtype: float64
 
 1つおきに差分がほぼ0になっています。
 フレーム794〜812では、同じ絵が2フレーム続けて記録されているのです。
+差分との関係は、@fig-ch07-duplicate のとおりです。
+
+::: {#fig-ch07-duplicate}
+
+```{=html}
+<svg viewBox="0 0 760 210" role="img" aria-label="同じ絵が2フレーム続く区間で、差分が1フレームおきに上下するしくみ。793番目と794番目、795番目と796番目、797番目と798番目は、それぞれ同じ絵。同じ絵どうしの差分は0.03、0.02、0.02とほぼ0になり、絵が変わるところの差分は8.18、8.07、7.92と大きくなる。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <text x="180" y="51" font-size="12" text-anchor="middle" fill-opacity="0.8">793</text>
+  <rect x="150" y="60" width="60" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="180" y="84.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">絵A</text>
+  <line x1="180" y1="104" x2="220" y2="138" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.4"/>
+  <line x1="260" y1="104" x2="220" y2="138" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.4"/>
+  <rect x="190" y="140" width="60" height="30" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="220" y="159.68" font-size="13" text-anchor="middle" fill-opacity="0.6">0.03</text>
+  <text x="220" y="188" font-size="11" text-anchor="middle" fill-opacity="0.75">794</text>
+  <text x="260" y="51" font-size="12" text-anchor="middle" fill-opacity="0.8">794</text>
+  <rect x="230" y="60" width="60" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="260" y="84.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">絵A</text>
+  <line x1="260" y1="104" x2="300" y2="138" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.4"/>
+  <line x1="340" y1="104" x2="300" y2="138" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.4"/>
+  <rect x="270" y="140" width="60" height="30" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="300" y="159.68" font-size="13" font-weight="700" text-anchor="middle">8.18</text>
+  <text x="300" y="188" font-size="11" text-anchor="middle" fill-opacity="0.75">795</text>
+  <text x="340" y="51" font-size="12" text-anchor="middle" fill-opacity="0.8">795</text>
+  <rect x="310" y="60" width="60" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="340" y="84.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">絵B</text>
+  <line x1="340" y1="104" x2="380" y2="138" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.4"/>
+  <line x1="420" y1="104" x2="380" y2="138" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.4"/>
+  <rect x="350" y="140" width="60" height="30" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="380" y="159.68" font-size="13" text-anchor="middle" fill-opacity="0.6">0.02</text>
+  <text x="380" y="188" font-size="11" text-anchor="middle" fill-opacity="0.75">796</text>
+  <text x="420" y="51" font-size="12" text-anchor="middle" fill-opacity="0.8">796</text>
+  <rect x="390" y="60" width="60" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="420" y="84.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">絵B</text>
+  <line x1="420" y1="104" x2="460" y2="138" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.4"/>
+  <line x1="500" y1="104" x2="460" y2="138" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.4"/>
+  <rect x="430" y="140" width="60" height="30" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="460" y="159.68" font-size="13" font-weight="700" text-anchor="middle">8.07</text>
+  <text x="460" y="188" font-size="11" text-anchor="middle" fill-opacity="0.75">797</text>
+  <text x="500" y="51" font-size="12" text-anchor="middle" fill-opacity="0.8">797</text>
+  <rect x="470" y="60" width="60" height="40" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="500" y="84.68" font-size="13" font-weight="700" text-anchor="middle" fill="#f2f2f2">絵C</text>
+  <line x1="500" y1="104" x2="540" y2="138" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.4"/>
+  <line x1="580" y1="104" x2="540" y2="138" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.4"/>
+  <rect x="510" y="140" width="60" height="30" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="540" y="159.68" font-size="13" text-anchor="middle" fill-opacity="0.6">0.02</text>
+  <text x="540" y="188" font-size="11" text-anchor="middle" fill-opacity="0.75">798</text>
+  <text x="580" y="51" font-size="12" text-anchor="middle" fill-opacity="0.8">798</text>
+  <rect x="550" y="60" width="60" height="40" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="580" y="84.68" font-size="13" font-weight="700" text-anchor="middle" fill="#f2f2f2">絵C</text>
+  <line x1="580" y1="104" x2="620" y2="138" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.4"/>
+  <line x1="660" y1="104" x2="620" y2="138" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.4"/>
+  <rect x="590" y="140" width="60" height="30" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="620" y="159.68" font-size="13" font-weight="700" text-anchor="middle">7.92</text>
+  <text x="620" y="188" font-size="11" text-anchor="middle" fill-opacity="0.75">799</text>
+  <text x="660" y="51" font-size="12" text-anchor="middle" fill-opacity="0.8">799</text>
+  <rect x="630" y="60" width="60" height="40" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="660" y="84.68" font-size="13" font-weight="700" text-anchor="middle">絵D</text>
+  <text x="138" y="51" font-size="12" text-anchor="end" fill-opacity="0.8">フレーム番号</text>
+  <text x="138" y="160" font-size="12" text-anchor="end" font-weight="700">diff_mean</text>
+  <text x="138" y="188" font-size="11" text-anchor="end" fill-opacity="0.75">表の行</text>
+</svg>
+```
+
+同じ絵が2フレーム続く区間の差分。同じ絵どうしの差分はほぼ0になる。絵A〜Dは、説明のために付けた名前
+:::
 その前後（フレーム778〜860のあたり）でも、これより弱い形で、値が1フレームおきに上下しています。
 映像の作られ方が、動き量にそのまま現れた例です。
 グラフに不自然な模様を見つけたら、数値とフレームそのものを確かめる習慣をつけましょう。
@@ -631,6 +696,37 @@ print(flow[40, 500])
 前節で述べたように、大きすぎる動きは見つけにくくなります。
 そこでこの関数は、まず縮小した画像で大まかな動きを求め、それを手がかりにして、元の大きさの画像で細かく求め直します。
 画像を半分に縮小すれば、10画素の動きは5画素の動きになり、見つけやすくなるからです。
+本書の設定での3段階を、@fig-ch07-pyramid に示します。
+
+::: {#fig-ch07-pyramid}
+
+```{=html}
+<svg viewBox="0 0 760 290" role="img" aria-label="縮小した画像を使って大きな動きを求めるしくみ。pyr_scaleが0.5、levelsが3のとき、元の大きさ427×182、半分の約214×91、4分の1の約107×46の3段階の画像を使う。元の大きさで10画素の動きは、半分では5画素、4分の1では2.5画素になる。計算は4分の1の画像から始め、大まかな動きを求めてから、半分、元の大きさの順に求め直す。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="40" y="50" width="300" height="128" fill="currentColor" fill-opacity="0.05" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.5"/>
+  <line x1="160" y1="114" x2="213" y2="114" stroke="#d6453d" stroke-width="2.5"/>
+  <path d="M220 114 l-9 -5 v10z" fill="#d6453d"/>
+  <text x="190" y="198" font-size="13" text-anchor="middle" font-weight="700">元の大きさ</text>
+  <text x="190" y="216" font-size="12" text-anchor="middle" fill-opacity="0.85">427×182</text>
+  <text x="190" y="234" font-size="12" text-anchor="middle" fill-opacity="0.85">動きは10画素</text>
+  <rect x="400" y="114" width="150" height="64" fill="currentColor" fill-opacity="0.05" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.5"/>
+  <line x1="460" y1="146" x2="483" y2="146" stroke="#d6453d" stroke-width="2.5"/>
+  <path d="M490 146 l-9 -5 v10z" fill="#d6453d"/>
+  <text x="475" y="198" font-size="13" text-anchor="middle" font-weight="700">半分</text>
+  <text x="475" y="216" font-size="12" text-anchor="middle" fill-opacity="0.85">約214×91</text>
+  <text x="475" y="234" font-size="12" text-anchor="middle" fill-opacity="0.85">動きは5画素</text>
+  <rect x="610" y="146" width="75" height="32" fill="currentColor" fill-opacity="0.05" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.5"/>
+  <line x1="640" y1="162" x2="648" y2="162" stroke="#d6453d" stroke-width="2.5"/>
+  <path d="M655 162 l-9 -5 v10z" fill="#d6453d"/>
+  <text x="647.5" y="198" font-size="13" text-anchor="middle" font-weight="700">4分の1</text>
+  <text x="647.5" y="216" font-size="12" text-anchor="middle" fill-opacity="0.85">約107×46</text>
+  <text x="647.5" y="234" font-size="12" text-anchor="middle" fill-opacity="0.85">動きは2.5画素</text>
+  <text x="380" y="270" font-size="12" text-anchor="middle">計算の順：　4分の1で大まかな動きを求める　→　半分で求め直す　→　元の大きさで細かく求め直す</text>
+  <text x="380" y="28" font-size="13" text-anchor="middle" font-weight="700">pyr_scale=0.5、levels=3 のとき</text>
+</svg>
+```
+
+縮小した画像から順に動きを求めるしくみ。赤い矢印は同じ動きを表し、縮小するほど短くなる
+:::
 
 なお、前節では「行き先を探す」と説明しましたが、この関数は、候補の位置を1つずつ試して探し回るわけではありません。
 各画素のまわりの明るさの変化を式で近似し（`poly_n`、`poly_sigma`）、その式から移動量を計算で求めます。
@@ -737,6 +833,83 @@ print(small_c.shape, flow.shape)
 これを使って、555番目のフレームを右に3画素ずらした画像を作り、元の画像とのあいだでフローを求めます。
 正しく計算できれば、ほぼすべての画素で `dx` が3、`dy` が0になるはずです。
 `np.roll` は、右端からはみ出した3列を左端に回すので、左端の3列だけは例外です。
+10列の配列を例にすると、@fig-ch07-roll のようになります。
+
+::: {#fig-ch07-roll}
+
+```{=html}
+<svg viewBox="0 0 760 240" role="img" aria-label="np.rollで右へ3つずらしたときの動き。もとの列0から6は、右へ3つ動いて列3から9の位置に入る。右端からはみ出した列7、8、9は、左端の列0、1、2の位置に回ってくる。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="170" y="44" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="198" y="67.04" font-size="14" text-anchor="middle">0</text>
+  <rect x="170" y="150" width="56" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="198" y="173.04" font-size="14" text-anchor="middle" fill="#1c1300">7</text>
+  <text x="198" y="203" font-size="11" text-anchor="middle" fill-opacity="0.75">0</text>
+  <rect x="226" y="44" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="254" y="67.04" font-size="14" text-anchor="middle">1</text>
+  <rect x="226" y="150" width="56" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="254" y="173.04" font-size="14" text-anchor="middle" fill="#1c1300">8</text>
+  <text x="254" y="203" font-size="11" text-anchor="middle" fill-opacity="0.75">1</text>
+  <rect x="282" y="44" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="310" y="67.04" font-size="14" text-anchor="middle">2</text>
+  <rect x="282" y="150" width="56" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="310" y="173.04" font-size="14" text-anchor="middle" fill="#1c1300">9</text>
+  <text x="310" y="203" font-size="11" text-anchor="middle" fill-opacity="0.75">2</text>
+  <rect x="338" y="44" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="366" y="67.04" font-size="14" text-anchor="middle">3</text>
+  <rect x="338" y="150" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="366" y="173.04" font-size="14" text-anchor="middle">0</text>
+  <text x="366" y="203" font-size="11" text-anchor="middle" fill-opacity="0.75">3</text>
+  <rect x="394" y="44" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="422" y="67.04" font-size="14" text-anchor="middle">4</text>
+  <rect x="394" y="150" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="422" y="173.04" font-size="14" text-anchor="middle">1</text>
+  <text x="422" y="203" font-size="11" text-anchor="middle" fill-opacity="0.75">4</text>
+  <rect x="450" y="44" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="478" y="67.04" font-size="14" text-anchor="middle">5</text>
+  <rect x="450" y="150" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="478" y="173.04" font-size="14" text-anchor="middle">2</text>
+  <text x="478" y="203" font-size="11" text-anchor="middle" fill-opacity="0.75">5</text>
+  <rect x="506" y="44" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="534" y="67.04" font-size="14" text-anchor="middle">6</text>
+  <rect x="506" y="150" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="534" y="173.04" font-size="14" text-anchor="middle">3</text>
+  <text x="534" y="203" font-size="11" text-anchor="middle" fill-opacity="0.75">6</text>
+  <rect x="562" y="44" width="56" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="590" y="67.04" font-size="14" text-anchor="middle" fill="#1c1300">7</text>
+  <rect x="562" y="150" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="590" y="173.04" font-size="14" text-anchor="middle">4</text>
+  <text x="590" y="203" font-size="11" text-anchor="middle" fill-opacity="0.75">7</text>
+  <rect x="618" y="44" width="56" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="646" y="67.04" font-size="14" text-anchor="middle" fill="#1c1300">8</text>
+  <rect x="618" y="150" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="646" y="173.04" font-size="14" text-anchor="middle">5</text>
+  <text x="646" y="203" font-size="11" text-anchor="middle" fill-opacity="0.75">8</text>
+  <rect x="674" y="44" width="56" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="702" y="67.04" font-size="14" text-anchor="middle" fill="#1c1300">9</text>
+  <rect x="674" y="150" width="56" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="702" y="173.04" font-size="14" text-anchor="middle">6</text>
+  <text x="702" y="203" font-size="11" text-anchor="middle" fill-opacity="0.75">9</text>
+  <line x1="198" y1="84" x2="366" y2="146" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.4"/>
+  <line x1="254" y1="84" x2="422" y2="146" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.4"/>
+  <line x1="310" y1="84" x2="478" y2="146" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.4"/>
+  <line x1="366" y1="84" x2="534" y2="146" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.4"/>
+  <line x1="422" y1="84" x2="590" y2="146" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.4"/>
+  <line x1="478" y1="84" x2="646" y2="146" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.4"/>
+  <line x1="534" y1="84" x2="702" y2="146" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.4"/>
+  <line x1="590" y1="84" x2="198" y2="146" stroke="#d6453d" stroke-width="1.6" stroke-dasharray="5 4"/>
+  <line x1="646" y1="84" x2="254" y2="146" stroke="#d6453d" stroke-width="1.6" stroke-dasharray="5 4"/>
+  <line x1="702" y1="84" x2="310" y2="146" stroke="#d6453d" stroke-width="1.6" stroke-dasharray="5 4"/>
+  <text x="14" y="59" font-size="13" font-weight="700">もとの行</text>
+  <text x="14" y="75" font-size="11" fill-opacity="0.8">箱の中は、もとの列の番号</text>
+  <text x="14" y="165" font-size="13" font-weight="700">np.roll(…, 3, axis=1)</text>
+  <text x="14" y="181" font-size="11" fill-opacity="0.8">右へ3つずらす</text>
+  <text x="158" y="203" font-size="11" text-anchor="end" fill-opacity="0.75">列の位置</text>
+  <text x="254" y="226" font-size="12" text-anchor="middle" font-weight="700">右端からはみ出した3列が回ってくる</text>
+</svg>
+```
+
+`np.roll` で右へ3つずらす。右端からはみ出した列は、左端に回る
+:::
 
 ```python
 shifted = np.roll(small_c, 3, axis=1)
@@ -1000,6 +1173,88 @@ print(mag.mean(), np.median(mag), mag.max())
 
 向きは、右、右下、下、…の8方向に分けます。
 「右」を0度の前後22.5度ずつ（337.5度から22.5度まで）としたいので、角度に22.5を足してから360で割った余りをとり、45度ずつに区切ります。
+22.5を足す理由は、@fig-ch07-direction-bins のとおりです。
+
+::: {#fig-ch07-direction-bins}
+
+```{=html}
+<svg viewBox="0 0 760 290" role="img" aria-label="向きを8方向に分けるしくみ。もとの角度では、右は337.5度から22.5度までで、0度をまたいで両端に分かれている。右下は22.5度から67.5度、下は67.5度から112.5度、左は157.5度から202.5度というように、45度ずつ続く。角度に22.5を足して360で割った余りをとると、右が0度から45度、右下が45度から90度というように、45度ずつの8つの箱にそろう。箱の番号は右が0、右下が1、下が2、左下が3、左が4、左上が5、上が6、右上が7。例の162.9度は185.4度になり、番号4の左に入る。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="90" y="64" width="40" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="110" y="88.32" font-size="12" font-weight="700" text-anchor="middle" fill="#1c1300">右</text>
+  <rect x="130" y="64" width="80" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="170" y="89.04" font-size="14" font-weight="700" text-anchor="middle">右下</text>
+  <rect x="210" y="64" width="80" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="250" y="89.04" font-size="14" font-weight="700" text-anchor="middle">下</text>
+  <rect x="290" y="64" width="80" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="330" y="89.04" font-size="14" font-weight="700" text-anchor="middle">左下</text>
+  <rect x="370" y="64" width="80" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="410" y="89.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">左</text>
+  <rect x="450" y="64" width="80" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="490" y="89.04" font-size="14" font-weight="700" text-anchor="middle">左上</text>
+  <rect x="530" y="64" width="80" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="570" y="89.04" font-size="14" font-weight="700" text-anchor="middle">上</text>
+  <rect x="610" y="64" width="80" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="650" y="89.04" font-size="14" font-weight="700" text-anchor="middle">右上</text>
+  <rect x="690" y="64" width="40" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="710" y="88.32" font-size="12" font-weight="700" text-anchor="middle" fill="#1c1300">右</text>
+  <text x="90" y="121" font-size="11" text-anchor="middle" fill-opacity="0.8">0</text>
+  <text x="130" y="121" font-size="11" text-anchor="middle" fill-opacity="0.8">22.5</text>
+  <text x="210" y="121" font-size="11" text-anchor="middle" fill-opacity="0.8">67.5</text>
+  <text x="290" y="121" font-size="11" text-anchor="middle" fill-opacity="0.8">112.5</text>
+  <text x="370" y="121" font-size="11" text-anchor="middle" fill-opacity="0.8">157.5</text>
+  <text x="450" y="121" font-size="11" text-anchor="middle" fill-opacity="0.8">202.5</text>
+  <text x="530" y="121" font-size="11" text-anchor="middle" fill-opacity="0.8">247.5</text>
+  <text x="610" y="121" font-size="11" text-anchor="middle" fill-opacity="0.8">292.5</text>
+  <text x="690" y="121" font-size="11" text-anchor="middle" fill-opacity="0.8">337.5</text>
+  <text x="730" y="121" font-size="11" text-anchor="middle" fill-opacity="0.8">360</text>
+  <rect x="90" y="196" width="80" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="130" y="221.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">右</text>
+  <text x="130" y="270" font-size="12" text-anchor="middle" font-weight="700">0</text>
+  <rect x="170" y="196" width="80" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="210" y="221.04" font-size="14" font-weight="700" text-anchor="middle">右下</text>
+  <text x="210" y="270" font-size="12" text-anchor="middle" font-weight="700">1</text>
+  <rect x="250" y="196" width="80" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="290" y="221.04" font-size="14" font-weight="700" text-anchor="middle">下</text>
+  <text x="290" y="270" font-size="12" text-anchor="middle" font-weight="700">2</text>
+  <rect x="330" y="196" width="80" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="370" y="221.04" font-size="14" font-weight="700" text-anchor="middle">左下</text>
+  <text x="370" y="270" font-size="12" text-anchor="middle" font-weight="700">3</text>
+  <rect x="410" y="196" width="80" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="450" y="221.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">左</text>
+  <text x="450" y="270" font-size="12" text-anchor="middle" font-weight="700">4</text>
+  <rect x="490" y="196" width="80" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="530" y="221.04" font-size="14" font-weight="700" text-anchor="middle">左上</text>
+  <text x="530" y="270" font-size="12" text-anchor="middle" font-weight="700">5</text>
+  <rect x="570" y="196" width="80" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="610" y="221.04" font-size="14" font-weight="700" text-anchor="middle">上</text>
+  <text x="610" y="270" font-size="12" text-anchor="middle" font-weight="700">6</text>
+  <rect x="650" y="196" width="80" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="690" y="221.04" font-size="14" font-weight="700" text-anchor="middle">右上</text>
+  <text x="690" y="270" font-size="12" text-anchor="middle" font-weight="700">7</text>
+  <text x="90" y="253" font-size="11" text-anchor="middle" fill-opacity="0.8">0</text>
+  <text x="170" y="253" font-size="11" text-anchor="middle" fill-opacity="0.8">45</text>
+  <text x="250" y="253" font-size="11" text-anchor="middle" fill-opacity="0.8">90</text>
+  <text x="330" y="253" font-size="11" text-anchor="middle" fill-opacity="0.8">135</text>
+  <text x="410" y="253" font-size="11" text-anchor="middle" fill-opacity="0.8">180</text>
+  <text x="490" y="253" font-size="11" text-anchor="middle" fill-opacity="0.8">225</text>
+  <text x="570" y="253" font-size="11" text-anchor="middle" fill-opacity="0.8">270</text>
+  <text x="650" y="253" font-size="11" text-anchor="middle" fill-opacity="0.8">315</text>
+  <text x="730" y="253" font-size="11" text-anchor="middle" fill-opacity="0.8">360</text>
+  <text x="14" y="50" font-size="13" font-weight="700">もとの角度 ang</text>
+  <text x="730" y="50" font-size="12" text-anchor="end" fill-opacity="0.8">「右」が両端に分かれている</text>
+  <text x="14" y="182" font-size="13" font-weight="700">22.5を足して360で割った余り ang_shift</text>
+  <text x="730" y="182" font-size="12" text-anchor="end" fill-opacity="0.8">45度ずつ、8つの箱にそろう</text>
+  <text x="80" y="270" font-size="12" text-anchor="end" font-weight="700">箱の番号</text>
+  <line x1="379.6" y1="60" x2="379.6" y2="130" stroke="#d6453d" stroke-width="2.5"/>
+  <line x1="419.6" y1="192" x2="419.6" y2="240" stroke="#d6453d" stroke-width="2.5"/>
+  <line x1="379.6" y1="130" x2="419.6" y2="192" stroke="#d6453d" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="373.6" y="146" font-size="12" text-anchor="end" font-weight="700">162.9度</text>
+  <text x="427.6" y="178" font-size="12" font-weight="700">185.4度</text>
+</svg>
+```
+
+向きを8方向に分けるしくみ。赤い線は、先ほどの画素の向き（162.9度）
+:::
 
 ```python
 moving = mag > 1
@@ -1646,6 +1901,74 @@ plt.show()
 @fig-ch07-smooth では、画面が一瞬で切り替わる箇所の鋭い山（14秒、48秒、51秒付近など）が、移動中央値の線からはきれいに消えています。
 1フレームだけの外れ値は、まわりの24フレームの「真ん中の値」には影響しないからです。
 移動平均では、山は低く広がるだけで、消えはしません。
+第5章で使った小さな例で比べると、@fig-ch07-median-vs-mean のようになります。
+
+::: {#fig-ch07-median-vs-mean}
+
+```{=html}
+<svg viewBox="0 0 760 240" role="img" aria-label="移動平均と移動中央値の違い。もとの値は1、2、3、10、3、2、1で、番号3の10だけが突き出ている。窓幅3の移動平均はNaN、2.0、5.0、5.33、5.0、2.0、NaNで、山は低くなって前後に広がる。窓幅3の移動中央値はNaN、2、3、3、3、2、NaNで、山は消える。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <text x="228" y="35" font-size="12" text-anchor="middle" fill-opacity="0.75">0</text>
+  <rect x="200" y="44" width="56" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="228" y="68.04" font-size="14" text-anchor="middle">1</text>
+  <rect x="200" y="112" width="56" height="38" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="228" y="136.04" font-size="14" text-anchor="middle" fill-opacity="0.6">NaN</text>
+  <rect x="200" y="180" width="56" height="38" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="228" y="204.04" font-size="14" text-anchor="middle" fill-opacity="0.6">NaN</text>
+  <text x="284" y="35" font-size="12" text-anchor="middle" fill-opacity="0.75">1</text>
+  <rect x="256" y="44" width="56" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="284" y="68.04" font-size="14" text-anchor="middle">2</text>
+  <rect x="256" y="112" width="56" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="284" y="136.04" font-size="14" text-anchor="middle">2.0</text>
+  <rect x="256" y="180" width="56" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="284" y="204.04" font-size="14" text-anchor="middle">2</text>
+  <text x="340" y="35" font-size="12" text-anchor="middle" fill-opacity="0.75">2</text>
+  <rect x="312" y="44" width="56" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="340" y="68.04" font-size="14" text-anchor="middle">3</text>
+  <rect x="312" y="112" width="56" height="38" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="340" y="136.04" font-size="14" text-anchor="middle" fill="#f2f2f2">5.0</text>
+  <rect x="312" y="180" width="56" height="38" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="340" y="204.04" font-size="14" text-anchor="middle" fill="#ffffff">3</text>
+  <text x="396" y="35" font-size="12" text-anchor="middle" fill-opacity="0.75">3</text>
+  <rect x="368" y="44" width="56" height="38" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="396" y="68.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">10</text>
+  <rect x="368" y="112" width="56" height="38" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="396" y="136.04" font-size="14" text-anchor="middle" fill="#f2f2f2">5.33</text>
+  <rect x="368" y="180" width="56" height="38" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="396" y="204.04" font-size="14" text-anchor="middle" fill="#ffffff">3</text>
+  <text x="452" y="35" font-size="12" text-anchor="middle" fill-opacity="0.75">4</text>
+  <rect x="424" y="44" width="56" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="452" y="68.04" font-size="14" text-anchor="middle">3</text>
+  <rect x="424" y="112" width="56" height="38" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="452" y="136.04" font-size="14" text-anchor="middle" fill="#f2f2f2">5.0</text>
+  <rect x="424" y="180" width="56" height="38" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="452" y="204.04" font-size="14" text-anchor="middle" fill="#ffffff">3</text>
+  <text x="508" y="35" font-size="12" text-anchor="middle" fill-opacity="0.75">5</text>
+  <rect x="480" y="44" width="56" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="508" y="68.04" font-size="14" text-anchor="middle">2</text>
+  <rect x="480" y="112" width="56" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="508" y="136.04" font-size="14" text-anchor="middle">2.0</text>
+  <rect x="480" y="180" width="56" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="508" y="204.04" font-size="14" text-anchor="middle">2</text>
+  <text x="564" y="35" font-size="12" text-anchor="middle" fill-opacity="0.75">6</text>
+  <rect x="536" y="44" width="56" height="38" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="564" y="68.04" font-size="14" text-anchor="middle">1</text>
+  <rect x="536" y="112" width="56" height="38" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="564" y="136.04" font-size="14" text-anchor="middle" fill-opacity="0.6">NaN</text>
+  <rect x="536" y="180" width="56" height="38" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="564" y="204.04" font-size="14" text-anchor="middle" fill-opacity="0.6">NaN</text>
+  <text x="14" y="59" font-size="13" font-weight="700">もとの値</text>
+  <text x="14" y="75" font-size="11" fill-opacity="0.8">1つだけ突き出た値がある</text>
+  <text x="14" y="127" font-size="13" font-weight="700">移動平均（窓幅3）</text>
+  <text x="14" y="143" font-size="11" fill-opacity="0.8">山が低く広がる</text>
+  <text x="14" y="195" font-size="13" font-weight="700">移動中央値（窓幅3）</text>
+  <text x="14" y="211" font-size="11" fill-opacity="0.8">山が消える</text>
+  <text x="604" y="136" font-size="12" fill-opacity="0.85">3、10、3の平均は5.33</text>
+  <text x="604" y="204" font-size="12" fill-opacity="0.85">3、10、3の真ん中は3</text>
+</svg>
+```
+
+移動平均と移動中央値の違い（窓幅3、`center=True`）
+:::
 
 最大となったフレームと、その前後12フレームを表示します。
 

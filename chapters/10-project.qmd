@@ -462,6 +462,82 @@ plt.show()
 各コマの `b=` の値を見てください。
 7から16のあたりを行き来しています。
 この作品には、暗転ではないのに平均輝度が10前後になる場面がたくさんあり、値が10をまたぐたびに「暗転が明けた」と判定されてしまったのです。
+このしくみを、説明のための値を使って、@fig-ch10-dark-threshold に示します。
+
+::: {#fig-ch10-dark-threshold}
+
+```{=html}
+<svg viewBox="0 0 760 225" role="img" aria-label="暗い場面でしきい値によって暗転の数が変わるようすの模式図。平均輝度が14、12、9、8、11、13、9、7、12、15と、10の前後を行き来している。darkが10のときは、10未満の区間が2つでき、それが明けるたびに暗転と記録されるので、暗転は2個になる。darkが2のときは、2未満のフレームがないので、暗転は0個になる。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <text x="196" y="51" font-size="11" text-anchor="middle" fill-opacity="0.75">0</text>
+  <rect x="170" y="60" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="196" y="83.04" font-size="14" text-anchor="middle">14</text>
+  <rect x="170" y="116" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <rect x="170" y="172" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="248" y="51" font-size="11" text-anchor="middle" fill-opacity="0.75">1</text>
+  <rect x="222" y="60" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="248" y="83.04" font-size="14" text-anchor="middle">12</text>
+  <rect x="222" y="116" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <rect x="222" y="172" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="300" y="51" font-size="11" text-anchor="middle" fill-opacity="0.75">2</text>
+  <rect x="274" y="60" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="300" y="83.04" font-size="14" text-anchor="middle">9</text>
+  <rect x="274" y="116" width="52" height="36" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="300" y="138.32" font-size="12" font-weight="700" text-anchor="middle" fill="#f2f2f2">暗い</text>
+  <rect x="274" y="172" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="352" y="51" font-size="11" text-anchor="middle" fill-opacity="0.75">3</text>
+  <rect x="326" y="60" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="352" y="83.04" font-size="14" text-anchor="middle">8</text>
+  <rect x="326" y="116" width="52" height="36" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="352" y="138.32" font-size="12" font-weight="700" text-anchor="middle" fill="#f2f2f2">暗い</text>
+  <rect x="326" y="172" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="404" y="51" font-size="11" text-anchor="middle" fill-opacity="0.75">4</text>
+  <rect x="378" y="60" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="404" y="83.04" font-size="14" text-anchor="middle">11</text>
+  <rect x="378" y="116" width="52" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="404" y="138.32" font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff">暗転</text>
+  <rect x="378" y="172" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="456" y="51" font-size="11" text-anchor="middle" fill-opacity="0.75">5</text>
+  <rect x="430" y="60" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="456" y="83.04" font-size="14" text-anchor="middle">13</text>
+  <rect x="430" y="116" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <rect x="430" y="172" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="508" y="51" font-size="11" text-anchor="middle" fill-opacity="0.75">6</text>
+  <rect x="482" y="60" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="508" y="83.04" font-size="14" text-anchor="middle">9</text>
+  <rect x="482" y="116" width="52" height="36" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="508" y="138.32" font-size="12" font-weight="700" text-anchor="middle" fill="#f2f2f2">暗い</text>
+  <rect x="482" y="172" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="560" y="51" font-size="11" text-anchor="middle" fill-opacity="0.75">7</text>
+  <rect x="534" y="60" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="560" y="83.04" font-size="14" text-anchor="middle">7</text>
+  <rect x="534" y="116" width="52" height="36" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="560" y="138.32" font-size="12" font-weight="700" text-anchor="middle" fill="#f2f2f2">暗い</text>
+  <rect x="534" y="172" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="612" y="51" font-size="11" text-anchor="middle" fill-opacity="0.75">8</text>
+  <rect x="586" y="60" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="612" y="83.04" font-size="14" text-anchor="middle">12</text>
+  <rect x="586" y="116" width="52" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="612" y="138.32" font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff">暗転</text>
+  <rect x="586" y="172" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="664" y="51" font-size="11" text-anchor="middle" fill-opacity="0.75">9</text>
+  <rect x="638" y="60" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="664" y="83.04" font-size="14" text-anchor="middle">15</text>
+  <rect x="638" y="116" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <rect x="638" y="172" width="52" height="36" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="14" y="75" font-size="13" font-weight="700">平均輝度</text>
+  <text x="14" y="91" font-size="11" fill-opacity="0.8">説明のための値</text>
+  <text x="14" y="131" font-size="13" font-weight="700">dark = 10 のとき</text>
+  <text x="14" y="147" font-size="11" fill-opacity="0.8">10未満が明けるたびに暗転</text>
+  <text x="14" y="187" font-size="13" font-weight="700">dark = 2 のとき</text>
+  <text x="14" y="203" font-size="11" fill-opacity="0.8">2未満のフレームはない</text>
+  <text x="700" y="139" font-size="13" font-weight="700">2個</text>
+  <text x="700" y="195" font-size="13" font-weight="700">0個</text>
+  <text x="430" y="28" font-size="12" text-anchor="middle" fill-opacity="0.9">暗い場面で、平均輝度が10の前後を行き来している場合（模式図）</text>
+</svg>
+```
+
+暗い場面で、しきい値 `dark` によって暗転の数が変わるようす（模式図。値は実際のデータではない）
+:::
 
 2つの作品で、平均輝度の低いフレームがどれくらいあるかを比べます。
 

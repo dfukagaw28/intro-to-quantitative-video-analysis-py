@@ -449,6 +449,41 @@ print(n)
 $30.03 \times 24 = 720.72$ ですから、この時点では、720番目のフレームがまだ表示されています。
 721番目のフレームに切り替わるのは、$721 \div 24 \approx 30.04$ 秒になってからです。
 四捨五入をすると、答えが721になってしまいます。
+この関係を @fig-ch04-time-to-frame に示します。
+
+::: {#fig-ch04-time-to-frame}
+
+```{=html}
+<svg viewBox="0 0 760 290" role="img" aria-label="時刻からフレーム番号への換算。24fpsでは、719番目のフレームは29.958秒から、720番目は30.000秒から、721番目は30.042秒から、それぞれ約0.042秒のあいだ表示される。30.03秒の時点は720番目のフレームが表示されている区間の中にある。30.03に24を掛けると720.72で、intで切り捨てると720になり正しい。roundで丸めると721になり誤り。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="95" y="80" width="190" height="46" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="190" y="108.04" font-size="14" font-weight="700" text-anchor="middle">719番目</text>
+  <rect x="285" y="80" width="190" height="46" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="380" y="108.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">720番目</text>
+  <rect x="475" y="80" width="190" height="46" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="570" y="108.04" font-size="14" font-weight="700" text-anchor="middle">721番目</text>
+  <line x1="95" y1="126" x2="95" y2="136" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="95" y="152" font-size="12" text-anchor="middle" fill-opacity="0.8">29.958 秒</text>
+  <line x1="285" y1="126" x2="285" y2="136" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="285" y="152" font-size="12" text-anchor="middle" fill-opacity="0.8">30.000 秒</text>
+  <line x1="475" y1="126" x2="475" y2="136" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="475" y="152" font-size="12" text-anchor="middle" fill-opacity="0.8">30.042 秒</text>
+  <line x1="665" y1="126" x2="665" y2="136" stroke="currentColor" stroke-width="1.3" stroke-opacity="0.7"/>
+  <text x="665" y="152" font-size="12" text-anchor="middle" fill-opacity="0.8">30.083 秒</text>
+  <line x1="421.8" y1="46" x2="421.8" y2="134" stroke="#d6453d" stroke-width="3"/>
+  <text x="421.8" y="38" font-size="14" text-anchor="middle" font-weight="700">30.03 秒の時点</text>
+  <text x="421.8" y="176" font-size="13" text-anchor="middle">30.03 × 24 ＝ 720.72</text>
+  <rect x="285" y="210" width="190" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="380" y="235.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">int → 720（正しい）</text>
+  <rect x="475" y="210" width="190" height="40" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="570" y="235.04" font-size="14" text-anchor="middle" fill-opacity="0.6">round → 721（誤り）</text>
+  <text x="475" y="272" font-size="12" text-anchor="middle" fill-opacity="0.8">切り捨てると、その時点に表示されているフレームの番号になる</text>
+  <text x="85" y="108" font-size="12" text-anchor="end" fill-opacity="0.75">表示</text>
+  <text x="85" y="235" font-size="12" text-anchor="end" fill-opacity="0.75">換算</text>
+</svg>
+```
+
+時刻からフレーム番号への換算（24 fpsの場合）。1枚のフレームは、時間の幅を持った区間で表示される
+:::
 
 ::: {.callout-warning title="計算で求めた時刻を、フレーム番号に戻すとき"}
 コンピューターの小数の計算には、ごくわずかな誤差があります。
@@ -1200,6 +1235,65 @@ print(frame.size, small.size)
 `interpolation=cv2.INTER_AREA` は、縮小の方法の指定です。
 `cv2.INTER_AREA` は、元の画像の複数の画素を**平均して**1つの画素にまとめます。
 画素を単純に間引く方法に比べて、細かい模様が不自然に崩れにくいので、縮小するときはこの指定を使います。
+半分に縮小する場合のしくみを、4×4の小さな画像を例にして、@fig-ch04-resize-area に示します。
+
+::: {#fig-ch04-resize-area}
+
+```{=html}
+<svg viewBox="0 0 760 240" role="img" aria-label="INTER_AREAによる縮小のしくみ。4×4の画像を縦横半分にすると、2×2の4つの画素がまとめて平均されて、1つの画素になる。左上の4つ10、20、30、40の平均は25、右上の4つ100、110、120、130の平均は115、左下の4つ200、210、220、230の平均は215、右下の4つ50、60、70、80の平均は65。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="60" y="56" width="56" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="88" y="81.04" font-size="14" text-anchor="middle" fill="#1c1300">10</text>
+  <rect x="116" y="56" width="56" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="144" y="81.04" font-size="14" text-anchor="middle" fill="#1c1300">20</text>
+  <rect x="172" y="56" width="56" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="200" y="81.04" font-size="14" text-anchor="middle" fill="#ffffff">100</text>
+  <rect x="228" y="56" width="56" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="256" y="81.04" font-size="14" text-anchor="middle" fill="#ffffff">110</text>
+  <rect x="60" y="96" width="56" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="88" y="121.04" font-size="14" text-anchor="middle" fill="#1c1300">30</text>
+  <rect x="116" y="96" width="56" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="144" y="121.04" font-size="14" text-anchor="middle" fill="#1c1300">40</text>
+  <rect x="172" y="96" width="56" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="200" y="121.04" font-size="14" text-anchor="middle" fill="#ffffff">120</text>
+  <rect x="228" y="96" width="56" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="256" y="121.04" font-size="14" text-anchor="middle" fill="#ffffff">130</text>
+  <rect x="60" y="136" width="56" height="40" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="88" y="161.04" font-size="14" text-anchor="middle" fill="#f2f2f2">200</text>
+  <rect x="116" y="136" width="56" height="40" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="144" y="161.04" font-size="14" text-anchor="middle" fill="#f2f2f2">210</text>
+  <rect x="172" y="136" width="56" height="40" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="200" y="161.04" font-size="14" text-anchor="middle">50</text>
+  <rect x="228" y="136" width="56" height="40" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="256" y="161.04" font-size="14" text-anchor="middle">60</text>
+  <rect x="60" y="176" width="56" height="40" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="88" y="201.04" font-size="14" text-anchor="middle" fill="#f2f2f2">220</text>
+  <rect x="116" y="176" width="56" height="40" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="144" y="201.04" font-size="14" text-anchor="middle" fill="#f2f2f2">230</text>
+  <rect x="172" y="176" width="56" height="40" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="200" y="201.04" font-size="14" text-anchor="middle">70</text>
+  <rect x="228" y="176" width="56" height="40" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="256" y="201.04" font-size="14" text-anchor="middle">80</text>
+  <line x1="304" y1="136" x2="386" y2="136" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M394 136 l-9 -5 v10z" fill="#1f6fb2"/>
+  <text x="349" y="124" font-size="12" text-anchor="middle" font-weight="700">fx=0.5, fy=0.5</text>
+  <text x="349" y="156" font-size="12" text-anchor="middle" fill-opacity="0.8">INTER_AREA</text>
+  <rect x="414" y="96" width="56" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="442" y="121.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">25</text>
+  <rect x="470" y="96" width="56" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="498" y="121.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">115</text>
+  <rect x="414" y="136" width="56" height="40" fill="#16181c" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="442" y="161.04" font-size="14" font-weight="700" text-anchor="middle" fill="#f2f2f2">215</text>
+  <rect x="470" y="136" width="56" height="40" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="498" y="161.04" font-size="14" font-weight="700" text-anchor="middle">65</text>
+  <text x="172" y="42" font-size="13" text-anchor="middle" font-weight="700">元の画像（4×4）</text>
+  <text x="470" y="82" font-size="13" text-anchor="middle" font-weight="700">縮小した画像（2×2）</text>
+  <text x="540" y="121" font-size="12" fill-opacity="0.85">(10＋20＋30＋40)÷4＝25</text>
+  <text x="540" y="161" font-size="12" fill-opacity="0.85">同じ色の4つを平均</text>
+</svg>
+```
+
+`cv2.INTER_AREA` で半分に縮小するしくみ。同じ色の4つの画素が平均されて、1つの画素になる
+:::
 
 倍率ではなく、画素数で大きさを指定することもできます。
 
@@ -2019,6 +2113,54 @@ plt.show()
 
 `plt.subplots(2, 4, ...)` は、縦2段・横4列の区画を作ります。
 このとき `axes` は2行4列の並びになるので、`axes.ravel()` で、左上から順に8個が並んだ1列に直しています。
+並びの変わり方は、@fig-ch04-ravel のとおりです。
+
+::: {#fig-ch04-ravel}
+
+```{=html}
+<svg viewBox="0 0 760 255" role="img" aria-label="ravelのはたらき。2行4列に並んだaxesは、[0, 0]から[1, 3]までの2つの番号で指定する。ravelで1列に直すと、上の行の4つ、下の行の4つの順に並び、[0]から[7]までの1つの番号で指定できるようになる。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="212" y="50" width="84" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="254" y="72.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">[0, 0]</text>
+  <rect x="296" y="50" width="84" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="338" y="72.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">[0, 1]</text>
+  <rect x="380" y="50" width="84" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="422" y="72.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">[0, 2]</text>
+  <rect x="464" y="50" width="84" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="506" y="72.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">[0, 3]</text>
+  <rect x="212" y="86" width="84" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="254" y="108.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">[1, 0]</text>
+  <rect x="296" y="86" width="84" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="338" y="108.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">[1, 1]</text>
+  <rect x="380" y="86" width="84" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="422" y="108.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">[1, 2]</text>
+  <rect x="464" y="86" width="84" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="506" y="108.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">[1, 3]</text>
+  <rect x="44" y="192" width="84" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="86" y="214.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">[0]</text>
+  <rect x="128" y="192" width="84" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="170" y="214.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">[1]</text>
+  <rect x="212" y="192" width="84" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="254" y="214.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">[2]</text>
+  <rect x="296" y="192" width="84" height="36" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="338" y="214.68" font-size="13" font-weight="700" text-anchor="middle" fill="#1c1300">[3]</text>
+  <rect x="380" y="192" width="84" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="422" y="214.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">[4]</text>
+  <rect x="464" y="192" width="84" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="506" y="214.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">[5]</text>
+  <rect x="548" y="192" width="84" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="590" y="214.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">[6]</text>
+  <rect x="632" y="192" width="84" height="36" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="674" y="214.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">[7]</text>
+  <line x1="380" y1="130" x2="380" y2="176" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M380 184 l-5 -9 h10z" fill="#1f6fb2"/>
+  <text x="394" y="160" font-size="13" font-weight="700">axes.ravel()</text>
+  <text x="198" y="91" font-size="13" text-anchor="end" font-weight="700">axes（2行4列）</text>
+  <text x="380" y="250" font-size="12" text-anchor="middle" fill-opacity="0.85">1列に並んだ8個。上の行が先、左から右の順</text>
+</svg>
+```
+
+`axes.ravel()` のはたらき。2つの番号で指定する並びが、1つの番号で指定する並びになる
+:::
 あとは、`iter_frames` から受け取ったフレームを、`show` で順に区画へ描いていくだけです。
 
 動画を開く、位置を数える、読み飛ばす、色を変換する、閉じる、といった細かい操作は、すべて関数の中に収まりました。

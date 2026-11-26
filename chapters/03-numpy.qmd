@@ -541,6 +541,47 @@ print(rgb[150, 560])
 `cv2.COLOR_BGR2RGB` は「BGRからRGBへ」という変換の指定です（`2` は英語の to を表す略記です）。
 同じ画素の値が、逆の順番に並び替えられました。
 数値そのものは変わっていません。
+並び替えのようすを @fig-ch03-bgr-rgb に示します。
+
+::: {#fig-ch03-bgr-rgb}
+
+```{=html}
+<svg viewBox="0 0 760 245" role="img" aria-label="BGRからRGBへの並べ替え。img[150, 560]は、番号0がBの105、番号1がGの111、番号2がRの133。cvtColorで変換したrgb[150, 560]は、番号0がRの133、番号1がGの111、番号2がBの105。値は同じで、並ぶ順だけが逆になる。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <text x="296" y="46" font-size="12" text-anchor="middle" font-weight="700">0</text>
+  <rect x="250" y="56" width="92" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="296" y="81.4" font-size="15" font-weight="700" text-anchor="middle" fill="#fff">B　105</text>
+  <text x="388" y="46" font-size="12" text-anchor="middle" font-weight="700">1</text>
+  <rect x="342" y="56" width="92" height="40" fill="#2e8b57" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="388" y="81.4" font-size="15" font-weight="700" text-anchor="middle" fill="#fff">G　111</text>
+  <text x="480" y="46" font-size="12" text-anchor="middle" font-weight="700">2</text>
+  <rect x="434" y="56" width="92" height="40" fill="#c0392b" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="480" y="81.4" font-size="15" font-weight="700" text-anchor="middle" fill="#fff">R　133</text>
+  <rect x="250" y="170" width="92" height="40" fill="#c0392b" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="296" y="195.4" font-size="15" font-weight="700" text-anchor="middle" fill="#fff">R　133</text>
+  <text x="296" y="228" font-size="12" text-anchor="middle" font-weight="700">0</text>
+  <rect x="342" y="170" width="92" height="40" fill="#2e8b57" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="388" y="195.4" font-size="15" font-weight="700" text-anchor="middle" fill="#fff">G　111</text>
+  <text x="388" y="228" font-size="12" text-anchor="middle" font-weight="700">1</text>
+  <rect x="434" y="170" width="92" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="480" y="195.4" font-size="15" font-weight="700" text-anchor="middle" fill="#fff">B　105</text>
+  <text x="480" y="228" font-size="12" text-anchor="middle" font-weight="700">2</text>
+  <line x1="296" y1="100" x2="480" y2="166" stroke="currentColor" stroke-width="1.8" stroke-opacity="0.6"/>
+  <line x1="388" y1="100" x2="388" y2="166" stroke="currentColor" stroke-width="1.8" stroke-opacity="0.6"/>
+  <line x1="480" y1="100" x2="296" y2="166" stroke="currentColor" stroke-width="1.8" stroke-opacity="0.6"/>
+  <text x="236" y="46" font-size="12" text-anchor="end" font-weight="700">番号</text>
+  <text x="236" y="228" font-size="12" text-anchor="end" font-weight="700">番号</text>
+  <text x="14" y="73" font-size="13" font-weight="700">img[150, 560]</text>
+  <text x="14" y="90" font-size="11" fill-opacity="0.8">OpenCVの並び（BGR）</text>
+  <text x="14" y="187" font-size="13" font-weight="700">rgb[150, 560]</text>
+  <text x="14" y="204" font-size="11" fill-opacity="0.8">Matplotlibの並び（RGB）</text>
+  <rect x="586" y="86" width="90" height="90" fill="#856f69" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="631" y="196" font-size="12" text-anchor="middle" fill-opacity="0.85">この画素の色</text>
+  <text x="631" y="74" font-size="12" text-anchor="middle" fill-opacity="0.85">値は同じ、並ぶ順が逆</text>
+</svg>
+```
+
+BGRからRGBへの並べ替え。箱の上下の数は、3つ目の軸の番号
+:::
 
 変換する前と後の画像を、並べて表示してみます。
 複数の画像を並べる書き方は、次の節で説明します。
@@ -1318,6 +1359,71 @@ print(bright.mean())
 `mean()` は平均ですから、明るい画素が全体に占める割合になります。
 このフレームでは、画面の約51%が、値150を超える明るい画素でした。
 「画面のどれだけが明るいか」が、たった1行で数値になります。
+8個の値を例にすると、@fig-ch03-mask-count のようになります。
+
+::: {#fig-ch03-mask-count}
+
+```{=html}
+<svg viewBox="0 0 760 205" role="img" aria-label="マスクのsumとmeanの意味。8個の画素の値92、160、201、150、117、178、64、155について、150より大きいかどうかを調べると、False、True、True、False、False、True、False、Trueになる。計算ではTrueは1、Falseは0として扱われるので、sumはTrueの個数の4、meanはTrueの割合の0.5になる。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <rect x="230" y="40" width="60" height="34" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="260" y="62.04" font-size="14" text-anchor="middle">92</text>
+  <rect x="230" y="84" width="60" height="34" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="260" y="105.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="230" y="128" width="60" height="34" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="260" y="150.04" font-size="14" text-anchor="middle" fill-opacity="0.6">0</text>
+  <rect x="290" y="40" width="60" height="34" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="320" y="62.04" font-size="14" text-anchor="middle">160</text>
+  <rect x="290" y="84" width="60" height="34" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="320" y="105.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="290" y="128" width="60" height="34" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="320" y="150.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">1</text>
+  <rect x="350" y="40" width="60" height="34" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="380" y="62.04" font-size="14" text-anchor="middle">201</text>
+  <rect x="350" y="84" width="60" height="34" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="380" y="105.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="350" y="128" width="60" height="34" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="380" y="150.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">1</text>
+  <rect x="410" y="40" width="60" height="34" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="440" y="62.04" font-size="14" text-anchor="middle">150</text>
+  <rect x="410" y="84" width="60" height="34" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="440" y="105.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="410" y="128" width="60" height="34" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="440" y="150.04" font-size="14" text-anchor="middle" fill-opacity="0.6">0</text>
+  <rect x="470" y="40" width="60" height="34" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="500" y="62.04" font-size="14" text-anchor="middle">117</text>
+  <rect x="470" y="84" width="60" height="34" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="500" y="105.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="470" y="128" width="60" height="34" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="500" y="150.04" font-size="14" text-anchor="middle" fill-opacity="0.6">0</text>
+  <rect x="530" y="40" width="60" height="34" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="560" y="62.04" font-size="14" text-anchor="middle">178</text>
+  <rect x="530" y="84" width="60" height="34" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="560" y="105.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="530" y="128" width="60" height="34" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="560" y="150.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">1</text>
+  <rect x="590" y="40" width="60" height="34" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="620" y="62.04" font-size="14" text-anchor="middle">64</text>
+  <rect x="590" y="84" width="60" height="34" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="620" y="105.68" font-size="13" text-anchor="middle" fill-opacity="0.6">False</text>
+  <rect x="590" y="128" width="60" height="34" fill="none" stroke-dasharray="4 3" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="620" y="150.04" font-size="14" text-anchor="middle" fill-opacity="0.6">0</text>
+  <rect x="650" y="40" width="60" height="34" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="680" y="62.04" font-size="14" text-anchor="middle">155</text>
+  <rect x="650" y="84" width="60" height="34" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="680" y="105.68" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">True</text>
+  <rect x="650" y="128" width="60" height="34" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="680" y="150.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">1</text>
+  <text x="14" y="55" font-size="13" font-weight="700">画素の値</text>
+  <text x="14" y="71" font-size="11" fill-opacity="0.8">説明のための8個</text>
+  <text x="14" y="105" font-size="13" font-weight="700">値 &gt; 150</text>
+  <text x="14" y="143" font-size="13" font-weight="700">計算での扱い</text>
+  <text x="14" y="159" font-size="11" fill-opacity="0.8">True は1、False は0</text>
+  <text x="470" y="190" font-size="13" text-anchor="middle" font-weight="700">sum() ＝ 4（True の個数）　　mean() ＝ 4 ÷ 8 ＝ 0.5（True の割合）</text>
+</svg>
+```
+
+マスクの `sum()` と `mean()`。`True` を1、`False` を0として、合計と平均を求める
+:::
 
 ### 軸を指定して集計する
 
@@ -1353,6 +1459,86 @@ print(row_mean[:3], row_mean[240])
 `axis=1` は横方向の平均です。
 横の軸がなくなり、480個の値、つまり「行ごとの平均」が残ります。
 最初の3行は黒い帯なので0、画面中央の240番目の行は約148です。
+
+3行4列の小さな配列 `a` を例にして、`axis` のはたらきを @fig-ch03-axis-mean に示します。
+
+::: {#fig-ch03-axis-mean}
+
+```{=html}
+<svg viewBox="0 0 760 300" role="img" aria-label="軸を指定した平均。3行4列の配列で、1行目が10、20、30、40、2行目が50、60、70、80、3行目が90、100、110、120。axis=1を指定すると横につぶされて、行ごとの平均25、65、105の3つの値が残る。axis=0を指定すると縦につぶされて、列ごとの平均50、60、70、80の4つの値が残る。" style="width:100%;height:auto;font-family:inherit" fill="currentColor">
+  <text x="238" y="95" font-size="12" text-anchor="end" fill-opacity="0.75">行 0</text>
+  <rect x="250" y="70" width="64" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="282" y="95.04" font-size="14" text-anchor="middle">10</text>
+  <rect x="314" y="70" width="64" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="346" y="95.04" font-size="14" text-anchor="middle">20</text>
+  <rect x="378" y="70" width="64" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="410" y="95.04" font-size="14" text-anchor="middle">30</text>
+  <rect x="442" y="70" width="64" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="474" y="95.04" font-size="14" text-anchor="middle">40</text>
+  <line x1="514" y1="90" x2="556" y2="90" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M564 90 l-9 -5 v10z" fill="#1f6fb2"/>
+  <rect x="570" y="70" width="64" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="602" y="95.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">25</text>
+  <text x="238" y="135" font-size="12" text-anchor="end" fill-opacity="0.75">行 1</text>
+  <rect x="250" y="110" width="64" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="282" y="135.04" font-size="14" text-anchor="middle">50</text>
+  <rect x="314" y="110" width="64" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="346" y="135.04" font-size="14" text-anchor="middle">60</text>
+  <rect x="378" y="110" width="64" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="410" y="135.04" font-size="14" text-anchor="middle">70</text>
+  <rect x="442" y="110" width="64" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="474" y="135.04" font-size="14" text-anchor="middle">80</text>
+  <line x1="514" y1="130" x2="556" y2="130" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M564 130 l-9 -5 v10z" fill="#1f6fb2"/>
+  <rect x="570" y="110" width="64" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="602" y="135.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">65</text>
+  <text x="238" y="175" font-size="12" text-anchor="end" fill-opacity="0.75">行 2</text>
+  <rect x="250" y="150" width="64" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="282" y="175.04" font-size="14" text-anchor="middle">90</text>
+  <rect x="314" y="150" width="64" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="346" y="175.04" font-size="14" text-anchor="middle">100</text>
+  <rect x="378" y="150" width="64" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="410" y="175.04" font-size="14" text-anchor="middle">110</text>
+  <rect x="442" y="150" width="64" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="474" y="175.04" font-size="14" text-anchor="middle">120</text>
+  <line x1="514" y1="170" x2="556" y2="170" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M564 170 l-9 -5 v10z" fill="#1f6fb2"/>
+  <rect x="570" y="150" width="64" height="40" fill="#1f6fb2" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="602" y="175.04" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">105</text>
+  <text x="282" y="60" font-size="12" text-anchor="middle" fill-opacity="0.75">列 0</text>
+  <line x1="282" y1="198" x2="282" y2="230" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M282 238 l-5 -9 h10z" fill="#1f6fb2"/>
+  <rect x="250" y="244" width="64" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="282" y="269.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">50</text>
+  <text x="346" y="60" font-size="12" text-anchor="middle" fill-opacity="0.75">列 1</text>
+  <line x1="346" y1="198" x2="346" y2="230" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M346 238 l-5 -9 h10z" fill="#1f6fb2"/>
+  <rect x="314" y="244" width="64" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="346" y="269.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">60</text>
+  <text x="410" y="60" font-size="12" text-anchor="middle" fill-opacity="0.75">列 2</text>
+  <line x1="410" y1="198" x2="410" y2="230" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M410 238 l-5 -9 h10z" fill="#1f6fb2"/>
+  <rect x="378" y="244" width="64" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="410" y="269.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">70</text>
+  <text x="474" y="60" font-size="12" text-anchor="middle" fill-opacity="0.75">列 3</text>
+  <line x1="474" y1="198" x2="474" y2="230" stroke="#1f6fb2" stroke-width="2"/>
+  <path d="M474 238 l-5 -9 h10z" fill="#1f6fb2"/>
+  <rect x="442" y="244" width="64" height="40" fill="#f0b84a" stroke="currentColor" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="474" y="269.04" font-size="14" font-weight="700" text-anchor="middle" fill="#1c1300">80</text>
+  <text x="378" y="34" font-size="14" text-anchor="middle" font-weight="700">a（形は (3, 4)）</text>
+  <text x="602" y="42" font-size="13" text-anchor="middle" font-weight="700">a.mean(axis=1)</text>
+  <text x="602" y="60" font-size="12" text-anchor="middle" fill-opacity="0.75">形は (3,)</text>
+  <text x="648" y="126" font-size="12" fill-opacity="0.75">横につぶす</text>
+  <text x="648" y="144" font-size="12" fill-opacity="0.75">行ごとの平均</text>
+  <text x="238" y="261" font-size="13" text-anchor="end" font-weight="700">a.mean(axis=0)</text>
+  <text x="238" y="279" font-size="12" text-anchor="end" fill-opacity="0.75">形は (4,)</text>
+  <text x="520" y="261" font-size="12" fill-opacity="0.75">縦につぶす</text>
+  <text x="520" y="279" font-size="12" fill-opacity="0.75">列ごとの平均</text>
+</svg>
+```
+
+`axis` を指定した平均。`axis=1` では横の軸がなくなって行ごとの平均が残り、`axis=0` では縦の軸がなくなって列ごとの平均が残る
+:::
 
 ### 実際の画像でオーバーフローを確かめる
 
