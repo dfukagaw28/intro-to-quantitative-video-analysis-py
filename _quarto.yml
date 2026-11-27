@@ -18,6 +18,11 @@ book:
   title: "Pythonで学ぶ 映像の定量分析入門"
   subtitle: "OpenCVとNumPyで、映像を「測る」"
   author: "深川 大路"
+  # 各ページに「問題を報告」のリンクを出す（GitHub Issues）
+  repo-url: https://github.com/dfukagaw28/intro-to-quantitative-video-analysis-py
+  repo-actions: [issue]
+  # 「問題を報告」を押したときに、報告用のテンプレートを開く
+  issue-url: https://github.com/dfukagaw28/intro-to-quantitative-video-analysis-py/issues/new?template=report.yml
   chapters:
     - index.qmd
     - contents.qmd

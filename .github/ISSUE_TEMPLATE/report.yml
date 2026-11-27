@@ -1,0 +1,49 @@
+name: 誤りの報告・質問
+description: 本文やコードの誤り、わかりにくいところ、動かなかったところを知らせる
+body:
+  - type: markdown
+    attributes:
+      value: |
+        お知らせいただき、ありがとうございます。わかる範囲で書いてください。
+  - type: input
+    id: version
+    attributes:
+      label: 版
+      description: 各ページのいちばん下に「版：」として出ている7桁の英数字です。
+      placeholder: "例：25c5e73"
+    validations:
+      required: false
+  - type: input
+    id: place
+    attributes:
+      label: 場所
+      description: 章と節の番号、または見出しを書いてください。
+      placeholder: "例：第6章 6.3.2「平均色を求める」"
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 種類
+      options:
+        - 本文の誤り（誤字、説明のまちがいなど）
+        - コードが動かない、結果が本と違う
+        - わかりにくい、説明が足りない
+        - そのほか
+    validations:
+      required: true
+  - type: textarea
+    id: body
+    attributes:
+      label: 内容
+      description: どこがどうなっているか、どうなっているべきかを書いてください。エラーが出た場合は、メッセージをそのまま貼ってください。
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: 環境（コードについての報告の場合）
+      description: OS、Pythonのバージョンなど。わかる範囲でかまいません。
+      placeholder: "例：Windows 11、Python 3.13"
+    validations:
+      required: false
