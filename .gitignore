@@ -11,3 +11,6 @@
 /chapters/*.html
 /appendices/*.html
 /site_libs/
+
+# レンダリングのたびに作り直す（tools/version.sh）
+/_variables.yml

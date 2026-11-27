@@ -1,6 +1,8 @@
 project:
   type: book
   output-dir: _book
+  # いまのコミットの番号を _variables.yml に書き出す（ページ下部の「版」の表示用）
+  pre-render: sh tools/version.sh
   resources:
     - images/cover/cover.jpg
 
@@ -51,6 +53,7 @@ book:
     style: docked
   page-footer:
     left: "© 2026 Daiji Fukagawa"
+    center: "版：[{{< var commit >}}](https://github.com/dfukagaw28/intro-to-quantitative-video-analysis-py/commit/{{< var commit >}}){{< var commit-mark >}}（{{< var commit-date >}}）"
     right: "文章と図：[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja)　コード：[MIT](https://github.com/dfukagaw28/intro-to-quantitative-video-analysis-py/blob/main/LICENSE-CODE)"
 
 format:

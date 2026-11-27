@@ -5,7 +5,7 @@
 
 ## 本書で作ったモジュール {#sec-app-functions-own}
 
-### `videotools.py`（第4章）
+### `videotools.py`（第4章、第5章）
 
 | 関数 | はたらき |
 |---|---|
@@ -14,6 +14,8 @@
 | `iter_frames(path, start=0, stop=None, step=1)` | フレームを順に読み、（フレーム番号, 画像）を1組ずつ返す |
 | `read_frame(path, n)` | n番目のフレームを1枚だけ読んで返す |
 | `show(image, title=None, ax=None)` | BGRまたはグレースケールの画像を表示する |
+| `row_means(path, step=1)` | 全フレームを通した、行ごとの平均輝度を返す（第5章で追加） |
+| `find_picture_rows(path, threshold=10, step=1)` | 黒帯を除いた絵の範囲を（最初の行, 最後の行の次）で返す（第5章で追加） |
 
 : `videotools.py` の関数 {#tbl-app-functions-videotools}
 
@@ -110,7 +112,7 @@
 | `np.median(a)` | 中央値 | 7 |
 | `np.hypot(x, y)` | 横・縦の成分から、矢印の長さを求める | 6 |
 | `np.roll(a, n, axis)` | 配列の中身を指定した方向にずらす | 7 |
-| `np.flatnonzero(a)` | 真（0でない）要素の位置を返す | 8 |
+| `np.flatnonzero(a)` | 真（0でない）要素の位置を返す | 5 |
 | `np.hstack(…)`、`np.vstack(…)` | 配列を横に、縦に連結する | 9 |
 | `np.logspace(…)` | 対数目盛で等間隔の数列を作る | 9 |
 
